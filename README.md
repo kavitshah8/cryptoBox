@@ -1,0 +1,4 @@
+ - `$ npm install -g webpack`
+ - `$ npm install`
+ - `$ webpack`
+ - Open index.html in your favorite browser
