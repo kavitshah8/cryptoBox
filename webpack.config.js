@@ -3,7 +3,7 @@ module.exports = {
 	entry: './components/app.jsx',
 
 	output: {
-		path: './build',
+		path: './public',
 		filename: 'app.js'
 	},
 
