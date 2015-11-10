@@ -1,4 +1,5 @@
  - `$ npm install -g webpack`
  - `$ npm install`
  - `$ webpack`
- - Open index.html in your favorite browser
+ - `$ node server.js`
+ - In your favorite browser, go to http://localhost:3000/

@@ -1,3 +1,29 @@
 #content {
 	font-size: 40px;
 }
+
+.formContainer {
+	margin: auto;
+	max-width: 600px;
+	padding: 50px;
+}
+
+.inputBox {
+  margin: 15px;
+	height: 35px;
+	width: 80%;
+	padding: 10px 5px;
+}
+
+.outputBox {
+  margin: 15px;
+	height: 35px;
+	width: 80%;
+	padding: 10px 5px;
+}
+
+.formButton {
+	display: inline;
+	height: 35px;
+	width: 60px;
+}

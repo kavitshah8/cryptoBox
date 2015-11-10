@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react';
 
 var InputBox = React.createClass({
@@ -10,8 +12,11 @@ var InputBox = React.createClass({
         <input
           type='text'
           value={this.props.inputPassword}
+          placeholder='Enter a password to bcrypt'
           ref='inputPassword'
-          onChange={this.handleChange} />
+          className='inputBox'
+          onChange={this.handleChange}
+          required />
       );
     }
 });

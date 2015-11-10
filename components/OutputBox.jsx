@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react';
 
 var OutputBox = React.createClass({
@@ -6,6 +8,7 @@ var OutputBox = React.createClass({
         <input
           readOnly
           type='text'
+          className='outputBox'
           value={this.props.hashedPassword}
           style={{cursor: 'not-allowed', backgroundColor: '#eeeeee'}} />
       );

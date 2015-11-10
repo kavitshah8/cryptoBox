@@ -19685,7 +19685,7 @@
 
 
 	// module
-	exports.push([module.id, "#content {\n\tfont-size: 40px;\n}\n", ""]);
+	exports.push([module.id, "#content {\n\tfont-size: 40px;\n}\n\n.formContainer {\n\tmargin: auto;\n\tmax-width: 600px;\n\tpadding: 50px;\n}\n\n.inputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 80%;\n\tpadding: 10px 5px;\n}\n\n.outputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 80%;\n\tpadding: 10px 5px;\n}\n\n.formButton {\n\tdisplay: inline;\n\theight: 35px;\n\twidth: 60px;\n}\n", ""]);
 
 	// exports
 
@@ -20036,45 +20036,48 @@
 	  displayName: 'Form',
 
 	  getInitialState: function getInitialState() {
-	    return { inputPassword: '', hashedPassword: 'Waiting...' };
+	    return { inputPassword: '', hashedPassword: '', displayOutputBox: false };
 	  },
 	  handleUserInput: function handleUserInput(inputPassword) {
 	    this.setState({ inputPassword: inputPassword });
 	  },
 	  updateOutputBox: function updateOutputBox(data) {
-	    this.setState({ hashedPassword: data.hash });
+	    this.setState({ hashedPassword: data.hash, displayOutputBox: true });
 	  },
 	  onSubmit: function onSubmit(e) {
 	    e.preventDefault();
 	    var data = { inputPassword: this.state.inputPassword };
+	    if (data.inputPassword === '') {
+	      return;
+	    }
 	    var self = this;
 	    _superagent2['default'].post('api/inputPassword').send(data).type('json').end(function (err, res) {
 	      if (res.ok) {
 	        self.updateOutputBox(JSON.parse(res.text));
+	        self.setState({ inputPassword: '' });
 	      } else {
 	        console.error('/api/inputPassword', status, err.toString());
 	      }
 	    });
 	  },
+	  renderOutputBox: function renderOutputBox() {
+	    return !this.state.displayOutputBox ? null : _react2['default'].createElement(
+	      'div',
+	      null,
+	      _react2['default'].createElement(_OutputBoxJsx2['default'], { hashedPassword: this.state.hashedPassword })
+	    );
+	  },
 	  render: function render() {
 	    return _react2['default'].createElement(
 	      'form',
-	      { onSubmit: this.onSubmit },
-	      _react2['default'].createElement(
-	        'div',
-	        null,
-	        _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.inputPassword, onUserInput: this.handleUserInput })
-	      ),
-	      _react2['default'].createElement(
-	        'div',
-	        null,
-	        _react2['default'].createElement(_OutputBoxJsx2['default'], { hashedPassword: this.state.hashedPassword })
-	      ),
+	      { className: 'formContainer', onSubmit: this.onSubmit },
+	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.inputPassword, onUserInput: this.handleUserInput }),
 	      _react2['default'].createElement(
 	        'button',
-	        { type: 'submit' },
+	        { className: 'formButton', type: 'submit' },
 	        'Submit'
-	      )
+	      ),
+	      this.renderOutputBox()
 	    );
 	  }
 	});
@@ -20105,6 +20108,7 @@
 	    return _react2['default'].createElement('input', {
 	      readOnly: true,
 	      type: 'text',
+	      className: 'outputBox',
 	      value: this.props.hashedPassword,
 	      style: { cursor: 'not-allowed', backgroundColor: '#eeeeee' } });
 	  }
@@ -20140,8 +20144,11 @@
 	        return _react2['default'].createElement('input', {
 	            type: 'text',
 	            value: this.props.inputPassword,
+	            placeholder: 'Enter a password to bcrypt',
 	            ref: 'inputPassword',
-	            onChange: this.handleChange });
+	            className: 'inputBox',
+	            onChange: this.handleChange,
+	            required: true });
 	    }
 	});
 
