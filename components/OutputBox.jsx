@@ -3,7 +3,7 @@
 import React from 'react';
 
 var OutputBox = React.createClass({
-    render: function() {
+    render () {
       return (
         <input
           readOnly

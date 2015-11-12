@@ -1,25 +1,47 @@
 'use strict';
 
 import React from 'react';
-import OutputBox from './OutputBox.jsx';
-import InputBox from './InputBox.jsx';
 import $ from 'jquery';
 import request from 'superagent';
 
+import OutputBox from './OutputBox.jsx';
+import InputBox from './InputBox.jsx';
+import Select from './Select.jsx';
+
 var Form = React.createClass({
-  getInitialState: function() {
-    return {inputPassword: '', hashedPassword: '', displayOutputBox: false};
+  getInitialState () {
+    return {inputPassword: '', hashedPassword: '', displayOutputBox: false,
+        options: [
+          { value: 10, label: '10' },
+          { value: 11, label: '11' },
+          { value: 12, label: '12' },
+          { value: 13, label: '13' },
+          { value: 14, label: '14' }
+        ],
+        matchPos: 'any',
+        matchValue: true,
+        value: '',
+        matchLabel: true,
+        multi: false
+    };
   },
-  handleUserInput: function(inputPassword) {
+  handleUserInput (inputPassword) {
     this.setState({inputPassword: inputPassword});
   },
-  updateOutputBox: function(data) {
+  handleUserSelect (value) {
+    this.setState({value: value});
+  },
+  updateOutputBox (data) {
     this.setState({hashedPassword: data.hash, displayOutputBox: true});
   },
-  onSubmit: function(e) {
+  onSubmit (e) {
     e.preventDefault();
-    var data = {inputPassword: this.state.inputPassword};
+    var data = {inputPassword: this.state.inputPassword, SALT_WORK_FACTOR: this.state.value};
     if (data.inputPassword === '') {
+      return;
+    }
+    if (data.SALT_WORK_FACTOR === '') {
+      alert('Selecting SALT_WORK_FACTOR is required');
       return;
     }
     var self = this;
@@ -36,20 +58,21 @@ var Form = React.createClass({
         }
       });
   },
-  renderOutputBox: function() {
+  renderOutputBox () {
     return !this.state.displayOutputBox ? null : (
         <div>
             <OutputBox hashedPassword={this.state.hashedPassword}/>
         </div>
     );
   },
-  render: function() {
+  render () {
     return(
-      <form className='formContainer'onSubmit={this.onSubmit}>
-        <InputBox inputPassword={this.state.inputPassword} onUserInput={this.handleUserInput} />
-        <button className='formButton' type='submit'>Submit</button>
-        {this.renderOutputBox()}
-      </form>
+        <form className='formContainer'onSubmit={this.onSubmit}>
+          <InputBox inputPassword={this.state.inputPassword} onUserInput={this.handleUserInput} />
+          <Select options={this.state.options} value={this.state.value} onSelect={this.handleUserSelect} required/>
+          <button className='formButton' type='submit'>Encrypt</button>
+          {this.renderOutputBox()}
+        </form>
     );
   }
 });

@@ -3,11 +3,11 @@
 import React from 'react';
 
 var InputBox = React.createClass({
-    handleChange: function() {
+    handleChange () {
         this.props.onUserInput(this.refs.inputPassword.value);
     },
 
-    render: function() {
+    render () {
       return (
         <input
           type='text'

@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 
 app.post('/api/inputPassword', function(req, res) {
-  var SALT_WORK_FACTOR = 12;
+  var SALT_WORK_FACTOR = req.body.SALT_WORK_FACTOR || 12;
   var inputPassword = req.body.inputPassword;
   var salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
   var hash = bcrypt.hashSync(inputPassword, salt);

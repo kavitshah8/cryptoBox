@@ -19685,7 +19685,7 @@
 
 
 	// module
-	exports.push([module.id, "#content {\n\tfont-size: 40px;\n}\n\n.formContainer {\n\tmargin: auto;\n\tmax-width: 600px;\n\tpadding: 50px;\n}\n\n.inputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 80%;\n\tpadding: 10px 5px;\n}\n\n.outputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 80%;\n\tpadding: 10px 5px;\n}\n\n.formButton {\n\tdisplay: inline;\n\theight: 35px;\n\twidth: 60px;\n}\n", ""]);
+	exports.push([module.id, "#content {\n\tfont-size: 15px;\n}\n\n.formContainer {\n\tmargin: auto;\n\tmax-width: 600px;\n\tpadding: 50px;\n}\n\n.inputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 80%;\n\tpadding: 10px 5px;\n}\n\n.outputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 80%;\n\tpadding: 10px 5px;\n}\n\n.formButton {\n\tdisplay: inline;\n\theight: 35px;\n\twidth: 60px;\n}\n", ""]);
 
 	// exports
 
@@ -20016,38 +20016,56 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _OutputBoxJsx = __webpack_require__(164);
-
-	var _OutputBoxJsx2 = _interopRequireDefault(_OutputBoxJsx);
-
-	var _InputBoxJsx = __webpack_require__(165);
-
-	var _InputBoxJsx2 = _interopRequireDefault(_InputBoxJsx);
-
-	var _jquery = __webpack_require__(166);
+	var _jquery = __webpack_require__(164);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _superagent = __webpack_require__(167);
+	var _superagent = __webpack_require__(165);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
+
+	var _OutputBoxJsx = __webpack_require__(174);
+
+	var _OutputBoxJsx2 = _interopRequireDefault(_OutputBoxJsx);
+
+	var _InputBoxJsx = __webpack_require__(175);
+
+	var _InputBoxJsx2 = _interopRequireDefault(_InputBoxJsx);
+
+	var _SelectJsx = __webpack_require__(179);
+
+	var _SelectJsx2 = _interopRequireDefault(_SelectJsx);
 
 	var Form = _react2['default'].createClass({
 	  displayName: 'Form',
 
 	  getInitialState: function getInitialState() {
-	    return { inputPassword: '', hashedPassword: '', displayOutputBox: false };
+	    return { inputPassword: '', hashedPassword: '', displayOutputBox: false,
+	      options: [{ value: 10, label: '10' }, { value: 11, label: '11' }, { value: 12, label: '12' }, { value: 13, label: '13' }, { value: 14, label: '14' }],
+	      matchPos: 'any',
+	      matchValue: true,
+	      value: '',
+	      matchLabel: true,
+	      multi: false
+	    };
 	  },
 	  handleUserInput: function handleUserInput(inputPassword) {
 	    this.setState({ inputPassword: inputPassword });
+	  },
+	  handleUserSelect: function handleUserSelect(value) {
+	    this.setState({ value: value });
 	  },
 	  updateOutputBox: function updateOutputBox(data) {
 	    this.setState({ hashedPassword: data.hash, displayOutputBox: true });
 	  },
 	  onSubmit: function onSubmit(e) {
 	    e.preventDefault();
-	    var data = { inputPassword: this.state.inputPassword };
+	    var data = { inputPassword: this.state.inputPassword, SALT_WORK_FACTOR: this.state.value };
 	    if (data.inputPassword === '') {
+	      return;
+	    }
+	    if (data.SALT_WORK_FACTOR === '') {
+	      alert('Selecting SALT_WORK_FACTOR is required');
 	      return;
 	    }
 	    var self = this;
@@ -20072,10 +20090,11 @@
 	      'form',
 	      { className: 'formContainer', onSubmit: this.onSubmit },
 	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.inputPassword, onUserInput: this.handleUserInput }),
+	      _react2['default'].createElement(_SelectJsx2['default'], { options: this.state.options, value: this.state.value, onSelect: this.handleUserSelect, required: true }),
 	      _react2['default'].createElement(
 	        'button',
 	        { className: 'formButton', type: 'submit' },
-	        'Submit'
+	        'Encrypt'
 	      ),
 	      this.renderOutputBox()
 	    );
@@ -20087,76 +20106,6 @@
 
 /***/ },
 /* 164 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var OutputBox = _react2['default'].createClass({
-	  displayName: 'OutputBox',
-
-	  render: function render() {
-	    return _react2['default'].createElement('input', {
-	      readOnly: true,
-	      type: 'text',
-	      className: 'outputBox',
-	      value: this.props.hashedPassword,
-	      style: { cursor: 'not-allowed', backgroundColor: '#eeeeee' } });
-	  }
-	});
-
-	exports['default'] = OutputBox;
-	module.exports = exports['default'];
-
-/***/ },
-/* 165 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var InputBox = _react2['default'].createClass({
-	    displayName: 'InputBox',
-
-	    handleChange: function handleChange() {
-	        this.props.onUserInput(this.refs.inputPassword.value);
-	    },
-
-	    render: function render() {
-	        return _react2['default'].createElement('input', {
-	            type: 'text',
-	            value: this.props.inputPassword,
-	            placeholder: 'Enter a password to bcrypt',
-	            ref: 'inputPassword',
-	            className: 'inputBox',
-	            onChange: this.handleChange,
-	            required: true });
-	    }
-	});
-
-	exports['default'] = InputBox;
-	module.exports = exports['default'];
-
-/***/ },
-/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -29352,15 +29301,15 @@
 
 
 /***/ },
-/* 167 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var Emitter = __webpack_require__(168);
-	var reduce = __webpack_require__(169);
+	var Emitter = __webpack_require__(166);
+	var reduce = __webpack_require__(167);
 
 	/**
 	 * Root reference for iframes.
@@ -30515,7 +30464,7 @@
 
 
 /***/ },
-/* 168 */
+/* 166 */
 /***/ function(module, exports) {
 
 	
@@ -30685,7 +30634,7 @@
 
 
 /***/ },
-/* 169 */
+/* 167 */
 /***/ function(module, exports) {
 
 	
@@ -30712,6 +30661,1525 @@
 	  
 	  return curr;
 	};
+
+/***/ },
+/* 168 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* disable some rules until we refactor more completely; fixing them now would
+	   cause conflicts with some open PRs unnecessarily. */
+	/* eslint react/jsx-sort-prop-types: 0, react/sort-comp: 0, react/prop-types: 0 */
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(158);
+	var Input = __webpack_require__(169);
+	var classes = __webpack_require__(170);
+	var Value = __webpack_require__(171);
+	var SingleValue = __webpack_require__(172);
+	var Option = __webpack_require__(173);
+
+	var requestId = 0;
+
+	var Select = React.createClass({
+
+		displayName: 'Select',
+
+		propTypes: {
+			addLabelText: React.PropTypes.string, // placeholder displayed when you want to add a label on a multi-value input
+			allowCreate: React.PropTypes.bool, // whether to allow creation of new entries
+			asyncOptions: React.PropTypes.func, // function to call to get options
+			autoload: React.PropTypes.bool, // whether to auto-load the default async options set
+			backspaceRemoves: React.PropTypes.bool, // whether backspace removes an item if there is no text input
+			cacheAsyncResults: React.PropTypes.bool, // whether to allow cache
+			className: React.PropTypes.string, // className for the outer element
+			clearAllText: React.PropTypes.string, // title for the "clear" control when multi: true
+			clearValueText: React.PropTypes.string, // title for the "clear" control
+			clearable: React.PropTypes.bool, // should it be possible to reset value
+			delimiter: React.PropTypes.string, // delimiter to use to join multiple values
+			disabled: React.PropTypes.bool, // whether the Select is disabled or not
+			filterOption: React.PropTypes.func, // method to filter a single option  (option, filterString)
+			filterOptions: React.PropTypes.func, // method to filter the options array: function ([options], filterString, [values])
+			ignoreCase: React.PropTypes.bool, // whether to perform case-insensitive filtering
+			inputProps: React.PropTypes.object, // custom attributes for the Input (in the Select-control) e.g: {'data-foo': 'bar'}
+			isLoading: React.PropTypes.bool, // whether the Select is loading externally or not (such as options being loaded)
+			labelKey: React.PropTypes.string, // path of the label value in option objects
+			matchPos: React.PropTypes.string, // (any|start) match the start or entire string when filtering
+			matchProp: React.PropTypes.string, // (any|label|value) which option property to filter on
+			multi: React.PropTypes.bool, // multi-value input
+			name: React.PropTypes.string, // field name, for hidden <input /> tag
+			newOptionCreator: React.PropTypes.func, // factory to create new options when allowCreate set
+			noResultsText: React.PropTypes.string, // placeholder displayed when there are no matching search results
+			onBlur: React.PropTypes.func, // onBlur handler: function (event) {}
+			onChange: React.PropTypes.func, // onChange handler: function (newValue) {}
+			onFocus: React.PropTypes.func, // onFocus handler: function (event) {}
+			onInputChange: React.PropTypes.func, // onInputChange handler: function (inputValue) {}
+			onOptionLabelClick: React.PropTypes.func, // onCLick handler for value labels: function (value, event) {}
+			optionComponent: React.PropTypes.func, // option component to render in dropdown
+			optionRenderer: React.PropTypes.func, // optionRenderer: function (option) {}
+			options: React.PropTypes.array, // array of options
+			placeholder: React.PropTypes.string, // field placeholder, displayed when there's no value
+			searchable: React.PropTypes.bool, // whether to enable searching feature or not
+			searchingText: React.PropTypes.string, // message to display whilst options are loading via asyncOptions
+			searchPromptText: React.PropTypes.string, // label to prompt for search input
+			singleValueComponent: React.PropTypes.func, // single value component when multiple is set to false
+			value: React.PropTypes.any, // initial field value
+			valueComponent: React.PropTypes.func, // value component to render in multiple mode
+			valueKey: React.PropTypes.string, // path of the label value in option objects
+			valueRenderer: React.PropTypes.func // valueRenderer: function (option) {}
+		},
+
+		getDefaultProps: function getDefaultProps() {
+			return {
+				addLabelText: 'Add "{label}"?',
+				allowCreate: false,
+				asyncOptions: undefined,
+				autoload: true,
+				backspaceRemoves: true,
+				cacheAsyncResults: true,
+				className: undefined,
+				clearAllText: 'Clear all',
+				clearValueText: 'Clear value',
+				clearable: true,
+				delimiter: ',',
+				disabled: false,
+				ignoreCase: true,
+				inputProps: {},
+				isLoading: false,
+				labelKey: 'label',
+				matchPos: 'any',
+				matchProp: 'any',
+				name: undefined,
+				newOptionCreator: undefined,
+				noResultsText: 'No results found',
+				onChange: undefined,
+				onInputChange: undefined,
+				onOptionLabelClick: undefined,
+				optionComponent: Option,
+				options: undefined,
+				placeholder: 'Select...',
+				searchable: true,
+				searchingText: 'Searching...',
+				searchPromptText: 'Type to search',
+				singleValueComponent: SingleValue,
+				value: undefined,
+				valueComponent: Value,
+				valueKey: 'value'
+			};
+		},
+
+		getInitialState: function getInitialState() {
+			return {
+				/*
+	    * set by getStateFromValue on componentWillMount:
+	    * - value
+	    * - values
+	    * - filteredOptions
+	    * - inputValue
+	    * - placeholder
+	    * - focusedOption
+	   */
+				isFocused: false,
+				isLoading: false,
+				isOpen: false,
+				options: this.props.options
+			};
+		},
+
+		componentWillMount: function componentWillMount() {
+			var _this = this;
+
+			this._optionsCache = {};
+			this._optionsFilterString = '';
+			this._closeMenuIfClickedOutside = function (event) {
+				if (!_this.state.isOpen) {
+					return;
+				}
+				var menuElem = ReactDOM.findDOMNode(_this.refs.selectMenuContainer);
+				var controlElem = ReactDOM.findDOMNode(_this.refs.control);
+
+				var eventOccuredOutsideMenu = _this.clickedOutsideElement(menuElem, event);
+				var eventOccuredOutsideControl = _this.clickedOutsideElement(controlElem, event);
+
+				// Hide dropdown menu if click occurred outside of menu
+				if (eventOccuredOutsideMenu && eventOccuredOutsideControl) {
+					_this.setState({
+						isOpen: false
+					}, _this._unbindCloseMenuIfClickedOutside);
+				}
+			};
+			this._bindCloseMenuIfClickedOutside = function () {
+				if (!document.addEventListener && document.attachEvent) {
+					document.attachEvent('onclick', _this._closeMenuIfClickedOutside);
+				} else {
+					document.addEventListener('click', _this._closeMenuIfClickedOutside);
+				}
+			};
+			this._unbindCloseMenuIfClickedOutside = function () {
+				if (!document.removeEventListener && document.detachEvent) {
+					document.detachEvent('onclick', _this._closeMenuIfClickedOutside);
+				} else {
+					document.removeEventListener('click', _this._closeMenuIfClickedOutside);
+				}
+			};
+			this.setState(this.getStateFromValue(this.props.value));
+		},
+
+		componentDidMount: function componentDidMount() {
+			if (this.props.asyncOptions && this.props.autoload) {
+				this.autoloadAsyncOptions();
+			}
+		},
+
+		componentWillUnmount: function componentWillUnmount() {
+			clearTimeout(this._blurTimeout);
+			clearTimeout(this._focusTimeout);
+			if (this.state.isOpen) {
+				this._unbindCloseMenuIfClickedOutside();
+			}
+		},
+
+		componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+			var _this2 = this;
+
+			var optionsChanged = false;
+			if (JSON.stringify(newProps.options) !== JSON.stringify(this.props.options)) {
+				optionsChanged = true;
+				this.setState({
+					options: newProps.options,
+					filteredOptions: this.filterOptions(newProps.options)
+				});
+			}
+			if (newProps.value !== this.state.value || newProps.placeholder !== this.props.placeholder || optionsChanged) {
+				var setState = function setState(newState) {
+					_this2.setState(_this2.getStateFromValue(newProps.value, newState && newState.options || newProps.options, newProps.placeholder));
+				};
+				if (this.props.asyncOptions) {
+					this.loadAsyncOptions(newProps.value, {}, setState);
+				} else {
+					setState();
+				}
+			}
+		},
+
+		componentDidUpdate: function componentDidUpdate() {
+			var _this3 = this;
+
+			if (!this.props.disabled && this._focusAfterUpdate) {
+				clearTimeout(this._blurTimeout);
+				clearTimeout(this._focusTimeout);
+				this._focusTimeout = setTimeout(function () {
+					if (!_this3.isMounted()) return;
+					_this3.getInputNode().focus();
+					_this3._focusAfterUpdate = false;
+				}, 50);
+			}
+			if (this._focusedOptionReveal) {
+				if (this.refs.focused && this.refs.menu) {
+					var focusedDOM = ReactDOM.findDOMNode(this.refs.focused);
+					var menuDOM = ReactDOM.findDOMNode(this.refs.menu);
+					var focusedRect = focusedDOM.getBoundingClientRect();
+					var menuRect = menuDOM.getBoundingClientRect();
+
+					if (focusedRect.bottom > menuRect.bottom || focusedRect.top < menuRect.top) {
+						menuDOM.scrollTop = focusedDOM.offsetTop + focusedDOM.clientHeight - menuDOM.offsetHeight;
+					}
+				}
+				this._focusedOptionReveal = false;
+			}
+		},
+
+		focus: function focus() {
+			this.getInputNode().focus();
+		},
+
+		clickedOutsideElement: function clickedOutsideElement(element, event) {
+			var eventTarget = event.target ? event.target : event.srcElement;
+			while (eventTarget != null) {
+				if (eventTarget === element) return false;
+				eventTarget = eventTarget.offsetParent;
+			}
+			return true;
+		},
+
+		getStateFromValue: function getStateFromValue(value, options, placeholder) {
+			var _this4 = this;
+
+			if (!options) {
+				options = this.state.options;
+			}
+			if (!placeholder) {
+				placeholder = this.props.placeholder;
+			}
+
+			// reset internal filter string
+			this._optionsFilterString = '';
+
+			var values = this.initValuesArray(value, options);
+			var filteredOptions = this.filterOptions(options, values);
+
+			var focusedOption;
+			var valueForState = null;
+			if (!this.props.multi && values.length) {
+				focusedOption = values[0];
+				valueForState = values[0][this.props.valueKey];
+			} else {
+				focusedOption = this.getFirstFocusableOption(filteredOptions);
+				valueForState = values.map(function (v) {
+					return v[_this4.props.valueKey];
+				}).join(this.props.delimiter);
+			}
+
+			return {
+				value: valueForState,
+				values: values,
+				inputValue: '',
+				filteredOptions: filteredOptions,
+				placeholder: !this.props.multi && values.length ? values[0][this.props.labelKey] : placeholder,
+				focusedOption: focusedOption
+			};
+		},
+
+		getFirstFocusableOption: function getFirstFocusableOption(options) {
+			for (var optionIndex = 0; optionIndex < options.length; ++optionIndex) {
+				if (!options[optionIndex].disabled) {
+					return options[optionIndex];
+				}
+			}
+		},
+
+		initValuesArray: function initValuesArray(values, options) {
+			var _this5 = this;
+
+			if (!Array.isArray(values)) {
+				if (typeof values === 'string') {
+					values = values === '' ? [] : this.props.multi ? values.split(this.props.delimiter) : [values];
+				} else {
+					values = values !== undefined && values !== null ? [values] : [];
+				}
+			}
+			return values.map(function (val) {
+				if (typeof val === 'string' || typeof val === 'number') {
+					var _ref;
+
+					for (var key in options) {
+						if (options.hasOwnProperty(key) && options[key] && (options[key][_this5.props.valueKey] === val || typeof options[key][_this5.props.valueKey] === 'number' && options[key][_this5.props.valueKey].toString() === val)) {
+							return options[key];
+						}
+					}
+					return _ref = {}, _defineProperty(_ref, _this5.props.valueKey, val), _defineProperty(_ref, _this5.props.labelKey, val), _ref;
+				} else {
+					return val;
+				}
+			});
+		},
+
+		setValue: function setValue(value, focusAfterUpdate) {
+			if (focusAfterUpdate || focusAfterUpdate === undefined) {
+				this._focusAfterUpdate = true;
+			}
+			var newState = this.getStateFromValue(value);
+			newState.isOpen = false;
+			this.fireChangeEvent(newState);
+			this.setState(newState);
+		},
+
+		selectValue: function selectValue(value) {
+			if (!this.props.multi) {
+				this.setValue(value);
+			} else if (value) {
+				this.addValue(value);
+			}
+			this._unbindCloseMenuIfClickedOutside();
+		},
+
+		addValue: function addValue(value) {
+			this.setValue(this.state.values.concat(value));
+		},
+
+		popValue: function popValue() {
+			this.setValue(this.state.values.slice(0, this.state.values.length - 1));
+		},
+
+		removeValue: function removeValue(valueToRemove) {
+			this.setValue(this.state.values.filter(function (value) {
+				return value !== valueToRemove;
+			}));
+		},
+
+		clearValue: function clearValue(event) {
+			// if the event was triggered by a mousedown and not the primary
+			// button, ignore it.
+			if (event && event.type === 'mousedown' && event.button !== 0) {
+				return;
+			}
+			event.stopPropagation();
+			event.preventDefault();
+			this.setValue(null);
+		},
+
+		resetValue: function resetValue() {
+			this.setValue(this.state.value === '' ? null : this.state.value);
+		},
+
+		getInputNode: function getInputNode() {
+			var input = this.refs.input;
+			return this.props.searchable ? input : ReactDOM.findDOMNode(input);
+		},
+
+		fireChangeEvent: function fireChangeEvent(newState) {
+			if (newState.value !== this.state.value && this.props.onChange) {
+				this.props.onChange(newState.value, newState.values);
+			}
+		},
+
+		handleMouseDown: function handleMouseDown(event) {
+			// if the event was triggered by a mousedown and not the primary
+			// button, or if the component is disabled, ignore it.
+			if (this.props.disabled || event.type === 'mousedown' && event.button !== 0) {
+				return;
+			}
+			event.stopPropagation();
+			event.preventDefault();
+
+			// for the non-searchable select, close the dropdown when button is clicked
+			if (this.state.isOpen && !this.props.searchable) {
+				this.setState({
+					isOpen: false
+				}, this._unbindCloseMenuIfClickedOutside);
+				return;
+			}
+
+			if (this.state.isFocused) {
+				this.setState({
+					isOpen: true
+				}, this._bindCloseMenuIfClickedOutside);
+			} else {
+				this._openAfterFocus = true;
+				this.getInputNode().focus();
+			}
+		},
+
+		handleMouseDownOnMenu: function handleMouseDownOnMenu(event) {
+			// if the event was triggered by a mousedown and not the primary
+			// button, or if the component is disabled, ignore it.
+			if (this.props.disabled || event.type === 'mousedown' && event.button !== 0) {
+				return;
+			}
+			event.stopPropagation();
+			event.preventDefault();
+		},
+
+		handleMouseDownOnArrow: function handleMouseDownOnArrow(event) {
+			// if the event was triggered by a mousedown and not the primary
+			// button, or if the component is disabled, ignore it.
+			if (this.props.disabled || event.type === 'mousedown' && event.button !== 0) {
+				return;
+			}
+			// If not focused, handleMouseDown will handle it
+			if (!this.state.isOpen) {
+				return;
+			}
+			event.stopPropagation();
+			event.preventDefault();
+			this.setState({
+				isOpen: false
+			}, this._unbindCloseMenuIfClickedOutside);
+		},
+
+		handleInputFocus: function handleInputFocus(event) {
+			var _this6 = this;
+
+			var newIsOpen = this.state.isOpen || this._openAfterFocus;
+			this.setState({
+				isFocused: true,
+				isOpen: newIsOpen
+			}, function () {
+				if (newIsOpen) {
+					_this6._bindCloseMenuIfClickedOutside();
+				} else {
+					_this6._unbindCloseMenuIfClickedOutside();
+				}
+			});
+			this._openAfterFocus = false;
+			if (this.props.onFocus) {
+				this.props.onFocus(event);
+			}
+		},
+
+		handleInputBlur: function handleInputBlur(event) {
+			var _this7 = this;
+
+			var menuDOM = ReactDOM.findDOMNode(this.refs.menu);
+			if (document.activeElement.isEqualNode(menuDOM)) {
+				return;
+			}
+			this._blurTimeout = setTimeout(function () {
+				if (_this7._focusAfterUpdate || !_this7.isMounted()) return;
+				_this7.setState({
+					inputValue: '',
+					isFocused: false,
+					isOpen: false
+				});
+			}, 50);
+			if (this.props.onBlur) {
+				this.props.onBlur(event);
+			}
+		},
+
+		handleKeyDown: function handleKeyDown(event) {
+			if (this.props.disabled) return;
+			switch (event.keyCode) {
+				case 8:
+					// backspace
+					if (!this.state.inputValue && this.props.backspaceRemoves) {
+						event.preventDefault();
+						this.popValue();
+					}
+					return;
+				case 9:
+					// tab
+					if (event.shiftKey || !this.state.isOpen || !this.state.focusedOption) {
+						return;
+					}
+					this.selectFocusedOption();
+					break;
+				case 13:
+					// enter
+					if (!this.state.isOpen) return;
+					this.selectFocusedOption();
+					break;
+				case 27:
+					// escape
+					if (this.state.isOpen) {
+						this.resetValue();
+					} else if (this.props.clearable) {
+						this.clearValue(event);
+					}
+					break;
+				case 38:
+					// up
+					this.focusPreviousOption();
+					break;
+				case 40:
+					// down
+					this.focusNextOption();
+					break;
+				case 188:
+					// ,
+					if (this.props.allowCreate && this.props.multi) {
+						event.preventDefault();
+						event.stopPropagation();
+						this.selectFocusedOption();
+					} else {
+						return;
+					}
+					break;
+				default:
+					return;
+			}
+			event.preventDefault();
+		},
+
+		// Ensures that the currently focused option is available in filteredOptions.
+		// If not, returns the first available option.
+		_getNewFocusedOption: function _getNewFocusedOption(filteredOptions) {
+			for (var key in filteredOptions) {
+				if (filteredOptions.hasOwnProperty(key) && filteredOptions[key] === this.state.focusedOption) {
+					return filteredOptions[key];
+				}
+			}
+			return this.getFirstFocusableOption(filteredOptions);
+		},
+
+		handleInputChange: function handleInputChange(event) {
+			// assign an internal variable because we need to use
+			// the latest value before setState() has completed.
+			this._optionsFilterString = event.target.value;
+			if (this.props.onInputChange) {
+				this.props.onInputChange(event.target.value);
+			}
+			if (this.props.asyncOptions) {
+				this.setState({
+					isLoading: true,
+					inputValue: event.target.value
+				});
+				this.loadAsyncOptions(event.target.value, {
+					isLoading: false,
+					isOpen: true
+				}, this._bindCloseMenuIfClickedOutside);
+			} else {
+				var filteredOptions = this.filterOptions(this.state.options);
+				this.setState({
+					isOpen: true,
+					inputValue: event.target.value,
+					filteredOptions: filteredOptions,
+					focusedOption: this._getNewFocusedOption(filteredOptions)
+				}, this._bindCloseMenuIfClickedOutside);
+			}
+		},
+
+		autoloadAsyncOptions: function autoloadAsyncOptions() {
+			var _this8 = this;
+
+			this.setState({
+				isLoading: true
+			});
+			this.loadAsyncOptions('', { isLoading: false }, function () {
+				// update with new options but don't focus
+				_this8.setValue(_this8.props.value, false);
+			});
+		},
+
+		loadAsyncOptions: function loadAsyncOptions(input, state, callback) {
+			if (input === undefined) input = '';
+
+			var _this9 = this;
+
+			var thisRequestId = this._currentRequestId = requestId++;
+			if (this.props.cacheAsyncResults) {
+				for (var i = 0; i <= input.length; i++) {
+					var cacheKey = input.slice(0, i);
+					if (this._optionsCache[cacheKey] && (input === cacheKey || this._optionsCache[cacheKey].complete)) {
+						var options = this._optionsCache[cacheKey].options;
+						var filteredOptions = this.filterOptions(options);
+						var newState = {
+							options: options,
+							filteredOptions: filteredOptions,
+							focusedOption: this._getNewFocusedOption(filteredOptions)
+						};
+						for (var key in state) {
+							if (state.hasOwnProperty(key)) {
+								newState[key] = state[key];
+							}
+						}
+						this.setState(newState);
+						if (callback) callback.call(this, newState);
+						return;
+					}
+				}
+			}
+
+			var optionsResponseHandler = function optionsResponseHandler(err, data) {
+				if (err) throw err;
+				if (_this9.props.cacheAsyncResults) {
+					_this9._optionsCache[input] = data;
+				}
+				if (thisRequestId !== _this9._currentRequestId) {
+					return;
+				}
+				var filteredOptions = _this9.filterOptions(data.options);
+				var newState = {
+					options: data.options,
+					filteredOptions: filteredOptions,
+					focusedOption: _this9._getNewFocusedOption(filteredOptions)
+				};
+				for (var key in state) {
+					if (state.hasOwnProperty(key)) {
+						newState[key] = state[key];
+					}
+				}
+				_this9.setState(newState);
+				if (callback) callback.call(_this9, newState);
+			};
+
+			var asyncOpts = this.props.asyncOptions(input, optionsResponseHandler);
+
+			if (asyncOpts && typeof asyncOpts.then === 'function') {
+				asyncOpts.then(function (data) {
+					optionsResponseHandler(null, data);
+				}, function (err) {
+					optionsResponseHandler(err);
+				});
+			}
+		},
+
+		filterOptions: function filterOptions(options, values) {
+			var _this10 = this;
+
+			var filterValue = this._optionsFilterString;
+			var exclude = (values || this.state.values).map(function (i) {
+				return i[_this10.props.valueKey];
+			});
+			if (this.props.filterOptions) {
+				return this.props.filterOptions.call(this, options, filterValue, exclude);
+			} else {
+				var filterOption = function filterOption(op) {
+					if (this.props.multi && exclude.indexOf(op[this.props.valueKey]) > -1) return false;
+					if (this.props.filterOption) return this.props.filterOption.call(this, op, filterValue);
+					var valueTest = String(op[this.props.valueKey]);
+					var labelTest = String(op[this.props.labelKey]);
+					if (this.props.ignoreCase) {
+						valueTest = valueTest.toLowerCase();
+						labelTest = labelTest.toLowerCase();
+						filterValue = filterValue.toLowerCase();
+					}
+					return !filterValue || this.props.matchPos === 'start' ? this.props.matchProp !== 'label' && valueTest.substr(0, filterValue.length) === filterValue || this.props.matchProp !== 'value' && labelTest.substr(0, filterValue.length) === filterValue : this.props.matchProp !== 'label' && valueTest.indexOf(filterValue) >= 0 || this.props.matchProp !== 'value' && labelTest.indexOf(filterValue) >= 0;
+				};
+				return (options || []).filter(filterOption, this);
+			}
+		},
+
+		selectFocusedOption: function selectFocusedOption() {
+			if (this.props.allowCreate && !this.state.focusedOption) {
+				return this.selectValue(this.state.inputValue);
+			}
+
+			if (this.state.focusedOption) {
+				return this.selectValue(this.state.focusedOption);
+			}
+		},
+
+		focusOption: function focusOption(op) {
+			this.setState({
+				focusedOption: op
+			});
+		},
+
+		focusNextOption: function focusNextOption() {
+			this.focusAdjacentOption('next');
+		},
+
+		focusPreviousOption: function focusPreviousOption() {
+			this.focusAdjacentOption('previous');
+		},
+
+		focusAdjacentOption: function focusAdjacentOption(dir) {
+			this._focusedOptionReveal = true;
+			var ops = this.state.filteredOptions.filter(function (op) {
+				return !op.disabled;
+			});
+			if (!this.state.isOpen) {
+				this.setState({
+					isOpen: true,
+					inputValue: '',
+					focusedOption: this.state.focusedOption || ops[dir === 'next' ? 0 : ops.length - 1]
+				}, this._bindCloseMenuIfClickedOutside);
+				return;
+			}
+			if (!ops.length) {
+				return;
+			}
+			var focusedIndex = -1;
+			for (var i = 0; i < ops.length; i++) {
+				if (this.state.focusedOption === ops[i]) {
+					focusedIndex = i;
+					break;
+				}
+			}
+			var focusedOption = ops[0];
+			if (dir === 'next' && focusedIndex > -1 && focusedIndex < ops.length - 1) {
+				focusedOption = ops[focusedIndex + 1];
+			} else if (dir === 'previous') {
+				if (focusedIndex > 0) {
+					focusedOption = ops[focusedIndex - 1];
+				} else {
+					focusedOption = ops[ops.length - 1];
+				}
+			}
+			this.setState({
+				focusedOption: focusedOption
+			});
+		},
+
+		unfocusOption: function unfocusOption(op) {
+			if (this.state.focusedOption === op) {
+				this.setState({
+					focusedOption: null
+				});
+			}
+		},
+
+		renderOptionLabel: function renderOptionLabel(op) {
+			return op[this.props.labelKey];
+		},
+
+		buildMenu: function buildMenu() {
+			var focusedValue = this.state.focusedOption ? this.state.focusedOption[this.props.valueKey] : null;
+			var renderLabel = this.props.optionRenderer || this.renderOptionLabel;
+			if (this.state.filteredOptions.length > 0) {
+				focusedValue = focusedValue == null ? this.state.filteredOptions[0] : focusedValue;
+			}
+			// Add the current value to the filtered options in last resort
+			var options = this.state.filteredOptions;
+			if (this.props.allowCreate && this.state.inputValue.trim()) {
+				var inputValue = this.state.inputValue;
+				options = options.slice();
+				var newOption = this.props.newOptionCreator ? this.props.newOptionCreator(inputValue) : {
+					value: inputValue,
+					label: inputValue,
+					create: true
+				};
+				options.unshift(newOption);
+			}
+			var ops = Object.keys(options).map(function (key) {
+				var op = options[key];
+				var isSelected = this.state.value === op[this.props.valueKey];
+				var isFocused = focusedValue === op[this.props.valueKey];
+				var optionClass = classes({
+					'Select-option': true,
+					'is-selected': isSelected,
+					'is-focused': isFocused,
+					'is-disabled': op.disabled
+				});
+				var ref = isFocused ? 'focused' : null;
+				var optionResult = React.createElement(this.props.optionComponent, {
+					key: 'option-' + op[this.props.valueKey],
+					className: optionClass,
+					renderFunc: renderLabel,
+					mouseDown: this.selectValue,
+					mouseEnter: this.focusOption,
+					mouseLeave: this.unfocusOption,
+					addLabelText: this.props.addLabelText,
+					option: op,
+					ref: ref
+				});
+				return optionResult;
+			}, this);
+
+			if (ops.length) {
+				return ops;
+			} else {
+				var noResultsText, promptClass;
+				if (this.isLoading()) {
+					promptClass = 'Select-searching';
+					noResultsText = this.props.searchingText;
+				} else if (this.state.inputValue || !this.props.asyncOptions) {
+					promptClass = 'Select-noresults';
+					noResultsText = this.props.noResultsText;
+				} else {
+					promptClass = 'Select-search-prompt';
+					noResultsText = this.props.searchPromptText;
+				}
+
+				return React.createElement(
+					'div',
+					{ className: promptClass },
+					noResultsText
+				);
+			}
+		},
+
+		handleOptionLabelClick: function handleOptionLabelClick(value, event) {
+			if (this.props.onOptionLabelClick) {
+				this.props.onOptionLabelClick(value, event);
+			}
+		},
+
+		isLoading: function isLoading() {
+			return this.props.isLoading || this.state.isLoading;
+		},
+
+		render: function render() {
+			var selectClass = classes('Select', this.props.className, {
+				'Select--multi': this.props.multi,
+				'is-searchable': this.props.searchable,
+				'is-open': this.state.isOpen,
+				'is-focused': this.state.isFocused,
+				'is-loading': this.isLoading(),
+				'is-disabled': this.props.disabled,
+				'has-value': this.state.value
+			});
+			var value = [];
+			if (this.props.multi) {
+				this.state.values.forEach(function (val) {
+					var renderLabel = this.props.valueRenderer || this.renderOptionLabel;
+					var onOptionLabelClick = this.handleOptionLabelClick.bind(this, val);
+					var onRemove = this.removeValue.bind(this, val);
+					var valueComponent = React.createElement(this.props.valueComponent, {
+						key: val[this.props.valueKey],
+						option: val,
+						renderer: renderLabel,
+						optionLabelClick: !!this.props.onOptionLabelClick,
+						onOptionLabelClick: onOptionLabelClick,
+						onRemove: onRemove,
+						disabled: this.props.disabled
+					});
+					value.push(valueComponent);
+				}, this);
+			}
+
+			if (!this.state.inputValue && (!this.props.multi || !value.length)) {
+				var val = this.state.values[0] || null;
+				if (this.props.valueRenderer && !!this.state.values.length) {
+					value.push(React.createElement(Value, {
+						key: 0,
+						option: val,
+						renderer: this.props.valueRenderer,
+						disabled: this.props.disabled }));
+				} else {
+					var singleValueComponent = React.createElement(this.props.singleValueComponent, {
+						key: 'placeholder',
+						value: val,
+						placeholder: this.state.placeholder
+					});
+					value.push(singleValueComponent);
+				}
+			}
+
+			// loading spinner
+			var loading = this.isLoading() ? React.createElement(
+				'span',
+				{ className: 'Select-loading-zone', 'aria-hidden': 'true' },
+				React.createElement('span', { className: 'Select-loading' })
+			) : null;
+
+			// clear "x" button
+			var clear = this.props.clearable && this.state.value && !this.props.disabled && !this.isLoading() ? React.createElement(
+				'span',
+				{ className: 'Select-clear-zone', title: this.props.multi ? this.props.clearAllText : this.props.clearValueText, 'aria-label': this.props.multi ? this.props.clearAllText : this.props.clearValueText, onMouseDown: this.clearValue, onTouchEnd: this.clearValue, onClick: this.clearValue },
+				React.createElement('span', { className: 'Select-clear', dangerouslySetInnerHTML: { __html: '&times;' } })
+			) : null;
+
+			// indicator arrow
+			var arrow = React.createElement(
+				'span',
+				{ className: 'Select-arrow-zone', onMouseDown: this.handleMouseDownOnArrow },
+				React.createElement('span', { className: 'Select-arrow', onMouseDown: this.handleMouseDownOnArrow })
+			);
+
+			var menu;
+			var menuProps;
+			if (this.state.isOpen) {
+				menuProps = {
+					ref: 'menu',
+					className: 'Select-menu',
+					onMouseDown: this.handleMouseDownOnMenu
+				};
+				menu = React.createElement(
+					'div',
+					{ ref: 'selectMenuContainer', className: 'Select-menu-outer' },
+					React.createElement(
+						'div',
+						menuProps,
+						this.buildMenu()
+					)
+				);
+			}
+
+			var input;
+			var inputProps = {
+				ref: 'input',
+				className: 'Select-input ' + (this.props.inputProps.className || ''),
+				tabIndex: this.props.tabIndex || 0,
+				onFocus: this.handleInputFocus,
+				onBlur: this.handleInputBlur
+			};
+			for (var key in this.props.inputProps) {
+				if (this.props.inputProps.hasOwnProperty(key) && key !== 'className') {
+					inputProps[key] = this.props.inputProps[key];
+				}
+			}
+
+			if (!this.props.disabled) {
+				if (this.props.searchable) {
+					input = React.createElement(Input, _extends({ value: this.state.inputValue, onChange: this.handleInputChange, minWidth: '5' }, inputProps));
+				} else {
+					input = React.createElement(
+						'div',
+						inputProps,
+						' '
+					);
+				}
+			} else if (!this.props.multi || !this.state.values.length) {
+				input = React.createElement(
+					'div',
+					{ className: 'Select-input' },
+					' '
+				);
+			}
+
+			return React.createElement(
+				'div',
+				{ ref: 'wrapper', className: selectClass },
+				React.createElement('input', { type: 'hidden', ref: 'value', name: this.props.name, value: this.state.value, disabled: this.props.disabled }),
+				React.createElement(
+					'div',
+					{ className: 'Select-control', ref: 'control', onKeyDown: this.handleKeyDown, onMouseDown: this.handleMouseDown, onTouchEnd: this.handleMouseDown },
+					value,
+					input,
+					loading,
+					clear,
+					arrow
+				),
+				menu
+			);
+		}
+	});
+
+	module.exports = Select;
+
+/***/ },
+/* 169 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var React = __webpack_require__(1);
+
+	var sizerStyle = { position: 'absolute', visibility: 'hidden', height: 0, width: 0, overflow: 'scroll', whiteSpace: 'nowrap' };
+
+	var nextFrame = typeof window !== 'undefined' ? (function () {
+		return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
+			window.setTimeout(callback, 1000 / 60);
+		};
+	})() : undefined; // If window is undefined, then we can't define a nextFrame function
+
+	var AutosizeInput = React.createClass({
+		displayName: 'AutosizeInput',
+
+		propTypes: {
+			value: React.PropTypes.any, // field value
+			defaultValue: React.PropTypes.any, // default field value
+			onChange: React.PropTypes.func, // onChange handler: function(newValue) {}
+			style: React.PropTypes.object, // css styles for the outer element
+			className: React.PropTypes.string, // className for the outer element
+			minWidth: React.PropTypes.oneOfType([// minimum width for input element
+			React.PropTypes.number, React.PropTypes.string]),
+			inputStyle: React.PropTypes.object, // css styles for the input element
+			inputClassName: React.PropTypes.string // className for the input element
+		},
+		getDefaultProps: function getDefaultProps() {
+			return {
+				minWidth: 1
+			};
+		},
+		getInitialState: function getInitialState() {
+			return {
+				inputWidth: this.props.minWidth
+			};
+		},
+		componentDidMount: function componentDidMount() {
+			this.copyInputStyles();
+			this.updateInputWidth();
+		},
+		componentDidUpdate: function componentDidUpdate() {
+			this.queueUpdateInputWidth();
+		},
+		copyInputStyles: function copyInputStyles() {
+			if (!this.isMounted() || !window.getComputedStyle) {
+				return;
+			}
+			var inputStyle = window.getComputedStyle(this.refs.input);
+			var widthNode = this.refs.sizer;
+			widthNode.style.fontSize = inputStyle.fontSize;
+			widthNode.style.fontFamily = inputStyle.fontFamily;
+			widthNode.style.fontWeight = inputStyle.fontWeight;
+			widthNode.style.fontStyle = inputStyle.fontStyle;
+			widthNode.style.letterSpacing = inputStyle.letterSpacing;
+			if (this.props.placeholder) {
+				var placeholderNode = this.refs.placeholderSizer;
+				placeholderNode.style.fontSize = inputStyle.fontSize;
+				placeholderNode.style.fontFamily = inputStyle.fontFamily;
+				placeholderNode.style.fontWeight = inputStyle.fontWeight;
+				placeholderNode.style.fontStyle = inputStyle.fontStyle;
+				placeholderNode.style.letterSpacing = inputStyle.letterSpacing;
+			}
+		},
+		queueUpdateInputWidth: function queueUpdateInputWidth() {
+			nextFrame(this.updateInputWidth);
+		},
+		updateInputWidth: function updateInputWidth() {
+			if (!this.isMounted() || typeof this.refs.sizer.scrollWidth === 'undefined') {
+				return;
+			}
+			var newInputWidth = undefined;
+			if (this.props.placeholder) {
+				newInputWidth = Math.max(this.refs.sizer.scrollWidth, this.refs.placeholderSizer.scrollWidth) + 2;
+			} else {
+				newInputWidth = this.refs.sizer.scrollWidth + 2;
+			}
+			if (newInputWidth < this.props.minWidth) {
+				newInputWidth = this.props.minWidth;
+			}
+			if (newInputWidth !== this.state.inputWidth) {
+				this.setState({
+					inputWidth: newInputWidth
+				});
+			}
+		},
+		getInput: function getInput() {
+			return this.refs.input;
+		},
+		focus: function focus() {
+			this.refs.input.focus();
+		},
+		select: function select() {
+			this.refs.input.select();
+		},
+		render: function render() {
+			var escapedValue = (this.props.value || '').replace(/\&/g, '&amp;').replace(/ /g, '&nbsp;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
+			var wrapperStyle = this.props.style || {};
+			if (!wrapperStyle.display) wrapperStyle.display = 'inline-block';
+			var inputStyle = _extends({}, this.props.inputStyle);
+			inputStyle.width = this.state.inputWidth;
+			inputStyle.boxSizing = 'content-box';
+			var placeholder = this.props.placeholder ? React.createElement(
+				'div',
+				{ ref: 'placeholderSizer', style: sizerStyle },
+				this.props.placeholder
+			) : null;
+			return React.createElement(
+				'div',
+				{ className: this.props.className, style: wrapperStyle },
+				React.createElement('input', _extends({}, this.props, { ref: 'input', className: this.props.inputClassName, style: inputStyle })),
+				React.createElement('div', { ref: 'sizer', style: sizerStyle, dangerouslySetInnerHTML: { __html: escapedValue } }),
+				placeholder
+			);
+		}
+	});
+
+	module.exports = AutosizeInput;
+
+/***/ },
+/* 170 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2015 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+
+	(function () {
+		'use strict';
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function classNames () {
+			var classes = '';
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if (argType === 'string' || argType === 'number') {
+					classes += ' ' + arg;
+				} else if (Array.isArray(arg)) {
+					classes += ' ' + classNames.apply(null, arg);
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes += ' ' + key;
+						}
+					}
+				}
+			}
+
+			return classes.substr(1);
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 171 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var classes = __webpack_require__(170);
+
+	var Value = React.createClass({
+
+		displayName: 'Value',
+
+		propTypes: {
+			disabled: React.PropTypes.bool, // disabled prop passed to ReactSelect
+			onOptionLabelClick: React.PropTypes.func, // method to handle click on value label
+			onRemove: React.PropTypes.func, // method to handle remove of that value
+			option: React.PropTypes.object.isRequired, // option passed to component
+			optionLabelClick: React.PropTypes.bool, // indicates if onOptionLabelClick should be handled
+			renderer: React.PropTypes.func // method to render option label passed to ReactSelect
+		},
+
+		blockEvent: function blockEvent(event) {
+			event.stopPropagation();
+		},
+
+		handleOnRemove: function handleOnRemove(event) {
+			if (!this.props.disabled) {
+				this.props.onRemove(event);
+			}
+		},
+
+		render: function render() {
+			var label = this.props.option.label;
+			if (this.props.renderer) {
+				label = this.props.renderer(this.props.option);
+			}
+
+			if (!this.props.onRemove && !this.props.optionLabelClick) {
+				return React.createElement(
+					'div',
+					{
+						className: classes('Select-value', this.props.option.className),
+						style: this.props.option.style,
+						title: this.props.option.title
+					},
+					label
+				);
+			}
+
+			if (this.props.optionLabelClick) {
+				label = React.createElement(
+					'a',
+					{ className: classes('Select-item-label__a', this.props.option.className),
+						onMouseDown: this.blockEvent,
+						onTouchEnd: this.props.onOptionLabelClick,
+						onClick: this.props.onOptionLabelClick,
+						style: this.props.option.style,
+						title: this.props.option.title },
+					label
+				);
+			}
+
+			return React.createElement(
+				'div',
+				{ className: classes('Select-item', this.props.option.className),
+					style: this.props.option.style,
+					title: this.props.option.title },
+				React.createElement(
+					'span',
+					{ className: 'Select-item-icon',
+						onMouseDown: this.blockEvent,
+						onClick: this.handleOnRemove,
+						onTouchEnd: this.handleOnRemove },
+					'×'
+				),
+				React.createElement(
+					'span',
+					{ className: 'Select-item-label' },
+					label
+				)
+			);
+		}
+
+	});
+
+	module.exports = Value;
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var classes = __webpack_require__(170);
+
+	var SingleValue = React.createClass({
+		displayName: 'SingleValue',
+
+		propTypes: {
+			placeholder: React.PropTypes.string, // this is default value provided by React-Select based component
+			value: React.PropTypes.object // selected option
+		},
+		render: function render() {
+			var classNames = classes('Select-placeholder', this.props.value && this.props.value.className);
+			return React.createElement(
+				'div',
+				{
+					className: classNames,
+					style: this.props.value && this.props.value.style,
+					title: this.props.value && this.props.value.title
+				},
+				this.props.placeholder
+			);
+		}
+	});
+
+	module.exports = SingleValue;
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var classes = __webpack_require__(170);
+
+	var Option = React.createClass({
+		displayName: 'Option',
+
+		propTypes: {
+			addLabelText: React.PropTypes.string, // string rendered in case of allowCreate option passed to ReactSelect
+			className: React.PropTypes.string, // className (based on mouse position)
+			mouseDown: React.PropTypes.func, // method to handle click on option element
+			mouseEnter: React.PropTypes.func, // method to handle mouseEnter on option element
+			mouseLeave: React.PropTypes.func, // method to handle mouseLeave on option element
+			option: React.PropTypes.object.isRequired, // object that is base for that option
+			renderFunc: React.PropTypes.func // method passed to ReactSelect component to render label text
+		},
+		blockEvent: function blockEvent(event) {
+			event.preventDefault();
+			if (event.target.tagName !== 'A' || !('href' in event.target)) {
+				return;
+			}
+
+			if (event.target.target) {
+				window.open(event.target.href);
+			} else {
+				window.location.href = event.target.href;
+			}
+		},
+		handleMouseDown: function handleMouseDown(e) {
+			this.props.mouseDown(this.props.option, e);
+		},
+		handleMouseEnter: function handleMouseEnter(e) {
+			this.props.mouseEnter(this.props.option, e);
+		},
+		handleMouseLeave: function handleMouseLeave(e) {
+			this.props.mouseLeave(this.props.option, e);
+		},
+		render: function render() {
+			var option = this.props.option;
+			var label = option.create ? this.props.addLabelText.replace('{label}', option.label) : this.props.renderFunc(option);
+			var optionClasses = classes(this.props.className, option.className);
+
+			return option.disabled ? React.createElement(
+				'div',
+				{ className: optionClasses,
+					onMouseDown: this.blockEvent,
+					onClick: this.blockEvent },
+				label
+			) : React.createElement(
+				'div',
+				{ className: optionClasses,
+					style: option.style,
+					onMouseDown: this.handleMouseDown,
+					onMouseEnter: this.handleMouseEnter,
+					onMouseLeave: this.handleMouseLeave,
+					onClick: this.handleMouseDown,
+					title: option.title },
+				label
+			);
+		}
+	});
+
+	module.exports = Option;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var OutputBox = _react2['default'].createClass({
+	  displayName: 'OutputBox',
+
+	  render: function render() {
+	    return _react2['default'].createElement('input', {
+	      readOnly: true,
+	      type: 'text',
+	      className: 'outputBox',
+	      value: this.props.hashedPassword,
+	      style: { cursor: 'not-allowed', backgroundColor: '#eeeeee' } });
+	  }
+	});
+
+	exports['default'] = OutputBox;
+	module.exports = exports['default'];
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var InputBox = _react2['default'].createClass({
+	    displayName: 'InputBox',
+
+	    handleChange: function handleChange() {
+	        this.props.onUserInput(this.refs.inputPassword.value);
+	    },
+
+	    render: function render() {
+	        return _react2['default'].createElement('input', {
+	            type: 'text',
+	            value: this.props.inputPassword,
+	            placeholder: 'Enter a password to bcrypt',
+	            ref: 'inputPassword',
+	            className: 'inputBox',
+	            onChange: this.handleChange,
+	            required: true });
+	    }
+	});
+
+	exports['default'] = InputBox;
+	module.exports = exports['default'];
+
+/***/ },
+/* 176 */,
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(178);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(162)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../node_modules/css-loader/index.js!./select.css", function() {
+				var newContent = require("!!./../node_modules/css-loader/index.js!./select.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(161)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/**\n * React Select\n * ============\n * Created by Jed Watson and Joss Mackison for KeystoneJS, http://www.keystonejs.com/\n * https://twitter.com/jedwatson https://twitter.com/jossmackison https://twitter.com/keystonejs\n * MIT License: https://github.com/keystonejs/react-select\n*/\n.Select {\n  position: relative;\n}\n.Select,\n.Select div,\n.Select input,\n.Select span {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  max-width: 100px;\n  margin-left: 6px;\n}\n.Select.is-disabled > .Select-control {\n  background-color: #f9f9f9;\n}\n.Select.is-disabled > .Select-control:hover {\n  box-shadow: none;\n}\n.Select.is-disabled .Select-arrow-zone {\n  cursor: default;\n  pointer-events: none;\n}\n.Select-control {\n  background-color: #fff;\n  border-color: #d9d9d9 #ccc #b3b3b3;\n  border-radius: 4px;\n  border: 1px solid #ccc;\n  color: #333;\n  cursor: default;\n  display: table;\n  height: 36px;\n  outline: none;\n  overflow: hidden;\n  position: relative;\n  width: 100%;\n}\n.Select-control:hover {\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n}\n.is-searchable.is-open > .Select-control {\n  cursor: text;\n}\n.is-open > .Select-control {\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n  background: #fff;\n  border-color: #b3b3b3 #ccc #d9d9d9;\n}\n.is-open > .Select-control > .Select-arrow {\n  border-color: transparent transparent #999;\n  border-width: 0 5px 5px;\n}\n.is-searchable.is-focused:not(.is-open) > .Select-control {\n  cursor: text;\n}\n.is-focused:not(.is-open) > .Select-control {\n  border-color: #007eff;\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(0, 126, 255, 0.1);\n}\n.Select-placeholder,\n:not(.Select--multi) > .Select-control .Select-value {\n  bottom: 0;\n  color: #aaa;\n  left: 0;\n  line-height: 34px;\n  padding-left: 10px;\n  padding-right: 10px;\n  position: absolute;\n  right: 0;\n  top: 0;\n  max-width: 100%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value .Select-value-label,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value .Select-value-label {\n  color: #333;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label {\n  cursor: pointer;\n  text-decoration: none;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:hover,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:hover,\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:focus,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:focus {\n  color: #007eff;\n  outline: none;\n  text-decoration: underline;\n}\n.Select-input {\n  height: 34px;\n  padding-left: 10px;\n  padding-right: 10px;\n  vertical-align: middle;\n}\n.Select-input > input {\n  background: none transparent;\n  border: 0 none;\n  box-shadow: none;\n  cursor: default;\n  display: inline-block;\n  font-family: inherit;\n  font-size: inherit;\n  height: 34px;\n  margin: 0;\n  outline: none;\n  padding: 0;\n  -webkit-appearance: none;\n}\n.is-focused .Select-input > input {\n  cursor: text;\n}\n.has-value.is-pseudo-focused .Select-input {\n  opacity: 0;\n}\n.Select-control:not(.is-searchable) > .Select-input {\n  outline: none;\n}\n.Select-loading-zone {\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 16px;\n}\n.Select-loading {\n  -webkit-animation: Select-animation-spin 400ms infinite linear;\n  -o-animation: Select-animation-spin 400ms infinite linear;\n  animation: Select-animation-spin 400ms infinite linear;\n  width: 16px;\n  height: 16px;\n  box-sizing: border-box;\n  border-radius: 50%;\n  border: 2px solid #ccc;\n  border-right-color: #333;\n  display: inline-block;\n  position: relative;\n  vertical-align: middle;\n}\n.Select-clear-zone {\n  -webkit-animation: Select-animation-fadeIn 200ms;\n  -o-animation: Select-animation-fadeIn 200ms;\n  animation: Select-animation-fadeIn 200ms;\n  color: #999;\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 17px;\n}\n.Select-clear-zone:hover {\n  color: #D0021B;\n}\n.Select-clear {\n  display: inline-block;\n  font-size: 18px;\n  line-height: 1;\n}\n.Select--multi .Select-clear-zone {\n  width: 17px;\n}\n.Select-arrow-zone {\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 25px;\n  padding-right: 5px;\n}\n.Select-arrow {\n  border-color: #999 transparent transparent;\n  border-style: solid;\n  border-width: 5px 5px 2.5px;\n  display: inline-block;\n  height: 0;\n  width: 0;\n}\n.is-open .Select-arrow,\n.Select-arrow-zone:hover > .Select-arrow {\n  border-top-color: #666;\n}\n@-webkit-keyframes Select-animation-fadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@keyframes Select-animation-fadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.Select-menu-outer {\n  border-bottom-right-radius: 4px;\n  border-bottom-left-radius: 4px;\n  background-color: #fff;\n  border: 1px solid #ccc;\n  border-top-color: #e6e6e6;\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n  box-sizing: border-box;\n  margin-top: -1px;\n  max-height: 200px;\n  position: absolute;\n  top: 100%;\n  width: 100%;\n  z-index: 1;\n  -webkit-overflow-scrolling: touch;\n}\n.Select-menu {\n  max-height: 198px;\n  overflow-y: auto;\n}\n.Select-option {\n  box-sizing: border-box;\n  color: #666666;\n  cursor: pointer;\n  display: block;\n  padding: 8px 10px;\n}\n.Select-option:last-child {\n  border-bottom-right-radius: 4px;\n  border-bottom-left-radius: 4px;\n}\n.Select-option.is-focused {\n  background-color: rgba(0, 126, 255, 0.08);\n  color: #333;\n}\n.Select-option.is-disabled {\n  color: #cccccc;\n  cursor: default;\n}\n.Select-noresults {\n  box-sizing: border-box;\n  color: #999999;\n  cursor: default;\n  display: block;\n  padding: 8px 10px;\n}\n.Select--multi .Select-input {\n  vertical-align: middle;\n  margin-left: 10px;\n  padding: 0;\n}\n.Select--multi.has-value .Select-input {\n  margin-left: 5px;\n}\n.Select--multi .Select-value {\n  background-color: rgba(0, 126, 255, 0.08);\n  border-radius: 2px;\n  border: 1px solid rgba(0, 126, 255, 0.24);\n  color: #007eff;\n  display: inline-block;\n  font-size: 0.9em;\n  line-height: 1.4;\n  margin-left: 5px;\n  margin-top: 5px;\n  vertical-align: top;\n}\n.Select--multi .Select-value-icon,\n.Select--multi .Select-value-label {\n  display: inline-block;\n  vertical-align: middle;\n}\n.Select--multi .Select-value-label {\n  border-bottom-right-radius: 2px;\n  border-top-right-radius: 2px;\n  cursor: default;\n  padding: 2px 5px;\n}\n.Select--multi a.Select-value-label {\n  color: #007eff;\n  cursor: pointer;\n  text-decoration: none;\n}\n.Select--multi a.Select-value-label:hover {\n  text-decoration: underline;\n}\n.Select--multi .Select-value-icon {\n  cursor: pointer;\n  border-bottom-left-radius: 2px;\n  border-top-left-radius: 2px;\n  border-right: 1px solid rgba(0, 126, 255, 0.24);\n  padding: 1px 5px 3px;\n}\n.Select--multi .Select-value-icon:hover,\n.Select--multi .Select-value-icon:focus {\n  background-color: rgba(0, 113, 230, 0.08);\n  color: #0071e6;\n}\n.Select--multi .Select-value-icon:active {\n  background-color: rgba(0, 126, 255, 0.24);\n}\n.Select--multi.is-disabled .Select-value {\n  background-color: #fcfcfc;\n  border: 1px solid #e3e3e3;\n  color: #333;\n}\n.Select--multi.is-disabled .Select-value-icon {\n  cursor: not-allowed;\n  border-right: 1px solid #e3e3e3;\n}\n.Select--multi.is-disabled .Select-value-icon:hover,\n.Select--multi.is-disabled .Select-value-icon:focus,\n.Select--multi.is-disabled .Select-value-icon:active {\n  background-color: #fcfcfc;\n}\n@keyframes Select-animation-spin {\n  to {\n    transform: rotate(1turn);\n  }\n}\n@-webkit-keyframes Select-animation-spin {\n  to {\n    -webkit-transform: rotate(1turn);\n  }\n}\nbody {\n  color: #333;\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  line-height: 1.4;\n  margin: 0;\n  padding: 0;\n}\na {\n  color: #007eff;\n  text-decoration: none;\n}\na:hover {\n  text-decoration: underline;\n}\n.container {\n  margin-left: auto;\n  margin-right: auto;\n  max-width: 400px;\n  padding: 0 30px;\n}\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\n.h1,\n.h2,\n.h3,\n.h4,\n.h5,\n.h6 {\n  color: black;\n  font-weight: 500;\n  line-height: 1;\n  margin-bottom: .66em;\n  margin-top: 0;\n}\nh1,\n.h1 {\n  font-size: 3em;\n}\nh2,\n.h2 {\n  font-size: 2em;\n  font-weight: 300;\n}\nh3,\n.h3 {\n  font-size: 1.25em;\n}\nh4,\n.h4 {\n  font-size: 1em;\n}\nh5,\n.h5 {\n  font-size: .85em;\n}\nh6,\n.h6 {\n  font-size: .75em;\n}\n.page-body,\n.page-footer,\n.page-header {\n  padding: 30px 0;\n}\n.page-header {\n  background-color: #007eff;\n  color: #bfdfff;\n}\n.page-header h1,\n.page-header h2,\n.page-header h3 {\n  color: white;\n}\n.page-header p {\n  font-size: 1.2em;\n  margin: 0;\n}\n.page-header a {\n  border-bottom: 1px solid rgba(255, 255, 255, 0.3);\n  color: white;\n  text-decoration: none;\n}\n.page-header a:hover,\n.page-header a:focus {\n  border-bottom-color: white;\n  outline: none;\n  text-decoration: none;\n}\n.page-subheader {\n  background-color: #e6f2ff;\n  line-height: 20px;\n  padding: 30px 0;\n}\n.page-subheader__button {\n  float: right;\n}\n.page-subheader__link {\n  border-bottom: 1px solid rgba(0, 126, 255, 0.3);\n  outline: none;\n  text-decoration: none;\n}\n.page-subheader__link:hover,\n.page-subheader__link:focus {\n  border-bottom-color: #007eff;\n  outline: none;\n  text-decoration: none;\n}\n.page-footer {\n  background-color: #fafafa;\n  color: #999;\n  padding: 30px 0;\n  text-align: center;\n}\n.page-footer a {\n  color: black;\n}\n@media (min-width: 480px) {\n  .page-body,\n  .page-header {\n    padding: 60px 0;\n  }\n  .page-header {\n    font-size: 1.4em;\n  }\n  .page-subheader {\n    font-size: 1.125em;\n    line-height: 28px;\n  }\n}\n.checkbox-list {\n  margin-top: .5em;\n  overflow: hidden;\n}\n.checkbox-list > .checkbox {\n  clear: left;\n  float: left;\n  margin-top: .5em;\n}\n.checkbox-control {\n  margin-right: .5em;\n  position: relative;\n  top: -1px;\n}\n.switcher {\n  color: #999;\n  cursor: default;\n  font-size: 12px;\n  margin: 10px 0;\n  text-transform: uppercase;\n}\n.switcher .link {\n  color: #007eff;\n  cursor: pointer;\n  font-weight: bold;\n  margin-left: 10px;\n}\n.switcher .link:hover {\n  text-decoration: underline;\n}\n.switcher .active {\n  color: #666;\n  font-weight: bold;\n  margin-left: 10px;\n}\n.section {\n  margin-bottom: 40px;\n}\n.hint {\n  font-size: .85em;\n  margin: 15px 0;\n  color: #666;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactSelect = __webpack_require__(168);
+
+	var _reactSelect2 = _interopRequireDefault(_reactSelect);
+
+	var _stylesSelectCss = __webpack_require__(177);
+
+	var _stylesSelectCss2 = _interopRequireDefault(_stylesSelectCss);
+
+	var ValuesAsNumbersField = _react2['default'].createClass({
+		displayName: 'ValuesAsNumbersField',
+		propTypes: {
+			label: _react2['default'].PropTypes.string
+		},
+		getInitialState: function getInitialState() {
+			return {
+				matchPos: 'any',
+				matchValue: true,
+				matchLabel: true,
+				multi: false
+			};
+		},
+		onChangeMatchStart: function onChangeMatchStart(event) {
+			this.setState({
+				matchPos: event.target.checked ? 'start' : 'any'
+			});
+		},
+		onChangeMatchValue: function onChangeMatchValue(event) {
+			this.setState({
+				matchValue: event.target.checked
+			});
+		},
+		onChangeMatchLabel: function onChangeMatchLabel(event) {
+			this.setState({
+				matchLabel: event.target.checked
+			});
+		},
+		onChange: function onChange(value) {
+			this.setState({ value: value });
+			console.log('Numeric Select value changed to', value);
+		},
+		onChangeMulti: function onChangeMulti(event) {
+			this.setState({
+				multi: event.target.checked
+			});
+		},
+		render: function render() {
+			var matchProp = 'any';
+			if (this.state.matchLabel && !this.state.matchValue) {
+				matchProp = 'label';
+			}
+			if (!this.state.matchLabel && this.state.matchValue) {
+				matchProp = 'value';
+			}
+			return _react2['default'].createElement(
+				'div',
+				null,
+				_react2['default'].createElement(
+					'h4',
+					{ className: 'section-heading' },
+					this.props.label
+				),
+				_react2['default'].createElement(_reactSelect2['default'], {
+					placeholder: 'Salt Work Factor',
+					matchPos: this.state.matchPos,
+					matchProp: matchProp,
+					onChange: this.props.onSelect,
+					options: this.props.options,
+					simpleValue: true,
+					value: this.props.value,
+					required: true
+				})
+			);
+		}
+	});
+
+	module.exports = ValuesAsNumbersField;
 
 /***/ }
 /******/ ]);
