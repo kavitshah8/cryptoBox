@@ -41,8 +41,7 @@ var Form = React.createClass({
       return;
     }
     if (data.SALT_WORK_FACTOR === '') {
-      alert('Selecting SALT_WORK_FACTOR is required');
-      return;
+      data.SALT_WORK_FACTOR = 12;
     }
     var self = this;
     request
@@ -68,9 +67,9 @@ var Form = React.createClass({
   render () {
     return(
         <form className='formContainer'onSubmit={this.onSubmit}>
-          <InputBox inputPassword={this.state.inputPassword} onUserInput={this.handleUserInput} />
-          <Select options={this.state.options} value={this.state.value} onSelect={this.handleUserSelect} required/>
-          <button className='formButton' type='submit'>Encrypt</button>
+          <InputBox inputPassword={this.state.inputPassword} style={{margin: '10px'}} onUserInput={this.handleUserInput} />
+          <Select options={this.state.options} style={{margin:'10px', width: '160px'}} value={this.state.value} onSelect={this.handleUserSelect} required/>
+          <button className='formButton' type='submit' style={{margin: '10px'}}>Encrypt</button>
           {this.renderOutputBox()}
         </form>
     );

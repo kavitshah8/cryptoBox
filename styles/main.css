@@ -11,19 +11,28 @@
 .inputBox {
   margin: 15px;
 	height: 35px;
-	width: 80%;
-	padding: 10px 5px;
+	width: 100%;
+	padding: 10px 10px;
+	font-size: 17px;
 }
 
 .outputBox {
   margin: 15px;
 	height: 35px;
-	width: 80%;
-	padding: 10px 5px;
+	width: 100%;
+	padding: 10px 10px;
+	font-size: 17px;
 }
 
 .formButton {
 	display: inline;
 	height: 35px;
 	width: 60px;
+}
+
+.default {
+	margin-left:20px;
+	margin-top:7px;
+	vertical-align: top;
+	display: inline-block;
 }

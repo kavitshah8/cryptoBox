@@ -50,16 +50,19 @@ var ValuesAsNumbersField = React.createClass({
 		return (
 			<div>
 				<h4 className="section-heading">{this.props.label}</h4>
-				<Select
-					placeholder='Salt Work Factor'
-					matchPos={this.state.matchPos}
-					matchProp={matchProp}
-					onChange={this.props.onSelect}
-					options={this.props.options}
-					simpleValue
-					value={this.props.value}
-					required
-					/>
+				<div>
+					<Select
+						placeholder='Salt'
+						matchPos={this.state.matchPos}
+						matchProp={matchProp}
+						onChange={this.props.onSelect}
+						options={this.props.options}
+						simpleValue
+						value={this.props.value}
+						required
+						/>
+					<span className="default"> Defaults to 12</span>
+				</div>
 			</div>
 		);
 	}

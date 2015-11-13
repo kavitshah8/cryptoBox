@@ -19685,7 +19685,7 @@
 
 
 	// module
-	exports.push([module.id, "#content {\n\tfont-size: 15px;\n}\n\n.formContainer {\n\tmargin: auto;\n\tmax-width: 600px;\n\tpadding: 50px;\n}\n\n.inputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 80%;\n\tpadding: 10px 5px;\n}\n\n.outputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 80%;\n\tpadding: 10px 5px;\n}\n\n.formButton {\n\tdisplay: inline;\n\theight: 35px;\n\twidth: 60px;\n}\n", ""]);
+	exports.push([module.id, "#content {\n\tfont-size: 15px;\n}\n\n.formContainer {\n\tmargin: auto;\n\tmax-width: 600px;\n\tpadding: 50px;\n}\n\n.inputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 100%;\n\tpadding: 10px 10px;\n\tfont-size: 17px;\n}\n\n.outputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 100%;\n\tpadding: 10px 10px;\n\tfont-size: 17px;\n}\n\n.formButton {\n\tdisplay: inline;\n\theight: 35px;\n\twidth: 60px;\n}\n\n.default {\n\tmargin-left:20px;\n\tmargin-top:7px;\n\tvertical-align: top;\n\tdisplay: inline-block;\n}\n", ""]);
 
 	// exports
 
@@ -20024,15 +20024,15 @@
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
-	var _OutputBoxJsx = __webpack_require__(174);
+	var _OutputBoxJsx = __webpack_require__(168);
 
 	var _OutputBoxJsx2 = _interopRequireDefault(_OutputBoxJsx);
 
-	var _InputBoxJsx = __webpack_require__(175);
+	var _InputBoxJsx = __webpack_require__(169);
 
 	var _InputBoxJsx2 = _interopRequireDefault(_InputBoxJsx);
 
-	var _SelectJsx = __webpack_require__(179);
+	var _SelectJsx = __webpack_require__(170);
 
 	var _SelectJsx2 = _interopRequireDefault(_SelectJsx);
 
@@ -20065,8 +20065,7 @@
 	      return;
 	    }
 	    if (data.SALT_WORK_FACTOR === '') {
-	      alert('Selecting SALT_WORK_FACTOR is required');
-	      return;
+	      data.SALT_WORK_FACTOR = 12;
 	    }
 	    var self = this;
 	    _superagent2['default'].post('api/inputPassword').send(data).type('json').end(function (err, res) {
@@ -20089,11 +20088,11 @@
 	    return _react2['default'].createElement(
 	      'form',
 	      { className: 'formContainer', onSubmit: this.onSubmit },
-	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.inputPassword, onUserInput: this.handleUserInput }),
-	      _react2['default'].createElement(_SelectJsx2['default'], { options: this.state.options, value: this.state.value, onSelect: this.handleUserSelect, required: true }),
+	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.inputPassword, style: { margin: '10px' }, onUserInput: this.handleUserInput }),
+	      _react2['default'].createElement(_SelectJsx2['default'], { options: this.state.options, style: { margin: '10px', width: '160px' }, value: this.state.value, onSelect: this.handleUserSelect, required: true }),
 	      _react2['default'].createElement(
 	        'button',
-	        { className: 'formButton', type: 'submit' },
+	        { className: 'formButton', type: 'submit', style: { margin: '10px' } },
 	        'Encrypt'
 	      ),
 	      this.renderOutputBox()
@@ -30666,6 +30665,174 @@
 /* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var OutputBox = _react2['default'].createClass({
+	  displayName: 'OutputBox',
+
+	  render: function render() {
+	    return _react2['default'].createElement('input', {
+	      readOnly: true,
+	      type: 'text',
+	      className: 'outputBox',
+	      value: this.props.hashedPassword,
+	      style: { cursor: 'not-allowed', backgroundColor: '#eeeeee' } });
+	  }
+	});
+
+	exports['default'] = OutputBox;
+	module.exports = exports['default'];
+
+/***/ },
+/* 169 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var InputBox = _react2['default'].createClass({
+	    displayName: 'InputBox',
+
+	    handleChange: function handleChange() {
+	        this.props.onUserInput(this.refs.inputPassword.value);
+	    },
+
+	    render: function render() {
+	        return _react2['default'].createElement('input', {
+	            type: 'text',
+	            value: this.props.inputPassword,
+	            placeholder: 'Enter a password to bcrypt',
+	            ref: 'inputPassword',
+	            className: 'inputBox',
+	            onChange: this.handleChange,
+	            required: true });
+	    }
+	});
+
+	exports['default'] = InputBox;
+	module.exports = exports['default'];
+
+/***/ },
+/* 170 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactSelect = __webpack_require__(171);
+
+	var _reactSelect2 = _interopRequireDefault(_reactSelect);
+
+	var _stylesSelectCss = __webpack_require__(177);
+
+	var _stylesSelectCss2 = _interopRequireDefault(_stylesSelectCss);
+
+	var ValuesAsNumbersField = _react2['default'].createClass({
+		displayName: 'ValuesAsNumbersField',
+		propTypes: {
+			label: _react2['default'].PropTypes.string
+		},
+		getInitialState: function getInitialState() {
+			return {
+				matchPos: 'any',
+				matchValue: true,
+				matchLabel: true,
+				multi: false
+			};
+		},
+		onChangeMatchStart: function onChangeMatchStart(event) {
+			this.setState({
+				matchPos: event.target.checked ? 'start' : 'any'
+			});
+		},
+		onChangeMatchValue: function onChangeMatchValue(event) {
+			this.setState({
+				matchValue: event.target.checked
+			});
+		},
+		onChangeMatchLabel: function onChangeMatchLabel(event) {
+			this.setState({
+				matchLabel: event.target.checked
+			});
+		},
+		onChange: function onChange(value) {
+			this.setState({ value: value });
+			console.log('Numeric Select value changed to', value);
+		},
+		onChangeMulti: function onChangeMulti(event) {
+			this.setState({
+				multi: event.target.checked
+			});
+		},
+		render: function render() {
+			var matchProp = 'any';
+			if (this.state.matchLabel && !this.state.matchValue) {
+				matchProp = 'label';
+			}
+			if (!this.state.matchLabel && this.state.matchValue) {
+				matchProp = 'value';
+			}
+			return _react2['default'].createElement(
+				'div',
+				null,
+				_react2['default'].createElement(
+					'h4',
+					{ className: 'section-heading' },
+					this.props.label
+				),
+				_react2['default'].createElement(
+					'div',
+					null,
+					_react2['default'].createElement(_reactSelect2['default'], {
+						placeholder: 'Salt',
+						matchPos: this.state.matchPos,
+						matchProp: matchProp,
+						onChange: this.props.onSelect,
+						options: this.props.options,
+						simpleValue: true,
+						value: this.props.value,
+						required: true
+					}),
+					_react2['default'].createElement(
+						'span',
+						{ className: 'default' },
+						' Defaults to 12'
+					)
+				)
+			);
+		}
+	});
+
+	module.exports = ValuesAsNumbersField;
+
+/***/ },
+/* 171 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* disable some rules until we refactor more completely; fixing them now would
 	   cause conflicts with some open PRs unnecessarily. */
 	/* eslint react/jsx-sort-prop-types: 0, react/sort-comp: 0, react/prop-types: 0 */
@@ -30678,11 +30845,11 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
-	var Input = __webpack_require__(169);
-	var classes = __webpack_require__(170);
-	var Value = __webpack_require__(171);
-	var SingleValue = __webpack_require__(172);
-	var Option = __webpack_require__(173);
+	var Input = __webpack_require__(172);
+	var classes = __webpack_require__(173);
+	var Value = __webpack_require__(174);
+	var SingleValue = __webpack_require__(175);
+	var Option = __webpack_require__(176);
 
 	var requestId = 0;
 
@@ -31615,7 +31782,7 @@
 	module.exports = Select;
 
 /***/ },
-/* 169 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31739,7 +31906,7 @@
 	module.exports = AutosizeInput;
 
 /***/ },
-/* 170 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -31793,13 +31960,13 @@
 
 
 /***/ },
-/* 171 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var classes = __webpack_require__(170);
+	var classes = __webpack_require__(173);
 
 	var Value = React.createClass({
 
@@ -31881,13 +32048,13 @@
 	module.exports = Value;
 
 /***/ },
-/* 172 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var classes = __webpack_require__(170);
+	var classes = __webpack_require__(173);
 
 	var SingleValue = React.createClass({
 		displayName: 'SingleValue',
@@ -31913,13 +32080,13 @@
 	module.exports = SingleValue;
 
 /***/ },
-/* 173 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var classes = __webpack_require__(170);
+	var classes = __webpack_require__(173);
 
 	var Option = React.createClass({
 		displayName: 'Option',
@@ -31982,77 +32149,6 @@
 	module.exports = Option;
 
 /***/ },
-/* 174 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var OutputBox = _react2['default'].createClass({
-	  displayName: 'OutputBox',
-
-	  render: function render() {
-	    return _react2['default'].createElement('input', {
-	      readOnly: true,
-	      type: 'text',
-	      className: 'outputBox',
-	      value: this.props.hashedPassword,
-	      style: { cursor: 'not-allowed', backgroundColor: '#eeeeee' } });
-	  }
-	});
-
-	exports['default'] = OutputBox;
-	module.exports = exports['default'];
-
-/***/ },
-/* 175 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var InputBox = _react2['default'].createClass({
-	    displayName: 'InputBox',
-
-	    handleChange: function handleChange() {
-	        this.props.onUserInput(this.refs.inputPassword.value);
-	    },
-
-	    render: function render() {
-	        return _react2['default'].createElement('input', {
-	            type: 'text',
-	            value: this.props.inputPassword,
-	            placeholder: 'Enter a password to bcrypt',
-	            ref: 'inputPassword',
-	            className: 'inputBox',
-	            onChange: this.handleChange,
-	            required: true });
-	    }
-	});
-
-	exports['default'] = InputBox;
-	module.exports = exports['default'];
-
-/***/ },
-/* 176 */,
 /* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -32087,99 +32183,10 @@
 
 
 	// module
-	exports.push([module.id, "/**\n * React Select\n * ============\n * Created by Jed Watson and Joss Mackison for KeystoneJS, http://www.keystonejs.com/\n * https://twitter.com/jedwatson https://twitter.com/jossmackison https://twitter.com/keystonejs\n * MIT License: https://github.com/keystonejs/react-select\n*/\n.Select {\n  position: relative;\n}\n.Select,\n.Select div,\n.Select input,\n.Select span {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  max-width: 100px;\n  margin-left: 6px;\n}\n.Select.is-disabled > .Select-control {\n  background-color: #f9f9f9;\n}\n.Select.is-disabled > .Select-control:hover {\n  box-shadow: none;\n}\n.Select.is-disabled .Select-arrow-zone {\n  cursor: default;\n  pointer-events: none;\n}\n.Select-control {\n  background-color: #fff;\n  border-color: #d9d9d9 #ccc #b3b3b3;\n  border-radius: 4px;\n  border: 1px solid #ccc;\n  color: #333;\n  cursor: default;\n  display: table;\n  height: 36px;\n  outline: none;\n  overflow: hidden;\n  position: relative;\n  width: 100%;\n}\n.Select-control:hover {\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n}\n.is-searchable.is-open > .Select-control {\n  cursor: text;\n}\n.is-open > .Select-control {\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n  background: #fff;\n  border-color: #b3b3b3 #ccc #d9d9d9;\n}\n.is-open > .Select-control > .Select-arrow {\n  border-color: transparent transparent #999;\n  border-width: 0 5px 5px;\n}\n.is-searchable.is-focused:not(.is-open) > .Select-control {\n  cursor: text;\n}\n.is-focused:not(.is-open) > .Select-control {\n  border-color: #007eff;\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(0, 126, 255, 0.1);\n}\n.Select-placeholder,\n:not(.Select--multi) > .Select-control .Select-value {\n  bottom: 0;\n  color: #aaa;\n  left: 0;\n  line-height: 34px;\n  padding-left: 10px;\n  padding-right: 10px;\n  position: absolute;\n  right: 0;\n  top: 0;\n  max-width: 100%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value .Select-value-label,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value .Select-value-label {\n  color: #333;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label {\n  cursor: pointer;\n  text-decoration: none;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:hover,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:hover,\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:focus,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:focus {\n  color: #007eff;\n  outline: none;\n  text-decoration: underline;\n}\n.Select-input {\n  height: 34px;\n  padding-left: 10px;\n  padding-right: 10px;\n  vertical-align: middle;\n}\n.Select-input > input {\n  background: none transparent;\n  border: 0 none;\n  box-shadow: none;\n  cursor: default;\n  display: inline-block;\n  font-family: inherit;\n  font-size: inherit;\n  height: 34px;\n  margin: 0;\n  outline: none;\n  padding: 0;\n  -webkit-appearance: none;\n}\n.is-focused .Select-input > input {\n  cursor: text;\n}\n.has-value.is-pseudo-focused .Select-input {\n  opacity: 0;\n}\n.Select-control:not(.is-searchable) > .Select-input {\n  outline: none;\n}\n.Select-loading-zone {\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 16px;\n}\n.Select-loading {\n  -webkit-animation: Select-animation-spin 400ms infinite linear;\n  -o-animation: Select-animation-spin 400ms infinite linear;\n  animation: Select-animation-spin 400ms infinite linear;\n  width: 16px;\n  height: 16px;\n  box-sizing: border-box;\n  border-radius: 50%;\n  border: 2px solid #ccc;\n  border-right-color: #333;\n  display: inline-block;\n  position: relative;\n  vertical-align: middle;\n}\n.Select-clear-zone {\n  -webkit-animation: Select-animation-fadeIn 200ms;\n  -o-animation: Select-animation-fadeIn 200ms;\n  animation: Select-animation-fadeIn 200ms;\n  color: #999;\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 17px;\n}\n.Select-clear-zone:hover {\n  color: #D0021B;\n}\n.Select-clear {\n  display: inline-block;\n  font-size: 18px;\n  line-height: 1;\n}\n.Select--multi .Select-clear-zone {\n  width: 17px;\n}\n.Select-arrow-zone {\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 25px;\n  padding-right: 5px;\n}\n.Select-arrow {\n  border-color: #999 transparent transparent;\n  border-style: solid;\n  border-width: 5px 5px 2.5px;\n  display: inline-block;\n  height: 0;\n  width: 0;\n}\n.is-open .Select-arrow,\n.Select-arrow-zone:hover > .Select-arrow {\n  border-top-color: #666;\n}\n@-webkit-keyframes Select-animation-fadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@keyframes Select-animation-fadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.Select-menu-outer {\n  border-bottom-right-radius: 4px;\n  border-bottom-left-radius: 4px;\n  background-color: #fff;\n  border: 1px solid #ccc;\n  border-top-color: #e6e6e6;\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n  box-sizing: border-box;\n  margin-top: -1px;\n  max-height: 200px;\n  position: absolute;\n  top: 100%;\n  width: 100%;\n  z-index: 1;\n  -webkit-overflow-scrolling: touch;\n}\n.Select-menu {\n  max-height: 198px;\n  overflow-y: auto;\n}\n.Select-option {\n  box-sizing: border-box;\n  color: #666666;\n  cursor: pointer;\n  display: block;\n  padding: 8px 10px;\n}\n.Select-option:last-child {\n  border-bottom-right-radius: 4px;\n  border-bottom-left-radius: 4px;\n}\n.Select-option.is-focused {\n  background-color: rgba(0, 126, 255, 0.08);\n  color: #333;\n}\n.Select-option.is-disabled {\n  color: #cccccc;\n  cursor: default;\n}\n.Select-noresults {\n  box-sizing: border-box;\n  color: #999999;\n  cursor: default;\n  display: block;\n  padding: 8px 10px;\n}\n.Select--multi .Select-input {\n  vertical-align: middle;\n  margin-left: 10px;\n  padding: 0;\n}\n.Select--multi.has-value .Select-input {\n  margin-left: 5px;\n}\n.Select--multi .Select-value {\n  background-color: rgba(0, 126, 255, 0.08);\n  border-radius: 2px;\n  border: 1px solid rgba(0, 126, 255, 0.24);\n  color: #007eff;\n  display: inline-block;\n  font-size: 0.9em;\n  line-height: 1.4;\n  margin-left: 5px;\n  margin-top: 5px;\n  vertical-align: top;\n}\n.Select--multi .Select-value-icon,\n.Select--multi .Select-value-label {\n  display: inline-block;\n  vertical-align: middle;\n}\n.Select--multi .Select-value-label {\n  border-bottom-right-radius: 2px;\n  border-top-right-radius: 2px;\n  cursor: default;\n  padding: 2px 5px;\n}\n.Select--multi a.Select-value-label {\n  color: #007eff;\n  cursor: pointer;\n  text-decoration: none;\n}\n.Select--multi a.Select-value-label:hover {\n  text-decoration: underline;\n}\n.Select--multi .Select-value-icon {\n  cursor: pointer;\n  border-bottom-left-radius: 2px;\n  border-top-left-radius: 2px;\n  border-right: 1px solid rgba(0, 126, 255, 0.24);\n  padding: 1px 5px 3px;\n}\n.Select--multi .Select-value-icon:hover,\n.Select--multi .Select-value-icon:focus {\n  background-color: rgba(0, 113, 230, 0.08);\n  color: #0071e6;\n}\n.Select--multi .Select-value-icon:active {\n  background-color: rgba(0, 126, 255, 0.24);\n}\n.Select--multi.is-disabled .Select-value {\n  background-color: #fcfcfc;\n  border: 1px solid #e3e3e3;\n  color: #333;\n}\n.Select--multi.is-disabled .Select-value-icon {\n  cursor: not-allowed;\n  border-right: 1px solid #e3e3e3;\n}\n.Select--multi.is-disabled .Select-value-icon:hover,\n.Select--multi.is-disabled .Select-value-icon:focus,\n.Select--multi.is-disabled .Select-value-icon:active {\n  background-color: #fcfcfc;\n}\n@keyframes Select-animation-spin {\n  to {\n    transform: rotate(1turn);\n  }\n}\n@-webkit-keyframes Select-animation-spin {\n  to {\n    -webkit-transform: rotate(1turn);\n  }\n}\nbody {\n  color: #333;\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  line-height: 1.4;\n  margin: 0;\n  padding: 0;\n}\na {\n  color: #007eff;\n  text-decoration: none;\n}\na:hover {\n  text-decoration: underline;\n}\n.container {\n  margin-left: auto;\n  margin-right: auto;\n  max-width: 400px;\n  padding: 0 30px;\n}\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\n.h1,\n.h2,\n.h3,\n.h4,\n.h5,\n.h6 {\n  color: black;\n  font-weight: 500;\n  line-height: 1;\n  margin-bottom: .66em;\n  margin-top: 0;\n}\nh1,\n.h1 {\n  font-size: 3em;\n}\nh2,\n.h2 {\n  font-size: 2em;\n  font-weight: 300;\n}\nh3,\n.h3 {\n  font-size: 1.25em;\n}\nh4,\n.h4 {\n  font-size: 1em;\n}\nh5,\n.h5 {\n  font-size: .85em;\n}\nh6,\n.h6 {\n  font-size: .75em;\n}\n.page-body,\n.page-footer,\n.page-header {\n  padding: 30px 0;\n}\n.page-header {\n  background-color: #007eff;\n  color: #bfdfff;\n}\n.page-header h1,\n.page-header h2,\n.page-header h3 {\n  color: white;\n}\n.page-header p {\n  font-size: 1.2em;\n  margin: 0;\n}\n.page-header a {\n  border-bottom: 1px solid rgba(255, 255, 255, 0.3);\n  color: white;\n  text-decoration: none;\n}\n.page-header a:hover,\n.page-header a:focus {\n  border-bottom-color: white;\n  outline: none;\n  text-decoration: none;\n}\n.page-subheader {\n  background-color: #e6f2ff;\n  line-height: 20px;\n  padding: 30px 0;\n}\n.page-subheader__button {\n  float: right;\n}\n.page-subheader__link {\n  border-bottom: 1px solid rgba(0, 126, 255, 0.3);\n  outline: none;\n  text-decoration: none;\n}\n.page-subheader__link:hover,\n.page-subheader__link:focus {\n  border-bottom-color: #007eff;\n  outline: none;\n  text-decoration: none;\n}\n.page-footer {\n  background-color: #fafafa;\n  color: #999;\n  padding: 30px 0;\n  text-align: center;\n}\n.page-footer a {\n  color: black;\n}\n@media (min-width: 480px) {\n  .page-body,\n  .page-header {\n    padding: 60px 0;\n  }\n  .page-header {\n    font-size: 1.4em;\n  }\n  .page-subheader {\n    font-size: 1.125em;\n    line-height: 28px;\n  }\n}\n.checkbox-list {\n  margin-top: .5em;\n  overflow: hidden;\n}\n.checkbox-list > .checkbox {\n  clear: left;\n  float: left;\n  margin-top: .5em;\n}\n.checkbox-control {\n  margin-right: .5em;\n  position: relative;\n  top: -1px;\n}\n.switcher {\n  color: #999;\n  cursor: default;\n  font-size: 12px;\n  margin: 10px 0;\n  text-transform: uppercase;\n}\n.switcher .link {\n  color: #007eff;\n  cursor: pointer;\n  font-weight: bold;\n  margin-left: 10px;\n}\n.switcher .link:hover {\n  text-decoration: underline;\n}\n.switcher .active {\n  color: #666;\n  font-weight: bold;\n  margin-left: 10px;\n}\n.section {\n  margin-bottom: 40px;\n}\n.hint {\n  font-size: .85em;\n  margin: 15px 0;\n  color: #666;\n}\n", ""]);
+	exports.push([module.id, "/**\n * React Select\n * ============\n * Created by Jed Watson and Joss Mackison for KeystoneJS, http://www.keystonejs.com/\n * https://twitter.com/jedwatson https://twitter.com/jossmackison https://twitter.com/keystonejs\n * MIT License: https://github.com/keystonejs/react-select\n*/\n.Select {\n  position: relative;\n}\n.Select,\n.Select div,\n.Select input,\n.Select span {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: inline-block;\n  max-width: 100px;\n  margin-left: 6px;\n}\n.Select.is-disabled > .Select-control {\n  background-color: #f9f9f9;\n}\n.Select.is-disabled > .Select-control:hover {\n  box-shadow: none;\n}\n.Select.is-disabled .Select-arrow-zone {\n  cursor: default;\n  pointer-events: none;\n}\n.Select-control {\n  background-color: #fff;\n  border-color: #d9d9d9 #ccc #b3b3b3;\n  border-radius: 4px;\n  border: 1px solid #ccc;\n  color: #333;\n  cursor: default;\n  display: table;\n  height: 36px;\n  outline: none;\n  overflow: hidden;\n  position: relative;\n  width: 100%;\n}\n.Select-control:hover {\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n}\n.is-searchable.is-open > .Select-control {\n  cursor: text;\n}\n.is-open > .Select-control {\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n  background: #fff;\n  border-color: #b3b3b3 #ccc #d9d9d9;\n}\n.is-open > .Select-control > .Select-arrow {\n  border-color: transparent transparent #999;\n  border-width: 0 5px 5px;\n}\n.is-searchable.is-focused:not(.is-open) > .Select-control {\n  cursor: text;\n}\n.is-focused:not(.is-open) > .Select-control {\n  border-color: #007eff;\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(0, 126, 255, 0.1);\n}\n.Select-placeholder,\n:not(.Select--multi) > .Select-control .Select-value {\n  bottom: 0;\n  color: #aaa;\n  left: 0;\n  line-height: 34px;\n  padding-left: 10px;\n  padding-right: 10px;\n  position: absolute;\n  right: 0;\n  top: 0;\n  max-width: 100%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value .Select-value-label,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value .Select-value-label {\n  color: #333;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label {\n  cursor: pointer;\n  text-decoration: none;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:hover,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:hover,\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:focus,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:focus {\n  color: #007eff;\n  outline: none;\n  text-decoration: underline;\n}\n.Select-input {\n  height: 34px;\n  padding-left: 10px;\n  padding-right: 10px;\n  vertical-align: middle;\n}\n.Select-input > input {\n  background: none transparent;\n  border: 0 none;\n  box-shadow: none;\n  cursor: default;\n  display: inline-block;\n  font-family: inherit;\n  font-size: inherit;\n  height: 34px;\n  margin: 0;\n  outline: none;\n  padding: 0;\n  -webkit-appearance: none;\n}\n.is-focused .Select-input > input {\n  cursor: text;\n}\n.has-value.is-pseudo-focused .Select-input {\n  opacity: 0;\n}\n.Select-control:not(.is-searchable) > .Select-input {\n  outline: none;\n}\n.Select-loading-zone {\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 16px;\n}\n.Select-loading {\n  -webkit-animation: Select-animation-spin 400ms infinite linear;\n  -o-animation: Select-animation-spin 400ms infinite linear;\n  animation: Select-animation-spin 400ms infinite linear;\n  width: 16px;\n  height: 16px;\n  box-sizing: border-box;\n  border-radius: 50%;\n  border: 2px solid #ccc;\n  border-right-color: #333;\n  display: inline-block;\n  position: relative;\n  vertical-align: middle;\n}\n.Select-clear-zone {\n  -webkit-animation: Select-animation-fadeIn 200ms;\n  -o-animation: Select-animation-fadeIn 200ms;\n  animation: Select-animation-fadeIn 200ms;\n  color: #999;\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 17px;\n}\n.Select-clear-zone:hover {\n  color: #D0021B;\n}\n.Select-clear {\n  display: inline-block;\n  font-size: 18px;\n  line-height: 1;\n}\n.Select--multi .Select-clear-zone {\n  width: 17px;\n}\n.Select-arrow-zone {\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 25px;\n  padding-right: 5px;\n}\n.Select-arrow {\n  border-color: #999 transparent transparent;\n  border-style: solid;\n  border-width: 5px 5px 2.5px;\n  display: inline-block;\n  height: 0;\n  width: 0;\n}\n.is-open .Select-arrow,\n.Select-arrow-zone:hover > .Select-arrow {\n  border-top-color: #666;\n}\n@-webkit-keyframes Select-animation-fadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@keyframes Select-animation-fadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.Select-menu-outer {\n  border-bottom-right-radius: 4px;\n  border-bottom-left-radius: 4px;\n  background-color: #fff;\n  border: 1px solid #ccc;\n  border-top-color: #e6e6e6;\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n  box-sizing: border-box;\n  margin-top: -1px;\n  max-height: 200px;\n  position: absolute;\n  top: 100%;\n  width: 100%;\n  z-index: 1;\n  -webkit-overflow-scrolling: touch;\n}\n.Select-menu {\n  max-height: 198px;\n  overflow-y: auto;\n}\n.Select-option {\n  box-sizing: border-box;\n  color: #666666;\n  cursor: pointer;\n  display: block;\n  padding: 8px 10px;\n}\n.Select-option:last-child {\n  border-bottom-right-radius: 4px;\n  border-bottom-left-radius: 4px;\n}\n.Select-option.is-focused {\n  background-color: rgba(0, 126, 255, 0.08);\n  color: #333;\n}\n.Select-option.is-disabled {\n  color: #cccccc;\n  cursor: default;\n}\n.Select-noresults {\n  box-sizing: border-box;\n  color: #999999;\n  cursor: default;\n  display: block;\n  padding: 8px 10px;\n}\n.Select--multi .Select-input {\n  vertical-align: middle;\n  margin-left: 10px;\n  padding: 0;\n}\n.Select--multi.has-value .Select-input {\n  margin-left: 5px;\n}\n.Select--multi .Select-value {\n  background-color: rgba(0, 126, 255, 0.08);\n  border-radius: 2px;\n  border: 1px solid rgba(0, 126, 255, 0.24);\n  color: #007eff;\n  display: inline-block;\n  font-size: 0.9em;\n  line-height: 1.4;\n  margin-left: 5px;\n  margin-top: 5px;\n  vertical-align: top;\n}\n.Select--multi .Select-value-icon,\n.Select--multi .Select-value-label {\n  display: inline-block;\n  vertical-align: middle;\n}\n.Select--multi .Select-value-label {\n  border-bottom-right-radius: 2px;\n  border-top-right-radius: 2px;\n  cursor: default;\n  padding: 2px 5px;\n}\n.Select--multi a.Select-value-label {\n  color: #007eff;\n  cursor: pointer;\n  text-decoration: none;\n}\n.Select--multi a.Select-value-label:hover {\n  text-decoration: underline;\n}\n.Select--multi .Select-value-icon {\n  cursor: pointer;\n  border-bottom-left-radius: 2px;\n  border-top-left-radius: 2px;\n  border-right: 1px solid rgba(0, 126, 255, 0.24);\n  padding: 1px 5px 3px;\n}\n.Select--multi .Select-value-icon:hover,\n.Select--multi .Select-value-icon:focus {\n  background-color: rgba(0, 113, 230, 0.08);\n  color: #0071e6;\n}\n.Select--multi .Select-value-icon:active {\n  background-color: rgba(0, 126, 255, 0.24);\n}\n.Select--multi.is-disabled .Select-value {\n  background-color: #fcfcfc;\n  border: 1px solid #e3e3e3;\n  color: #333;\n}\n.Select--multi.is-disabled .Select-value-icon {\n  cursor: not-allowed;\n  border-right: 1px solid #e3e3e3;\n}\n.Select--multi.is-disabled .Select-value-icon:hover,\n.Select--multi.is-disabled .Select-value-icon:focus,\n.Select--multi.is-disabled .Select-value-icon:active {\n  background-color: #fcfcfc;\n}\n@keyframes Select-animation-spin {\n  to {\n    transform: rotate(1turn);\n  }\n}\n@-webkit-keyframes Select-animation-spin {\n  to {\n    -webkit-transform: rotate(1turn);\n  }\n}\nbody {\n  color: #333;\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  line-height: 1.4;\n  margin: 0;\n  padding: 0;\n}\na {\n  color: #007eff;\n  text-decoration: none;\n}\na:hover {\n  text-decoration: underline;\n}\n.container {\n  margin-left: auto;\n  margin-right: auto;\n  max-width: 400px;\n  padding: 0 30px;\n}\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\n.h1,\n.h2,\n.h3,\n.h4,\n.h5,\n.h6 {\n  color: black;\n  font-weight: 500;\n  line-height: 1;\n  margin-bottom: .66em;\n  margin-top: 0;\n}\nh1,\n.h1 {\n  font-size: 3em;\n}\nh2,\n.h2 {\n  font-size: 2em;\n  font-weight: 300;\n}\nh3,\n.h3 {\n  font-size: 1.25em;\n}\nh4,\n.h4 {\n  font-size: 1em;\n}\nh5,\n.h5 {\n  font-size: .85em;\n}\nh6,\n.h6 {\n  font-size: .75em;\n}\n.page-body,\n.page-footer,\n.page-header {\n  padding: 30px 0;\n}\n.page-header {\n  background-color: #007eff;\n  color: #bfdfff;\n}\n.page-header h1,\n.page-header h2,\n.page-header h3 {\n  color: white;\n}\n.page-header p {\n  font-size: 1.2em;\n  margin: 0;\n}\n.page-header a {\n  border-bottom: 1px solid rgba(255, 255, 255, 0.3);\n  color: white;\n  text-decoration: none;\n}\n.page-header a:hover,\n.page-header a:focus {\n  border-bottom-color: white;\n  outline: none;\n  text-decoration: none;\n}\n.page-subheader {\n  background-color: #e6f2ff;\n  line-height: 20px;\n  padding: 30px 0;\n}\n.page-subheader__button {\n  float: right;\n}\n.page-subheader__link {\n  border-bottom: 1px solid rgba(0, 126, 255, 0.3);\n  outline: none;\n  text-decoration: none;\n}\n.page-subheader__link:hover,\n.page-subheader__link:focus {\n  border-bottom-color: #007eff;\n  outline: none;\n  text-decoration: none;\n}\n.page-footer {\n  background-color: #fafafa;\n  color: #999;\n  padding: 30px 0;\n  text-align: center;\n}\n.page-footer a {\n  color: black;\n}\n@media (min-width: 480px) {\n  .page-body,\n  .page-header {\n    padding: 60px 0;\n  }\n  .page-header {\n    font-size: 1.4em;\n  }\n  .page-subheader {\n    font-size: 1.125em;\n    line-height: 28px;\n  }\n}\n.checkbox-list {\n  margin-top: .5em;\n  overflow: hidden;\n}\n.checkbox-list > .checkbox {\n  clear: left;\n  float: left;\n  margin-top: .5em;\n}\n.checkbox-control {\n  margin-right: .5em;\n  position: relative;\n  top: -1px;\n}\n.switcher {\n  color: #999;\n  cursor: default;\n  font-size: 12px;\n  margin: 10px 0;\n  text-transform: uppercase;\n}\n.switcher .link {\n  color: #007eff;\n  cursor: pointer;\n  font-weight: bold;\n  margin-left: 10px;\n}\n.switcher .link:hover {\n  text-decoration: underline;\n}\n.switcher .active {\n  color: #666;\n  font-weight: bold;\n  margin-left: 10px;\n}\n.section {\n  margin-bottom: 40px;\n}\n.hint {\n  font-size: .85em;\n  margin: 15px 0;\n  color: #666;\n}\n", ""]);
 
 	// exports
 
-
-/***/ },
-/* 179 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactSelect = __webpack_require__(168);
-
-	var _reactSelect2 = _interopRequireDefault(_reactSelect);
-
-	var _stylesSelectCss = __webpack_require__(177);
-
-	var _stylesSelectCss2 = _interopRequireDefault(_stylesSelectCss);
-
-	var ValuesAsNumbersField = _react2['default'].createClass({
-		displayName: 'ValuesAsNumbersField',
-		propTypes: {
-			label: _react2['default'].PropTypes.string
-		},
-		getInitialState: function getInitialState() {
-			return {
-				matchPos: 'any',
-				matchValue: true,
-				matchLabel: true,
-				multi: false
-			};
-		},
-		onChangeMatchStart: function onChangeMatchStart(event) {
-			this.setState({
-				matchPos: event.target.checked ? 'start' : 'any'
-			});
-		},
-		onChangeMatchValue: function onChangeMatchValue(event) {
-			this.setState({
-				matchValue: event.target.checked
-			});
-		},
-		onChangeMatchLabel: function onChangeMatchLabel(event) {
-			this.setState({
-				matchLabel: event.target.checked
-			});
-		},
-		onChange: function onChange(value) {
-			this.setState({ value: value });
-			console.log('Numeric Select value changed to', value);
-		},
-		onChangeMulti: function onChangeMulti(event) {
-			this.setState({
-				multi: event.target.checked
-			});
-		},
-		render: function render() {
-			var matchProp = 'any';
-			if (this.state.matchLabel && !this.state.matchValue) {
-				matchProp = 'label';
-			}
-			if (!this.state.matchLabel && this.state.matchValue) {
-				matchProp = 'value';
-			}
-			return _react2['default'].createElement(
-				'div',
-				null,
-				_react2['default'].createElement(
-					'h4',
-					{ className: 'section-heading' },
-					this.props.label
-				),
-				_react2['default'].createElement(_reactSelect2['default'], {
-					placeholder: 'Salt Work Factor',
-					matchPos: this.state.matchPos,
-					matchProp: matchProp,
-					onChange: this.props.onSelect,
-					options: this.props.options,
-					simpleValue: true,
-					value: this.props.value,
-					required: true
-				})
-			);
-		}
-	});
-
-	module.exports = ValuesAsNumbersField;
 
 /***/ }
 /******/ ]);
