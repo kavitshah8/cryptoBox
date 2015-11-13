@@ -3,6 +3,7 @@
 import React from 'react';
 import $ from 'jquery';
 import request from 'superagent';
+import Spinner from 'react-spinkit';
 
 import OutputBox from './OutputBox.jsx';
 import InputBox from './InputBox.jsx';
@@ -10,19 +11,25 @@ import Select from './Select.jsx';
 
 var Form = React.createClass({
   getInitialState () {
-    return {inputPassword: '', hashedPassword: '', displayOutputBox: false,
-        options: [
-          { value: 10, label: '10' },
-          { value: 11, label: '11' },
-          { value: 12, label: '12' },
-          { value: 13, label: '13' },
-          { value: 14, label: '14' }
-        ],
-        matchPos: 'any',
-        matchValue: true,
-        value: '',
-        matchLabel: true,
-        multi: false
+    return {
+      inputPassword: '',
+      hashedPassword: '',
+      showOutputBox: false,
+      options: [
+        { value: 8, label: '8' },
+        { value: 9, label: '9' },
+        { value: 10, label: '10' },
+        { value: 11, label: '11' },
+        { value: 12, label: '12' },
+        { value: 13, label: '13' },
+        { value: 14, label: '14' }
+      ],
+      matchPos: 'any',
+      matchValue: true,
+      value: '',
+      matchLabel: true,
+      multi: false,
+      showSpinner: false
     };
   },
   handleUserInput (inputPassword) {
@@ -32,11 +39,15 @@ var Form = React.createClass({
     this.setState({value: value});
   },
   updateOutputBox (data) {
-    this.setState({hashedPassword: data.hash, displayOutputBox: true});
+    this.setState({hashedPassword: data.hash, showOutputBox: true});
   },
   onSubmit (e) {
     e.preventDefault();
-    var data = {inputPassword: this.state.inputPassword, SALT_WORK_FACTOR: this.state.value};
+    var data = {
+      inputPassword: this.state.inputPassword,
+      SALT_WORK_FACTOR: this.state.value,
+    };
+    this.setState({showSpinner: true});
     if (data.inputPassword === '') {
       return;
     }
@@ -51,18 +62,22 @@ var Form = React.createClass({
       .end(function(err, res){
         if (res.ok) {
           self.updateOutputBox(JSON.parse(res.text));
-          self.setState({inputPassword: ''});
+          self.setState({inputPassword: '', showSpinner: false});
         } else {
           console.error('/api/inputPassword', status, err.toString());
         }
       });
   },
   renderOutputBox () {
-    return !this.state.displayOutputBox ? null : (
-        <div>
-            <OutputBox hashedPassword={this.state.hashedPassword}/>
-        </div>
-    );
+    var ret;
+    if( this.state.showSpinner )
+      ret = <Spinner spinnerName='circle' />;
+    else if( this.state.showOutputBox ) {
+      ret = <div> <OutputBox hashedPassword={this.state.hashedPassword}/> </div>;
+    } else {
+      ret = null;
+    }
+    return ret;
   },
   render () {
     return(

@@ -36,3 +36,10 @@
 	vertical-align: top;
 	display: inline-block;
 }
+
+.circle-wrapper {
+	width: 100px !important;
+	height: 50px !important;
+	margin-left: auto;
+	margin-right: auto;
+}
