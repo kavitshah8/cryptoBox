@@ -32,6 +32,7 @@ var Form = React.createClass({
       showSpinner: false
     };
   },
+
   handleUserInput (inputPassword) {
     this.setState({inputPassword: inputPassword});
   },
@@ -68,7 +69,7 @@ var Form = React.createClass({
         }
       });
   },
-  renderOutputBox () {
+  renderOutputBoxOrSpinner () {
     var ret;
     if( this.state.showSpinner )
       ret = <Spinner spinnerName='circle' />;
@@ -85,7 +86,7 @@ var Form = React.createClass({
           <InputBox inputPassword={this.state.inputPassword} style={{margin: '10px'}} onUserInput={this.handleUserInput} />
           <Select options={this.state.options} style={{margin:'10px', width: '160px'}} value={this.state.value} onSelect={this.handleUserSelect} required/>
           <button className='formButton' type='submit' style={{margin: '10px'}}>Encrypt</button>
-          {this.renderOutputBox()}
+          {this.renderOutputBoxOrSpinner()}
         </form>
     );
   }

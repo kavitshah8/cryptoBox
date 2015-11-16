@@ -6,7 +6,9 @@ var InputBox = React.createClass({
     handleChange () {
         this.props.onUserInput(this.refs.inputPassword.value);
     },
-
+    componentDidMount () {
+      this.refs.inputPassword.focus();
+    },
     render () {
       return (
         <input
