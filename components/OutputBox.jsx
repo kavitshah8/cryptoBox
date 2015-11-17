@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-var OutputBox = React.createClass({
+export default React.createClass({
     render () {
       return (
         <input
@@ -14,5 +14,3 @@ var OutputBox = React.createClass({
       );
     }
 });
-
-export default OutputBox;

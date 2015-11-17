@@ -2,19 +2,21 @@
 
 import React from 'react';
 
-var InputBox = React.createClass({
+export default React.createClass({
     handleChange () {
         this.props.onUserInput(this.refs.inputPassword.value);
     },
     componentDidMount () {
-      this.refs.inputPassword.focus();
+      if (this.props.autoFocus) {
+        this.refs.inputPassword.focus();
+      }
     },
     render () {
       return (
         <input
           type='text'
           value={this.props.inputPassword}
-          placeholder='Enter a password to bcrypt'
+          placeholder={this.props.placeholder}
           ref='inputPassword'
           className='inputBox'
           onChange={this.handleChange}
@@ -22,5 +24,3 @@ var InputBox = React.createClass({
       );
     }
 });
-
-export default InputBox;
