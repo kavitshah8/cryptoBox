@@ -22,6 +22,13 @@ app.post('/api/inputPassword', function(req, res) {
   res.status(200).json({hash: hash});
 });
 
+app.post('/api/hashedPassword', function(req, res) {
+  var inputPassword = req.body.inputPassword;
+  var hashedPassword = req.body.hashedPassword;
+  var verified = bcrypt.compareSync(inputPassword, hashedPassword);
+  res.status(200).json({verified: verified});
+});
+
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
 });

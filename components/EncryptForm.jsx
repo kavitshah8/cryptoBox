@@ -63,7 +63,7 @@ export default React.createClass({
       .end(function(err, res){
         if (res.ok) {
           self.updateOutputBox(JSON.parse(res.text));
-          self.setState({inputPassword: '', showSpinner: false});
+          self.setState({showSpinner: false});
         } else {
           console.error('/api/inputPassword', status, err.toString());
         }
@@ -82,7 +82,7 @@ export default React.createClass({
   },
   render () {
     return(
-        <form className='formContainer'onSubmit={this.onSubmit}>
+        <form className='formContainer' onSubmit={this.onSubmit}>
           <InputBox inputPassword={this.state.inputPassword} autoFocus placeholder='Enter a password to bcrypt' style={{margin: '10px'}} onUserInput={this.handleUserInput} />
           <Select options={this.state.options} style={{margin:'10px', width: '160px'}} value={this.state.value} onSelect={this.handleUserSelect} required/>
           <button className='formButton' type='submit'>Encrypt</button>

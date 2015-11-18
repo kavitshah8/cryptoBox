@@ -20077,9 +20077,31 @@
 	      showOutputBox: false
 	    };
 	  },
-
-	  onSubmit: function onSubmit() {
-	    alert('Form Submitted');
+	  handleUserInput: function handleUserInput(inputPassword) {
+	    this.setState({ inputPassword: inputPassword });
+	  },
+	  handleHashedPassword: function handleHashedPassword(hashedPassword) {
+	    this.setState({ hashedPassword: hashedPassword });
+	  },
+	  onSubmit: function onSubmit(e) {
+	    e.preventDefault();
+	    var data = {
+	      inputPassword: this.state.inputPassword,
+	      hashedPassword: this.state.hashedPassword
+	    };
+	    _superagent2['default'].post('api/hashedPassword').send(data).type('json').end(function (err, res) {
+	      if (res.ok) {
+	        var res = JSON.parse(res.text);
+	        var verified = res.verified;
+	        if (verified) {
+	          alert('Match');
+	        } else {
+	          alert('No match');
+	        }
+	      } else {
+	        console.error('/api/hashedPassword', status, err.toString());
+	      }
+	    });
 	  },
 
 	  render: function render() {
@@ -20087,7 +20109,7 @@
 	      'form',
 	      { className: 'formContainer', onSubmit: this.onSubmit },
 	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.inputPassword, placeholder: 'Enter plain text to verify', style: { margin: '10px' }, onUserInput: this.handleUserInput }),
-	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.hashedPassword, placeholder: 'Enter hashed password to check against plain text', style: { margin: '10px' }, onUserInput: this.handleUserInput }),
+	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.hashedPassword, placeholder: 'Enter hashed password to check against plain text', style: { margin: '10px' }, onUserInput: this.handleHashedPassword }),
 	      _react2['default'].createElement(
 	        'button',
 	        { className: 'formButton', type: 'submit' },
@@ -30780,7 +30802,7 @@
 	    _superagent2['default'].post('api/inputPassword').send(data).type('json').end(function (err, res) {
 	      if (res.ok) {
 	        self.updateOutputBox(JSON.parse(res.text));
-	        self.setState({ inputPassword: '', showSpinner: false });
+	        self.setState({ showSpinner: false });
 	      } else {
 	        console.error('/api/inputPassword', status, err.toString());
 	      }
