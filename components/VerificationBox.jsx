@@ -3,10 +3,12 @@
 import React from 'react';
 
 export default React.createClass({
+
   render () {
-    return ( 
-      <div class='VerificationBox'>
-        {this.props.VerificationMessage}
+    return (
+      <div className='verificationBox'>
+        {this.props.unicode}
+        {this.props.verificationMessage}
       </div>
     );
   }

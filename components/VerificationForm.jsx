@@ -3,22 +3,20 @@
 import React from 'react';
 import $ from 'jquery';
 import request from 'superagent';
-import VerificationBox from './VerificationBox';
+
 import InputBox from './InputBox.jsx';
+import VerificationBox from './VerificationBox.jsx';
 
 export default React.createClass({
   getInitialState () {
     return {
       inputPassword: '',
       hashedPassword: '',
-      VerificationMessage: '',
+      isVerified: null,
+      verificationMessage: '',
+      unicode:'',
       isVerificationBoxVisible: false
     };
-  },
-  renderVerificationBox () {
-    if (isVerificationBoxVisible) {
-      return <VerificationBox VerificationMessage={this.VerificationMessage} />;
-    }
   },
   handleUserInput (inputPassword) {
     this.setState({inputPassword: inputPassword});
@@ -28,6 +26,7 @@ export default React.createClass({
   },
   onSubmit (e) {
     e.preventDefault();
+    var self = this;
     var data = {
       inputPassword: this.state.inputPassword,
       hashedPassword: this.state.hashedPassword
@@ -41,16 +40,19 @@ export default React.createClass({
           var res = JSON.parse(res.text);
           var verified = res.verified;
           if (verified) {
-            this.setState({VerificationMessage: 'Match.'});
-            // alert('Match');
+            self.setState({isVerified: true});
+            self.setState({verificationMessage:'Match.'});
+            self.setState({unicode: '\u2713'});
           } else {
-            this.setState({VerificationMessage: 'No match.'});
-            // alert('No match');
+            self.setState({isVerified: false});
+            self.setState({verificationMessage:'No match.'});
+            self.setState({unicode: '\u274c'});
           }
         } else {
           console.error('/api/hashedPassword', status, err.toString());
+          self.setState({isVerificationBoxVisible: false});
         }
-        this.setState({isVerificationBoxVisible: true});
+        self.setState({isVerificationBoxVisible: true});
       });
   },
 
@@ -59,8 +61,10 @@ export default React.createClass({
       <form className='formContainer' onSubmit={this.onSubmit}>
         <InputBox inputPassword={this.state.inputPassword} placeholder='Enter plain text to verify' style={{margin: '10px'}} onUserInput={this.handleUserInput} />
         <InputBox inputPassword={this.state.hashedPassword} placeholder='Enter hashed password to check against plain text' style={{margin: '10px'}} onUserInput={this.handleHashedPassword} />
-        <button className='formButton' type='submit'>Verify</button>
-        {this.renderVerificationBox()}
+        <div>
+          <button className='formButton' type='submit'>Verify</button>
+          <VerificationBox isVerified={this.state.isVerified} verificationMessage={this.state.verificationMessage} unicode={this.state.unicode} />
+        </div>
       </form>
     );
   }

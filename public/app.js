@@ -19685,7 +19685,7 @@
 
 
 	// module
-	exports.push([module.id, "#content {\n\tfont-size: 15px;\n}\n\n.formContainer {\n\tmargin: auto;\n\tmax-width: 600px;\n\tpadding: 50px;\n}\n\n.inputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 100%;\n\tpadding: 10px 10px;\n\tfont-size: 17px;\n}\n\n.outputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 100%;\n\tpadding: 10px 10px;\n\tfont-size: 17px;\n}\n\n.formButton {\n\tdisplay: inline;\n\theight: 35px;\n\twidth: 60px;\n\tmargin: 10px;\n}\n\n.default {\n\tmargin-left:20px;\n\tmargin-top:7px;\n\tvertical-align: top;\n\tdisplay: inline-block;\n}\n\n.circle-wrapper {\n\twidth: 100px !important;\n\theight: 50px !important;\n\tmargin-left: auto;\n\tmargin-right: auto;\n}\n", ""]);
+	exports.push([module.id, "#content {\n\tfont-size: 15px;\n}\n\n.formContainer {\n\tmargin: auto;\n\tmax-width: 600px;\n\tpadding: 50px;\n}\n\n.inputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 100%;\n\tpadding: 10px 10px;\n\tfont-size: 17px;\n}\n\n.outputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 100%;\n\tpadding: 10px 10px;\n\tfont-size: 17px;\n}\n\n.formButton {\n\tdisplay: inline;\n\theight: 35px;\n\twidth: 60px;\n\tmargin: 10px;\n}\n\n.default {\n\tmargin-left:20px;\n\tmargin-top:7px;\n\tvertical-align: top;\n\tdisplay: inline-block;\n}\n\n.circle-wrapper {\n\twidth: 100px !important;\n\theight: 50px !important;\n\tmargin-left: auto;\n\tmargin-right: auto;\n}\n\n.verificationBox {\n\tdisplay: inline-block;\n  height: 35px;\n  width: 80px;\n  margin-left: 50px;\n}\n", ""]);
 
 	// exports
 
@@ -20020,7 +20020,7 @@
 
 	var _VerificationFormJsx2 = _interopRequireDefault(_VerificationFormJsx);
 
-	var _EncryptFormJsx = __webpack_require__(170);
+	var _EncryptFormJsx = __webpack_require__(165);
 
 	var _EncryptFormJsx2 = _interopRequireDefault(_EncryptFormJsx);
 
@@ -20055,21 +20055,21 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _jquery = __webpack_require__(165);
+	var _jquery = __webpack_require__(166);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _superagent = __webpack_require__(166);
+	var _superagent = __webpack_require__(167);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
-	var _VerificationBox = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./VerificationBox\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-	var _VerificationBox2 = _interopRequireDefault(_VerificationBox);
-
-	var _InputBoxJsx = __webpack_require__(169);
+	var _InputBoxJsx = __webpack_require__(195);
 
 	var _InputBoxJsx2 = _interopRequireDefault(_InputBoxJsx);
+
+	var _VerificationBoxJsx = __webpack_require__(205);
+
+	var _VerificationBoxJsx2 = _interopRequireDefault(_VerificationBoxJsx);
 
 	exports['default'] = _react2['default'].createClass({
 	  displayName: 'VerificationForm',
@@ -20078,14 +20078,11 @@
 	    return {
 	      inputPassword: '',
 	      hashedPassword: '',
-	      VerificationMessage: '',
+	      isVerified: null,
+	      verificationMessage: '',
+	      unicode: '',
 	      isVerificationBoxVisible: false
 	    };
-	  },
-	  renderVerificationBox: function renderVerificationBox() {
-	    if (isVerificationBoxVisible) {
-	      return _react2['default'].createElement(_VerificationBox2['default'], { VerificationMessage: this.VerificationMessage });
-	    }
 	  },
 	  handleUserInput: function handleUserInput(inputPassword) {
 	    this.setState({ inputPassword: inputPassword });
@@ -20095,6 +20092,7 @@
 	  },
 	  onSubmit: function onSubmit(e) {
 	    e.preventDefault();
+	    var self = this;
 	    var data = {
 	      inputPassword: this.state.inputPassword,
 	      hashedPassword: this.state.hashedPassword
@@ -20104,16 +20102,19 @@
 	        var res = JSON.parse(res.text);
 	        var verified = res.verified;
 	        if (verified) {
-	          this.setState({ VerificationMessage: 'Match.' });
-	          // alert('Match');
+	          self.setState({ isVerified: true });
+	          self.setState({ verificationMessage: 'Match.' });
+	          self.setState({ unicode: '✓' });
 	        } else {
-	            this.setState({ VerificationMessage: 'No match.' });
-	            // alert('No match');
-	          }
-	      } else {
-	          console.error('/api/hashedPassword', status, err.toString());
+	          self.setState({ isVerified: false });
+	          self.setState({ verificationMessage: 'No match.' });
+	          self.setState({ unicode: '❌' });
 	        }
-	      this.setState({ isVerificationBoxVisible: true });
+	      } else {
+	        console.error('/api/hashedPassword', status, err.toString());
+	        self.setState({ isVerificationBoxVisible: false });
+	      }
+	      self.setState({ isVerificationBoxVisible: true });
 	    });
 	  },
 
@@ -20124,11 +20125,15 @@
 	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.inputPassword, placeholder: 'Enter plain text to verify', style: { margin: '10px' }, onUserInput: this.handleUserInput }),
 	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.hashedPassword, placeholder: 'Enter hashed password to check against plain text', style: { margin: '10px' }, onUserInput: this.handleHashedPassword }),
 	      _react2['default'].createElement(
-	        'button',
-	        { className: 'formButton', type: 'submit' },
-	        'Verify'
-	      ),
-	      this.renderVerificationBox()
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'button',
+	          { className: 'formButton', type: 'submit' },
+	          'Verify'
+	        ),
+	        _react2['default'].createElement(_VerificationBoxJsx2['default'], { isVerified: this.state.isVerified, verificationMessage: this.state.verificationMessage, unicode: this.state.unicode })
+	      )
 	    );
 	  }
 	});
@@ -20136,6 +20141,128 @@
 
 /***/ },
 /* 165 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jquery = __webpack_require__(166);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _superagent = __webpack_require__(167);
+
+	var _superagent2 = _interopRequireDefault(_superagent);
+
+	var _reactSpinkit = __webpack_require__(170);
+
+	var _reactSpinkit2 = _interopRequireDefault(_reactSpinkit);
+
+	var _OutputBoxJsx = __webpack_require__(194);
+
+	var _OutputBoxJsx2 = _interopRequireDefault(_OutputBoxJsx);
+
+	var _InputBoxJsx = __webpack_require__(195);
+
+	var _InputBoxJsx2 = _interopRequireDefault(_InputBoxJsx);
+
+	var _SelectJsx = __webpack_require__(196);
+
+	var _SelectJsx2 = _interopRequireDefault(_SelectJsx);
+
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'EncryptForm',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      inputPassword: '',
+	      hashedPassword: '',
+	      showOutputBox: false,
+	      options: [{ value: 8, label: '8' }, { value: 9, label: '9' }, { value: 10, label: '10' }, { value: 11, label: '11' }, { value: 12, label: '12' }, { value: 13, label: '13' }, { value: 14, label: '14' }],
+	      matchPos: 'any',
+	      matchValue: true,
+	      value: '',
+	      matchLabel: true,
+	      multi: false,
+	      showSpinner: false
+	    };
+	  },
+
+	  handleUserInput: function handleUserInput(inputPassword) {
+	    this.setState({ inputPassword: inputPassword });
+	  },
+	  handleUserSelect: function handleUserSelect(value) {
+	    this.setState({ value: value });
+	  },
+	  updateOutputBox: function updateOutputBox(data) {
+	    this.setState({ hashedPassword: data.hash, showOutputBox: true });
+	  },
+	  onSubmit: function onSubmit(e) {
+	    e.preventDefault();
+	    var data = {
+	      inputPassword: this.state.inputPassword,
+	      SALT_WORK_FACTOR: this.state.value
+	    };
+	    this.setState({ showSpinner: true });
+	    if (data.inputPassword === '') {
+	      return;
+	    }
+	    if (data.SALT_WORK_FACTOR === '') {
+	      data.SALT_WORK_FACTOR = 12;
+	    }
+	    var self = this;
+	    _superagent2['default'].post('api/inputPassword').send(data).type('json').end(function (err, res) {
+	      if (res.ok) {
+	        self.updateOutputBox(JSON.parse(res.text));
+	        self.setState({ showSpinner: false });
+	      } else {
+	        console.error('/api/inputPassword', status, err.toString());
+	      }
+	    });
+	  },
+	  renderOutputBoxOrSpinner: function renderOutputBoxOrSpinner() {
+	    var ret;
+	    if (this.state.showSpinner) ret = _react2['default'].createElement(_reactSpinkit2['default'], { spinnerName: 'circle' });else if (this.state.showOutputBox) {
+	      ret = _react2['default'].createElement(
+	        'div',
+	        null,
+	        ' ',
+	        _react2['default'].createElement(_OutputBoxJsx2['default'], { hashedPassword: this.state.hashedPassword }),
+	        ' '
+	      );
+	    } else {
+	      ret = null;
+	    }
+	    return ret;
+	  },
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'form',
+	      { className: 'formContainer', onSubmit: this.onSubmit },
+	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.inputPassword, autoFocus: true, placeholder: 'Enter a password to bcrypt', style: { margin: '10px' }, onUserInput: this.handleUserInput }),
+	      _react2['default'].createElement(_SelectJsx2['default'], { options: this.state.options, style: { margin: '10px', width: '160px' }, value: this.state.value, onSelect: this.handleUserSelect, required: true }),
+	      _react2['default'].createElement(
+	        'button',
+	        { className: 'formButton', type: 'submit' },
+	        'Encrypt'
+	      ),
+	      this.renderOutputBoxOrSpinner()
+	    );
+	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -29331,15 +29458,15 @@
 
 
 /***/ },
-/* 166 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var Emitter = __webpack_require__(167);
-	var reduce = __webpack_require__(168);
+	var Emitter = __webpack_require__(168);
+	var reduce = __webpack_require__(169);
 
 	/**
 	 * Root reference for iframes.
@@ -30494,7 +30621,7 @@
 
 
 /***/ },
-/* 167 */
+/* 168 */
 /***/ function(module, exports) {
 
 	
@@ -30664,7 +30791,7 @@
 
 
 /***/ },
-/* 168 */
+/* 169 */
 /***/ function(module, exports) {
 
 	
@@ -30693,169 +30820,7 @@
 	};
 
 /***/ },
-/* 169 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	exports['default'] = _react2['default'].createClass({
-	  displayName: 'InputBox',
-
-	  handleChange: function handleChange() {
-	    this.props.onUserInput(this.refs.inputPassword.value);
-	  },
-	  componentDidMount: function componentDidMount() {
-	    if (this.props.autoFocus) {
-	      this.refs.inputPassword.focus();
-	    }
-	  },
-	  render: function render() {
-	    return _react2['default'].createElement('input', {
-	      type: 'text',
-	      value: this.props.inputPassword,
-	      placeholder: this.props.placeholder,
-	      ref: 'inputPassword',
-	      className: 'inputBox',
-	      onChange: this.handleChange,
-	      required: true });
-	  }
-	});
-	module.exports = exports['default'];
-
-/***/ },
 /* 170 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _jquery = __webpack_require__(165);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _superagent = __webpack_require__(166);
-
-	var _superagent2 = _interopRequireDefault(_superagent);
-
-	var _reactSpinkit = __webpack_require__(171);
-
-	var _reactSpinkit2 = _interopRequireDefault(_reactSpinkit);
-
-	var _OutputBoxJsx = __webpack_require__(195);
-
-	var _OutputBoxJsx2 = _interopRequireDefault(_OutputBoxJsx);
-
-	var _InputBoxJsx = __webpack_require__(169);
-
-	var _InputBoxJsx2 = _interopRequireDefault(_InputBoxJsx);
-
-	var _SelectJsx = __webpack_require__(196);
-
-	var _SelectJsx2 = _interopRequireDefault(_SelectJsx);
-
-	exports['default'] = _react2['default'].createClass({
-	  displayName: 'EncryptForm',
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      inputPassword: '',
-	      hashedPassword: '',
-	      showOutputBox: false,
-	      options: [{ value: 8, label: '8' }, { value: 9, label: '9' }, { value: 10, label: '10' }, { value: 11, label: '11' }, { value: 12, label: '12' }, { value: 13, label: '13' }, { value: 14, label: '14' }],
-	      matchPos: 'any',
-	      matchValue: true,
-	      value: '',
-	      matchLabel: true,
-	      multi: false,
-	      showSpinner: false
-	    };
-	  },
-
-	  handleUserInput: function handleUserInput(inputPassword) {
-	    this.setState({ inputPassword: inputPassword });
-	  },
-	  handleUserSelect: function handleUserSelect(value) {
-	    this.setState({ value: value });
-	  },
-	  updateOutputBox: function updateOutputBox(data) {
-	    this.setState({ hashedPassword: data.hash, showOutputBox: true });
-	  },
-	  onSubmit: function onSubmit(e) {
-	    e.preventDefault();
-	    var data = {
-	      inputPassword: this.state.inputPassword,
-	      SALT_WORK_FACTOR: this.state.value
-	    };
-	    this.setState({ showSpinner: true });
-	    if (data.inputPassword === '') {
-	      return;
-	    }
-	    if (data.SALT_WORK_FACTOR === '') {
-	      data.SALT_WORK_FACTOR = 12;
-	    }
-	    var self = this;
-	    _superagent2['default'].post('api/inputPassword').send(data).type('json').end(function (err, res) {
-	      if (res.ok) {
-	        self.updateOutputBox(JSON.parse(res.text));
-	        self.setState({ showSpinner: false });
-	      } else {
-	        console.error('/api/inputPassword', status, err.toString());
-	      }
-	    });
-	  },
-	  renderOutputBoxOrSpinner: function renderOutputBoxOrSpinner() {
-	    var ret;
-	    if (this.state.showSpinner) ret = _react2['default'].createElement(_reactSpinkit2['default'], { spinnerName: 'circle' });else if (this.state.showOutputBox) {
-	      ret = _react2['default'].createElement(
-	        'div',
-	        null,
-	        ' ',
-	        _react2['default'].createElement(_OutputBoxJsx2['default'], { hashedPassword: this.state.hashedPassword }),
-	        ' '
-	      );
-	    } else {
-	      ret = null;
-	    }
-	    return ret;
-	  },
-	  render: function render() {
-	    return _react2['default'].createElement(
-	      'form',
-	      { className: 'formContainer', onSubmit: this.onSubmit },
-	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.inputPassword, autoFocus: true, placeholder: 'Enter a password to bcrypt', style: { margin: '10px' }, onUserInput: this.handleUserInput }),
-	      _react2['default'].createElement(_SelectJsx2['default'], { options: this.state.options, style: { margin: '10px', width: '160px' }, value: this.state.value, onSelect: this.handleUserSelect, required: true }),
-	      _react2['default'].createElement(
-	        'button',
-	        { className: 'formButton', type: 'submit' },
-	        'Encrypt'
-	      ),
-	      this.renderOutputBoxOrSpinner()
-	    );
-	  }
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Generated by CoffeeScript 1.9.1
@@ -30863,7 +30828,7 @@
 
 	React = __webpack_require__(1);
 
-	cx = __webpack_require__(172);
+	cx = __webpack_require__(171);
 
 	objectAssign = __webpack_require__(39);
 
@@ -30893,11 +30858,11 @@
 	      classes = classes + " " + this.props.className;
 	    }
 	    if (!this.props.noFadeIn) {
-	      __webpack_require__(173);
+	      __webpack_require__(172);
 	    }
 	    switch (this.props.spinnerName) {
 	      case "three-bounce":
-	        __webpack_require__(175);
+	        __webpack_require__(174);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "three-bounce " + classes
 	        }), React.createElement("div", {
@@ -30908,7 +30873,7 @@
 	          "className": "bounce3"
 	        }));
 	      case "double-bounce":
-	        __webpack_require__(177);
+	        __webpack_require__(176);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "double-bounce " + classes
 	        }), React.createElement("div", {
@@ -30917,14 +30882,14 @@
 	          "className": "double-bounce2"
 	        }));
 	      case "rotating-plane":
-	        __webpack_require__(179);
+	        __webpack_require__(178);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": classes
 	        }), React.createElement("div", {
 	          "className": "rotating-plane"
 	        }));
 	      case "wave":
-	        __webpack_require__(181);
+	        __webpack_require__(180);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "wave " + classes
 	        }), React.createElement("div", {
@@ -30939,7 +30904,7 @@
 	          "className": "rect5"
 	        }));
 	      case "wandering-cubes":
-	        __webpack_require__(183);
+	        __webpack_require__(182);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "wandering-cubes " + classes
 	        }), React.createElement("div", {
@@ -30948,14 +30913,14 @@
 	          "className": "cube2"
 	        }));
 	      case "pulse":
-	        __webpack_require__(185);
+	        __webpack_require__(184);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": classes
 	        }), React.createElement("div", {
 	          "className": "pulse"
 	        }));
 	      case "chasing-dots":
-	        __webpack_require__(187);
+	        __webpack_require__(186);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": classes
 	        }), React.createElement("div", {
@@ -30966,7 +30931,7 @@
 	          "className": "dot2"
 	        })));
 	      case "circle":
-	        __webpack_require__(189);
+	        __webpack_require__(188);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "circle-wrapper " + classes
 	        }), React.createElement("div", {
@@ -30995,7 +30960,7 @@
 	          "className": "circle12 circle"
 	        }));
 	      case "cube-grid":
-	        __webpack_require__(191);
+	        __webpack_require__(190);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "cube-grid " + classes
 	        }), React.createElement("div", {
@@ -31018,7 +30983,7 @@
 	          "className": "cube"
 	        }));
 	      case "wordpress":
-	        __webpack_require__(193);
+	        __webpack_require__(192);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": classes
 	        }), React.createElement("div", {
@@ -31032,7 +30997,7 @@
 
 
 /***/ },
-/* 172 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -31081,13 +31046,13 @@
 
 
 /***/ },
-/* 173 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(174);
+	var content = __webpack_require__(173);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31107,7 +31072,7 @@
 	}
 
 /***/ },
-/* 174 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31121,13 +31086,13 @@
 
 
 /***/ },
-/* 175 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(176);
+	var content = __webpack_require__(175);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31147,7 +31112,7 @@
 	}
 
 /***/ },
-/* 176 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31161,13 +31126,13 @@
 
 
 /***/ },
-/* 177 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(178);
+	var content = __webpack_require__(177);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31187,7 +31152,7 @@
 	}
 
 /***/ },
-/* 178 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31201,13 +31166,13 @@
 
 
 /***/ },
-/* 179 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(180);
+	var content = __webpack_require__(179);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31227,7 +31192,7 @@
 	}
 
 /***/ },
-/* 180 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31241,13 +31206,13 @@
 
 
 /***/ },
-/* 181 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(182);
+	var content = __webpack_require__(181);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31267,7 +31232,7 @@
 	}
 
 /***/ },
-/* 182 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31281,13 +31246,13 @@
 
 
 /***/ },
-/* 183 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(184);
+	var content = __webpack_require__(183);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31307,7 +31272,7 @@
 	}
 
 /***/ },
-/* 184 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31321,13 +31286,13 @@
 
 
 /***/ },
-/* 185 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(186);
+	var content = __webpack_require__(185);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31347,7 +31312,7 @@
 	}
 
 /***/ },
-/* 186 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31361,13 +31326,13 @@
 
 
 /***/ },
-/* 187 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(188);
+	var content = __webpack_require__(187);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31387,7 +31352,7 @@
 	}
 
 /***/ },
-/* 188 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31401,13 +31366,13 @@
 
 
 /***/ },
-/* 189 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(190);
+	var content = __webpack_require__(189);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31427,7 +31392,7 @@
 	}
 
 /***/ },
-/* 190 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31441,13 +31406,13 @@
 
 
 /***/ },
-/* 191 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(192);
+	var content = __webpack_require__(191);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31467,7 +31432,7 @@
 	}
 
 /***/ },
-/* 192 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31481,13 +31446,13 @@
 
 
 /***/ },
-/* 193 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(194);
+	var content = __webpack_require__(193);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31507,7 +31472,7 @@
 	}
 
 /***/ },
-/* 194 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31521,7 +31486,7 @@
 
 
 /***/ },
-/* 195 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31546,6 +31511,46 @@
 	      className: 'outputBox',
 	      value: this.props.hashedPassword,
 	      style: { cursor: 'not-allowed', backgroundColor: '#eeeeee' } });
+	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 195 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'InputBox',
+
+	  handleChange: function handleChange() {
+	    this.props.onUserInput(this.refs.inputPassword.value);
+	  },
+	  componentDidMount: function componentDidMount() {
+	    if (this.props.autoFocus) {
+	      this.refs.inputPassword.focus();
+	    }
+	  },
+	  render: function render() {
+	    return _react2['default'].createElement('input', {
+	      type: 'text',
+	      value: this.props.inputPassword,
+	      placeholder: this.props.placeholder,
+	      ref: 'inputPassword',
+	      className: 'inputBox',
+	      onChange: this.handleChange,
+	      required: true });
 	  }
 	});
 	module.exports = exports['default'];
@@ -33006,6 +33011,36 @@
 
 	// exports
 
+
+/***/ },
+/* 205 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'VerificationBox',
+
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: 'verificationBox' },
+	      this.props.unicode,
+	      this.props.verificationMessage
+	    );
+	  }
+	});
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

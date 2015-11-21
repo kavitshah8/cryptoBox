@@ -44,3 +44,10 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.verificationBox {
+	display: inline-block;
+  height: 35px;
+  width: 80px;
+  margin-left: 50px;
+}

@@ -7,7 +7,8 @@ var bcrypt = require('bcryptjs');
 var app = express();
 
 app.set('port', (process.env.PORT || 3000));
-// app.use('/', express.static(path.join(__dirname, 'public/index.html')));
+
+// request is in raw text format. bodyParser converts the raw text in JSON format, which is available on req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
