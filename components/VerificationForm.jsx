@@ -3,7 +3,7 @@
 import React from 'react';
 import $ from 'jquery';
 import request from 'superagent';
-
+import VerificationBox from './VerificationBox';
 import InputBox from './InputBox.jsx';
 
 export default React.createClass({
@@ -11,8 +11,14 @@ export default React.createClass({
     return {
       inputPassword: '',
       hashedPassword: '',
-      showOutputBox: false,
+      VerificationMessage: '',
+      isVerificationBoxVisible: false
     };
+  },
+  renderVerificationBox () {
+    if (isVerificationBoxVisible) {
+      return <VerificationBox VerificationMessage={this.VerificationMessage} />;
+    }
   },
   handleUserInput (inputPassword) {
     this.setState({inputPassword: inputPassword});
@@ -35,13 +41,16 @@ export default React.createClass({
           var res = JSON.parse(res.text);
           var verified = res.verified;
           if (verified) {
-            alert('Match');
+            this.setState({VerificationMessage: 'Match.'});
+            // alert('Match');
           } else {
-            alert('No match');
+            this.setState({VerificationMessage: 'No match.'});
+            // alert('No match');
           }
         } else {
           console.error('/api/hashedPassword', status, err.toString());
         }
+        this.setState({isVerificationBoxVisible: true});
       });
   },
 
@@ -51,6 +60,7 @@ export default React.createClass({
         <InputBox inputPassword={this.state.inputPassword} placeholder='Enter plain text to verify' style={{margin: '10px'}} onUserInput={this.handleUserInput} />
         <InputBox inputPassword={this.state.hashedPassword} placeholder='Enter hashed password to check against plain text' style={{margin: '10px'}} onUserInput={this.handleHashedPassword} />
         <button className='formButton' type='submit'>Verify</button>
+        {this.renderVerificationBox()}
       </form>
     );
   }

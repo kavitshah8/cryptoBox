@@ -20063,6 +20063,10 @@
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
+	var _VerificationBox = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./VerificationBox\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+	var _VerificationBox2 = _interopRequireDefault(_VerificationBox);
+
 	var _InputBoxJsx = __webpack_require__(169);
 
 	var _InputBoxJsx2 = _interopRequireDefault(_InputBoxJsx);
@@ -20074,8 +20078,14 @@
 	    return {
 	      inputPassword: '',
 	      hashedPassword: '',
-	      showOutputBox: false
+	      VerificationMessage: '',
+	      isVerificationBoxVisible: false
 	    };
+	  },
+	  renderVerificationBox: function renderVerificationBox() {
+	    if (isVerificationBoxVisible) {
+	      return _react2['default'].createElement(_VerificationBox2['default'], { VerificationMessage: this.VerificationMessage });
+	    }
 	  },
 	  handleUserInput: function handleUserInput(inputPassword) {
 	    this.setState({ inputPassword: inputPassword });
@@ -20094,13 +20104,16 @@
 	        var res = JSON.parse(res.text);
 	        var verified = res.verified;
 	        if (verified) {
-	          alert('Match');
+	          this.setState({ VerificationMessage: 'Match.' });
+	          // alert('Match');
 	        } else {
-	          alert('No match');
-	        }
+	            this.setState({ VerificationMessage: 'No match.' });
+	            // alert('No match');
+	          }
 	      } else {
-	        console.error('/api/hashedPassword', status, err.toString());
-	      }
+	          console.error('/api/hashedPassword', status, err.toString());
+	        }
+	      this.setState({ isVerificationBoxVisible: true });
 	    });
 	  },
 
@@ -20114,7 +20127,8 @@
 	        'button',
 	        { className: 'formButton', type: 'submit' },
 	        'Verify'
-	      )
+	      ),
+	      this.renderVerificationBox()
 	    );
 	  }
 	});
