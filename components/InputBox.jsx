@@ -18,7 +18,7 @@ export default React.createClass({
           value={this.props.inputPassword}
           placeholder={this.props.placeholder}
           ref='inputPassword'
-          className='inputBox'
+          className="inputBox"
           onChange={this.handleChange}
           required />
       );

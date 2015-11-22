@@ -19685,7 +19685,7 @@
 
 
 	// module
-	exports.push([module.id, "#content {\n\tfont-size: 12px;\n}\n.container {\n\tdisplay: inline-flex;\n}\n.formContainer {\n\tdisplay: inline-block;\n\tmargin: 30px;\n\tmax-width: 1200px;\n\tpadding: 50px;\n}\n\n.inputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 500px;\n\tpadding: 10px;\n\tfont-size: 12px;\n\tfont-weight: bold;\n}\n\n.outputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 500px;\n\tpadding: 10px;\n\tfont-size: 12px;\n\tfont-weight: bold;\n}\n\n.verification-box {\n\tmargin: 15px;\n\theight: 35px;\n\twidth: 500px;\n\tpadding: 10px;\n\tfont-size: 12px;\n\tfont-weight: bold;\n}\n\n.verfied {\n\t\tbackground-color: green;\n}\n\n.unverfied {\n\t\tbackground-color: red;\n}\n\n.formButton {\n\theight: 35px;\n\twidth: 60px;\n\tmargin: 15px;\n}\n\n.default {\n\tdisplay: inline-block;\n\tmargin-left:20px;\n\tmargin-top:7px;\n\tvertical-align: top;\n\tfont-weight: bold;\n\tcolor: black;\n}\n\n.circle-wrapper {\n\twidth: 100px !important;\n\theight: 50px !important;\n\tmargin-left: auto;\n\tmargin-right: auto;\n}\n", ""]);
+	exports.push([module.id, "#content {\n\tfont-size: 12px;\n}\n.container {\n\tdisplay: inline-flex;\n}\n.formContainer {\n\tdisplay: inline-block;\n\tmargin: 30px;\n\tmax-width: 1200px;\n\tpadding: 50px;\n}\n\n.inputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 500px;\n\tpadding: 10px;\n\tfont-size: 12px;\n\tfont-weight: bold;\n}\n\n.outputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 500px;\n\tpadding: 10px;\n\tfont-size: 12px;\n\tfont-weight: bold;\n}\n\n.verification-box {\n\tmargin: 15px;\n\twidth: 500px;\n\tpadding: 7px;\n\tfont-size: 15px;\n\tfont-weight: bold;\n\tcolor: white;\n\ttext-align: center;\n}\n\n.verified {\n\t\tbackground-color: #43ac6a;\n}\n\n.unverified {\n\t\tbackground-color: #f04124;\n}\n\n.formButton {\n\theight: 35px;\n\twidth: 60px;\n\tmargin: 15px;\n}\n\n.default {\n\tdisplay: inline-block;\n\tmargin-left:20px;\n\tmargin-top:7px;\n\tvertical-align: top;\n\tfont-weight: bold;\n\tcolor: black;\n}\n\n.circle-wrapper {\n\twidth: 100px !important;\n\theight: 50px !important;\n\tmargin-left: auto;\n\tmargin-right: auto;\n}\n", ""]);
 
 	// exports
 
@@ -20062,6 +20062,10 @@
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
+	var _reactSpinkit = __webpack_require__(171);
+
+	var _reactSpinkit2 = _interopRequireDefault(_reactSpinkit);
+
 	var _InputBoxJsx = __webpack_require__(169);
 
 	var _InputBoxJsx2 = _interopRequireDefault(_InputBoxJsx);
@@ -20078,7 +20082,8 @@
 	    return {
 	      inputPassword: '',
 	      hashedPassword: '',
-	      isVerificationBoxVisible: false
+	      isVerificationBoxVisible: false,
+	      showSpinner: false
 	    };
 	  },
 	  handleUserInput: function handleUserInput(inputPassword) {
@@ -20094,10 +20099,12 @@
 	      inputPassword: this.state.inputPassword,
 	      hashedPassword: this.state.hashedPassword
 	    };
+	    this.setState({ showSpinner: true });
 	    _superagent2['default'].post('api/hashedPassword').send(data).type('json').end(function (err, res) {
 	      if (res.ok) {
 	        var res = JSON.parse(res.text);
 	        var verified = res.verified;
+	        self.setState({ showSpinner: false });
 	        if (verified) {
 	          self.setState({ isVerified: true });
 	        } else {
@@ -20111,6 +20118,9 @@
 	    });
 	  },
 	  renderVerificationBox: function renderVerificationBox() {
+	    if (this.state.showSpinner) {
+	      return _react2['default'].createElement(_reactSpinkit2['default'], { spinnerName: 'circle' });
+	    }
 	    if (this.state.isVerified === undefined) {
 	      return;
 	    }
@@ -20131,8 +20141,8 @@
 	    return _react2['default'].createElement(
 	      'form',
 	      { className: 'formContainer', onSubmit: this.onSubmit },
-	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.inputPassword, placeholder: 'Enter plain text to verify', style: { margin: '10px' }, onUserInput: this.handleUserInput }),
-	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.hashedPassword, placeholder: 'Enter hashed password to check against plain text', style: { margin: '10px' }, onUserInput: this.handleHashedPassword }),
+	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.inputPassword, placeholder: 'Enter plain text to verify', onUserInput: this.handleUserInput }),
+	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.hashedPassword, placeholder: 'Enter hashed password to check against plain text', onUserInput: this.handleHashedPassword }),
 	      _react2['default'].createElement(
 	        'div',
 	        null,

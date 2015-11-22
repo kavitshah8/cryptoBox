@@ -71,9 +71,9 @@ export default React.createClass({
   },
   renderOutputBoxOrSpinner () {
     var ret;
-    if( this.state.showSpinner )
+    if (this.state.showSpinner)
       ret = <Spinner spinnerName='circle' />;
-    else if( this.state.showOutputBox ) {
+    else if (this.state.showOutputBox) {
       ret = <div> <OutputBox hashedPassword={this.state.hashedPassword}/> </div>;
     } else {
       ret = null;

@@ -31,19 +31,20 @@
 
 .verification-box {
 	margin: 15px;
-	height: 35px;
 	width: 500px;
-	padding: 10px;
-	font-size: 12px;
+	padding: 7px;
+	font-size: 15px;
 	font-weight: bold;
+	color: white;
+	text-align: center;
 }
 
-.verfied {
-		background-color: green;
+.verified {
+		background-color: #43ac6a;
 }
 
-.unverfied {
-		background-color: red;
+.unverified {
+		background-color: #f04124;
 }
 
 .formButton {

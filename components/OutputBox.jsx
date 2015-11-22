@@ -8,7 +8,7 @@ export default React.createClass({
         <input
           readOnly
           type='text'
-          className='outputBox'
+          className="outputBox"
           value={this.props.hashedPassword}
           style={{cursor: 'not-allowed', backgroundColor: '#eeeeee'}} />
       );

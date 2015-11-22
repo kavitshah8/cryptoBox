@@ -3,6 +3,7 @@
 import React from 'react';
 import $ from 'jquery';
 import request from 'superagent';
+import Spinner from 'react-spinkit';
 
 import InputBox from './InputBox.jsx';
 
@@ -16,7 +17,8 @@ export default React.createClass({
     return {
       inputPassword: '',
       hashedPassword: '',
-      isVerificationBoxVisible: false
+      isVerificationBoxVisible: false,
+      showSpinner: false
     };
   },
   handleUserInput (inputPassword) {
@@ -32,6 +34,7 @@ export default React.createClass({
       inputPassword: this.state.inputPassword,
       hashedPassword: this.state.hashedPassword
     };
+    this.setState({showSpinner: true});
     request
       .post('api/hashedPassword')
       .send(data)
@@ -40,6 +43,7 @@ export default React.createClass({
         if (res.ok) {
           var res = JSON.parse(res.text);
           var verified = res.verified;
+          self.setState({showSpinner: false});
           if (verified) {
             self.setState({isVerified: true});
           } else {
@@ -53,6 +57,9 @@ export default React.createClass({
       });
   },
   renderVerificationBox () {
+      if (this.state.showSpinner) {
+        return (<Spinner spinnerName='circle' />);
+      }
       if (this.state.isVerified === undefined) {
         return;
       }
@@ -72,10 +79,10 @@ export default React.createClass({
   render () {
     return (
       <form className='formContainer' onSubmit={this.onSubmit}>
-        <InputBox inputPassword={this.state.inputPassword} placeholder='Enter plain text to verify' style={{margin: '10px'}} onUserInput={this.handleUserInput} />
-        <InputBox inputPassword={this.state.hashedPassword} placeholder='Enter hashed password to check against plain text' style={{margin: '10px'}} onUserInput={this.handleHashedPassword} />
+        <InputBox inputPassword={this.state.inputPassword} placeholder='Enter plain text to verify' onUserInput={this.handleUserInput} />
+        <InputBox inputPassword={this.state.hashedPassword} placeholder='Enter hashed password to check against plain text' onUserInput={this.handleHashedPassword} />
         <div>
-          <button className='formButton' type='submit'>Verify</button>
+          <button className="formButton" type='submit'>Verify</button>
           {this.renderVerificationBox()}
         </div>
       </form>
