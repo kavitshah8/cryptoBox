@@ -19685,7 +19685,7 @@
 
 
 	// module
-	exports.push([module.id, "#content {\n\tfont-size: 12px;\n}\n.container {\n\tdisplay: inline-flex;\n}\n.formContainer {\n\tdisplay: inline-block;\n\tmargin: 30px;\n\tmax-width: 1200px;\n\tpadding: 50px;\n}\n\n.inputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 500px;\n\tpadding: 10px;\n\tfont-size: 12px;\n\tfont-weight: bold;\n}\n\n.outputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 500px;\n\tpadding: 10px;\n\tfont-size: 12px;\n\tfont-weight: bold;\n}\n\n.formButton {\n\tdisplay: inline;\n\theight: 35px;\n\twidth: 60px;\n\tmargin: 15px;\n}\n\n.default {\n\tdisplay: inline-block;\n\tmargin-left:20px;\n\tmargin-top:7px;\n\tvertical-align: top;\n\tfont-weight: bold;\n\tcolor: black;\n}\n\n.circle-wrapper {\n\twidth: 100px !important;\n\theight: 50px !important;\n\tmargin-left: auto;\n\tmargin-right: auto;\n}\n\n.verificationBox {\n\tdisplay: inline-block;\n  height: 35px;\n  width: 80px;\n  margin-left: 50px;\n}\n", ""]);
+	exports.push([module.id, "#content {\n\tfont-size: 12px;\n}\n.container {\n\tdisplay: inline-flex;\n}\n.formContainer {\n\tdisplay: inline-block;\n\tmargin: 30px;\n\tmax-width: 1200px;\n\tpadding: 50px;\n}\n\n.inputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 500px;\n\tpadding: 10px;\n\tfont-size: 12px;\n\tfont-weight: bold;\n}\n\n.outputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 500px;\n\tpadding: 10px;\n\tfont-size: 12px;\n\tfont-weight: bold;\n}\n\n.verification-box {\n\tmargin: 15px;\n\theight: 35px;\n\twidth: 500px;\n\tpadding: 10px;\n\tfont-size: 12px;\n\tfont-weight: bold;\n}\n\n.verfied {\n\t\tbackground-color: green;\n}\n\n.unverfied {\n\t\tbackground-color: red;\n}\n\n.formButton {\n\theight: 35px;\n\twidth: 60px;\n\tmargin: 15px;\n}\n\n.default {\n\tdisplay: inline-block;\n\tmargin-left:20px;\n\tmargin-top:7px;\n\tvertical-align: top;\n\tfont-weight: bold;\n\tcolor: black;\n}\n\n.circle-wrapper {\n\twidth: 100px !important;\n\theight: 50px !important;\n\tmargin-left: auto;\n\tmargin-right: auto;\n}\n", ""]);
 
 	// exports
 
@@ -20020,7 +20020,7 @@
 
 	var _VerificationFormJsx2 = _interopRequireDefault(_VerificationFormJsx);
 
-	var _EncryptFormJsx = __webpack_require__(171);
+	var _EncryptFormJsx = __webpack_require__(170);
 
 	var _EncryptFormJsx2 = _interopRequireDefault(_EncryptFormJsx);
 
@@ -20066,9 +20066,10 @@
 
 	var _InputBoxJsx2 = _interopRequireDefault(_InputBoxJsx);
 
-	var _VerificationBoxJsx = __webpack_require__(170);
-
-	var _VerificationBoxJsx2 = _interopRequireDefault(_VerificationBoxJsx);
+	var unicode = {
+	  correct: '✓',
+	  cross: '❌'
+	};
 
 	exports['default'] = _react2['default'].createClass({
 	  displayName: 'VerificationForm',
@@ -20077,9 +20078,6 @@
 	    return {
 	      inputPassword: '',
 	      hashedPassword: '',
-	      isVerified: null,
-	      verificationMessage: '',
-	      unicode: '',
 	      isVerificationBoxVisible: false
 	    };
 	  },
@@ -20102,12 +20100,8 @@
 	        var verified = res.verified;
 	        if (verified) {
 	          self.setState({ isVerified: true });
-	          self.setState({ verificationMessage: 'Match.' });
-	          self.setState({ unicode: '✓' });
 	        } else {
 	          self.setState({ isVerified: false });
-	          self.setState({ verificationMessage: 'No match.' });
-	          self.setState({ unicode: '❌' });
 	        }
 	      } else {
 	        console.error('/api/hashedPassword', status, err.toString());
@@ -20116,7 +20110,23 @@
 	      self.setState({ isVerificationBoxVisible: true });
 	    });
 	  },
-
+	  renderVerificationBox: function renderVerificationBox() {
+	    if (this.state.isVerified === undefined) {
+	      return;
+	    }
+	    if (this.state.isVerified) {
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'verification-box verified' },
+	        unicode.correct + ' ' + 'Match.'
+	      );
+	    }
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: 'verification-box unverified' },
+	      unicode.cross + ' ' + 'No match.'
+	    );
+	  },
 	  render: function render() {
 	    return _react2['default'].createElement(
 	      'form',
@@ -20131,7 +20141,7 @@
 	          { className: 'formButton', type: 'submit' },
 	          'Verify'
 	        ),
-	        _react2['default'].createElement(_VerificationBoxJsx2['default'], { isVerified: this.state.isVerified, verificationMessage: this.state.verificationMessage, unicode: this.state.unicode })
+	        this.renderVerificationBox()
 	      )
 	    );
 	  }
@@ -30752,36 +30762,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	exports['default'] = _react2['default'].createClass({
-	  displayName: 'VerificationBox',
-
-	  render: function render() {
-	    return _react2['default'].createElement(
-	      'div',
-	      { className: 'verificationBox' },
-	      this.props.unicode,
-	      this.props.verificationMessage
-	    );
-	  }
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 171 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
 	var _jquery = __webpack_require__(165);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -30790,11 +30770,11 @@
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
-	var _reactSpinkit = __webpack_require__(172);
+	var _reactSpinkit = __webpack_require__(171);
 
 	var _reactSpinkit2 = _interopRequireDefault(_reactSpinkit);
 
-	var _OutputBoxJsx = __webpack_require__(196);
+	var _OutputBoxJsx = __webpack_require__(195);
 
 	var _OutputBoxJsx2 = _interopRequireDefault(_OutputBoxJsx);
 
@@ -30802,7 +30782,7 @@
 
 	var _InputBoxJsx2 = _interopRequireDefault(_InputBoxJsx);
 
-	var _SelectJsx = __webpack_require__(197);
+	var _SelectJsx = __webpack_require__(196);
 
 	var _SelectJsx2 = _interopRequireDefault(_SelectJsx);
 
@@ -30889,7 +30869,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 172 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Generated by CoffeeScript 1.9.1
@@ -30897,7 +30877,7 @@
 
 	React = __webpack_require__(1);
 
-	cx = __webpack_require__(173);
+	cx = __webpack_require__(172);
 
 	objectAssign = __webpack_require__(39);
 
@@ -30927,11 +30907,11 @@
 	      classes = classes + " " + this.props.className;
 	    }
 	    if (!this.props.noFadeIn) {
-	      __webpack_require__(174);
+	      __webpack_require__(173);
 	    }
 	    switch (this.props.spinnerName) {
 	      case "three-bounce":
-	        __webpack_require__(176);
+	        __webpack_require__(175);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "three-bounce " + classes
 	        }), React.createElement("div", {
@@ -30942,7 +30922,7 @@
 	          "className": "bounce3"
 	        }));
 	      case "double-bounce":
-	        __webpack_require__(178);
+	        __webpack_require__(177);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "double-bounce " + classes
 	        }), React.createElement("div", {
@@ -30951,14 +30931,14 @@
 	          "className": "double-bounce2"
 	        }));
 	      case "rotating-plane":
-	        __webpack_require__(180);
+	        __webpack_require__(179);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": classes
 	        }), React.createElement("div", {
 	          "className": "rotating-plane"
 	        }));
 	      case "wave":
-	        __webpack_require__(182);
+	        __webpack_require__(181);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "wave " + classes
 	        }), React.createElement("div", {
@@ -30973,7 +30953,7 @@
 	          "className": "rect5"
 	        }));
 	      case "wandering-cubes":
-	        __webpack_require__(184);
+	        __webpack_require__(183);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "wandering-cubes " + classes
 	        }), React.createElement("div", {
@@ -30982,14 +30962,14 @@
 	          "className": "cube2"
 	        }));
 	      case "pulse":
-	        __webpack_require__(186);
+	        __webpack_require__(185);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": classes
 	        }), React.createElement("div", {
 	          "className": "pulse"
 	        }));
 	      case "chasing-dots":
-	        __webpack_require__(188);
+	        __webpack_require__(187);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": classes
 	        }), React.createElement("div", {
@@ -31000,7 +30980,7 @@
 	          "className": "dot2"
 	        })));
 	      case "circle":
-	        __webpack_require__(190);
+	        __webpack_require__(189);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "circle-wrapper " + classes
 	        }), React.createElement("div", {
@@ -31029,7 +31009,7 @@
 	          "className": "circle12 circle"
 	        }));
 	      case "cube-grid":
-	        __webpack_require__(192);
+	        __webpack_require__(191);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "cube-grid " + classes
 	        }), React.createElement("div", {
@@ -31052,7 +31032,7 @@
 	          "className": "cube"
 	        }));
 	      case "wordpress":
-	        __webpack_require__(194);
+	        __webpack_require__(193);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": classes
 	        }), React.createElement("div", {
@@ -31066,7 +31046,7 @@
 
 
 /***/ },
-/* 173 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -31115,13 +31095,13 @@
 
 
 /***/ },
-/* 174 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(175);
+	var content = __webpack_require__(174);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31141,7 +31121,7 @@
 	}
 
 /***/ },
-/* 175 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31155,13 +31135,13 @@
 
 
 /***/ },
-/* 176 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(177);
+	var content = __webpack_require__(176);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31181,7 +31161,7 @@
 	}
 
 /***/ },
-/* 177 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31195,13 +31175,13 @@
 
 
 /***/ },
-/* 178 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(179);
+	var content = __webpack_require__(178);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31221,7 +31201,7 @@
 	}
 
 /***/ },
-/* 179 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31235,13 +31215,13 @@
 
 
 /***/ },
-/* 180 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(181);
+	var content = __webpack_require__(180);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31261,7 +31241,7 @@
 	}
 
 /***/ },
-/* 181 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31275,13 +31255,13 @@
 
 
 /***/ },
-/* 182 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(183);
+	var content = __webpack_require__(182);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31301,7 +31281,7 @@
 	}
 
 /***/ },
-/* 183 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31315,13 +31295,13 @@
 
 
 /***/ },
-/* 184 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(185);
+	var content = __webpack_require__(184);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31341,7 +31321,7 @@
 	}
 
 /***/ },
-/* 185 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31355,13 +31335,13 @@
 
 
 /***/ },
-/* 186 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(187);
+	var content = __webpack_require__(186);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31381,7 +31361,7 @@
 	}
 
 /***/ },
-/* 187 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31395,13 +31375,13 @@
 
 
 /***/ },
-/* 188 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(189);
+	var content = __webpack_require__(188);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31421,7 +31401,7 @@
 	}
 
 /***/ },
-/* 189 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31435,13 +31415,13 @@
 
 
 /***/ },
-/* 190 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(191);
+	var content = __webpack_require__(190);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31461,7 +31441,7 @@
 	}
 
 /***/ },
-/* 191 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31475,13 +31455,13 @@
 
 
 /***/ },
-/* 192 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(193);
+	var content = __webpack_require__(192);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31501,7 +31481,7 @@
 	}
 
 /***/ },
-/* 193 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31515,13 +31495,13 @@
 
 
 /***/ },
-/* 194 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(195);
+	var content = __webpack_require__(194);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31541,7 +31521,7 @@
 	}
 
 /***/ },
-/* 195 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -31555,7 +31535,7 @@
 
 
 /***/ },
-/* 196 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31585,7 +31565,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 197 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31596,11 +31576,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactSelect = __webpack_require__(198);
+	var _reactSelect = __webpack_require__(197);
 
 	var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
-	var _stylesSelectCss = __webpack_require__(204);
+	var _stylesSelectCss = __webpack_require__(203);
 
 	var _stylesSelectCss2 = _interopRequireDefault(_stylesSelectCss);
 
@@ -31683,7 +31663,7 @@
 	module.exports = ValuesAsNumbersField;
 
 /***/ },
-/* 198 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* disable some rules until we refactor more completely; fixing them now would
@@ -31698,11 +31678,11 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
-	var Input = __webpack_require__(199);
-	var classes = __webpack_require__(200);
-	var Value = __webpack_require__(201);
-	var SingleValue = __webpack_require__(202);
-	var Option = __webpack_require__(203);
+	var Input = __webpack_require__(198);
+	var classes = __webpack_require__(199);
+	var Value = __webpack_require__(200);
+	var SingleValue = __webpack_require__(201);
+	var Option = __webpack_require__(202);
 
 	var requestId = 0;
 
@@ -32635,7 +32615,7 @@
 	module.exports = Select;
 
 /***/ },
-/* 199 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32759,7 +32739,7 @@
 	module.exports = AutosizeInput;
 
 /***/ },
-/* 200 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -32813,13 +32793,13 @@
 
 
 /***/ },
-/* 201 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var classes = __webpack_require__(200);
+	var classes = __webpack_require__(199);
 
 	var Value = React.createClass({
 
@@ -32901,13 +32881,13 @@
 	module.exports = Value;
 
 /***/ },
-/* 202 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var classes = __webpack_require__(200);
+	var classes = __webpack_require__(199);
 
 	var SingleValue = React.createClass({
 		displayName: 'SingleValue',
@@ -32933,13 +32913,13 @@
 	module.exports = SingleValue;
 
 /***/ },
-/* 203 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var classes = __webpack_require__(200);
+	var classes = __webpack_require__(199);
 
 	var Option = React.createClass({
 		displayName: 'Option',
@@ -33002,13 +32982,13 @@
 	module.exports = Option;
 
 /***/ },
-/* 204 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(205);
+	var content = __webpack_require__(204);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -33028,7 +33008,7 @@
 	}
 
 /***/ },
-/* 205 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();

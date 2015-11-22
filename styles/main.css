@@ -29,8 +29,24 @@
 	font-weight: bold;
 }
 
+.verification-box {
+	margin: 15px;
+	height: 35px;
+	width: 500px;
+	padding: 10px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.verfied {
+		background-color: green;
+}
+
+.unverfied {
+		background-color: red;
+}
+
 .formButton {
-	display: inline;
 	height: 35px;
 	width: 60px;
 	margin: 15px;
@@ -50,11 +66,4 @@
 	height: 50px !important;
 	margin-left: auto;
 	margin-right: auto;
-}
-
-.verificationBox {
-	display: inline-block;
-  height: 35px;
-  width: 80px;
-  margin-left: 50px;
 }

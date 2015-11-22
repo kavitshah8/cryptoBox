@@ -5,16 +5,17 @@ import $ from 'jquery';
 import request from 'superagent';
 
 import InputBox from './InputBox.jsx';
-import VerificationBox from './VerificationBox.jsx';
+
+const unicode = {
+      correct: '\u2713',
+      cross: '\u274c'
+};
 
 export default React.createClass({
   getInitialState () {
     return {
       inputPassword: '',
       hashedPassword: '',
-      isVerified: null,
-      verificationMessage: '',
-      unicode:'',
       isVerificationBoxVisible: false
     };
   },
@@ -41,12 +42,8 @@ export default React.createClass({
           var verified = res.verified;
           if (verified) {
             self.setState({isVerified: true});
-            self.setState({verificationMessage:'Match.'});
-            self.setState({unicode: '\u2713'});
           } else {
             self.setState({isVerified: false});
-            self.setState({verificationMessage:'No match.'});
-            self.setState({unicode: '\u274c'});
           }
         } else {
           console.error('/api/hashedPassword', status, err.toString());
@@ -55,7 +52,23 @@ export default React.createClass({
         self.setState({isVerificationBoxVisible: true});
       });
   },
-
+  renderVerificationBox () {
+      if (this.state.isVerified === undefined) {
+        return;
+      }
+      if (this.state.isVerified) {
+        return (
+          <div className="verification-box verified" >
+            { unicode.correct + ' ' + 'Match.' }
+          </div>
+        );
+      }
+      return (
+        <div className="verification-box unverified">
+          { unicode.cross + ' ' + 'No match.' }
+        </div>
+      );
+  },
   render () {
     return (
       <form className='formContainer' onSubmit={this.onSubmit}>
@@ -63,7 +76,7 @@ export default React.createClass({
         <InputBox inputPassword={this.state.hashedPassword} placeholder='Enter hashed password to check against plain text' style={{margin: '10px'}} onUserInput={this.handleHashedPassword} />
         <div>
           <button className='formButton' type='submit'>Verify</button>
-          <VerificationBox isVerified={this.state.isVerified} verificationMessage={this.state.verificationMessage} unicode={this.state.unicode} />
+          {this.renderVerificationBox()}
         </div>
       </form>
     );
