@@ -19685,7 +19685,7 @@
 
 
 	// module
-	exports.push([module.id, "#content {\n\tfont-size: 15px;\n}\n\n.formContainer {\n\tmargin: auto;\n\tmax-width: 600px;\n\tpadding: 50px;\n}\n\n.inputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 100%;\n\tpadding: 10px 10px;\n\tfont-size: 17px;\n}\n\n.outputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 100%;\n\tpadding: 10px 10px;\n\tfont-size: 17px;\n}\n\n.formButton {\n\tdisplay: inline;\n\theight: 35px;\n\twidth: 60px;\n\tmargin: 10px;\n}\n\n.default {\n\tmargin-left:20px;\n\tmargin-top:7px;\n\tvertical-align: top;\n\tdisplay: inline-block;\n}\n\n.circle-wrapper {\n\twidth: 100px !important;\n\theight: 50px !important;\n\tmargin-left: auto;\n\tmargin-right: auto;\n}\n\n.verificationBox {\n\tdisplay: inline-block;\n  height: 35px;\n  width: 80px;\n  margin-left: 50px;\n}\n", ""]);
+	exports.push([module.id, "#content {\n\tfont-size: 12px;\n}\n.container {\n\tdisplay: inline-flex;\n}\n.formContainer {\n\tdisplay: inline-block;\n\tmargin: 30px;\n\tmax-width: 1200px;\n\tpadding: 50px;\n}\n\n.inputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 500px;\n\tpadding: 10px;\n\tfont-size: 12px;\n\tfont-weight: bold;\n}\n\n.outputBox {\n  margin: 15px;\n\theight: 35px;\n\twidth: 500px;\n\tpadding: 10px;\n\tfont-size: 12px;\n\tfont-weight: bold;\n}\n\n.formButton {\n\tdisplay: inline;\n\theight: 35px;\n\twidth: 60px;\n\tmargin: 15px;\n}\n\n.default {\n\tdisplay: inline-block;\n\tmargin-left:20px;\n\tmargin-top:7px;\n\tvertical-align: top;\n\tfont-weight: bold;\n\tcolor: black;\n}\n\n.circle-wrapper {\n\twidth: 100px !important;\n\theight: 50px !important;\n\tmargin-left: auto;\n\tmargin-right: auto;\n}\n\n.verificationBox {\n\tdisplay: inline-block;\n  height: 35px;\n  width: 80px;\n  margin-left: 50px;\n}\n", ""]);
 
 	// exports
 
@@ -20020,7 +20020,7 @@
 
 	var _VerificationFormJsx2 = _interopRequireDefault(_VerificationFormJsx);
 
-	var _EncryptFormJsx = __webpack_require__(165);
+	var _EncryptFormJsx = __webpack_require__(171);
 
 	var _EncryptFormJsx2 = _interopRequireDefault(_EncryptFormJsx);
 
@@ -20030,9 +20030,8 @@
 	  render: function render() {
 	    return _react2['default'].createElement(
 	      'div',
-	      null,
+	      { className: 'container' },
 	      _react2['default'].createElement(_EncryptFormJsx2['default'], null),
-	      ',',
 	      _react2['default'].createElement(_VerificationFormJsx2['default'], null)
 	    );
 	  }
@@ -20055,19 +20054,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _jquery = __webpack_require__(166);
+	var _jquery = __webpack_require__(165);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _superagent = __webpack_require__(167);
+	var _superagent = __webpack_require__(166);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
-	var _InputBoxJsx = __webpack_require__(195);
+	var _InputBoxJsx = __webpack_require__(169);
 
 	var _InputBoxJsx2 = _interopRequireDefault(_InputBoxJsx);
 
-	var _VerificationBoxJsx = __webpack_require__(205);
+	var _VerificationBoxJsx = __webpack_require__(170);
 
 	var _VerificationBoxJsx2 = _interopRequireDefault(_VerificationBoxJsx);
 
@@ -20141,128 +20140,6 @@
 
 /***/ },
 /* 165 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _jquery = __webpack_require__(166);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _superagent = __webpack_require__(167);
-
-	var _superagent2 = _interopRequireDefault(_superagent);
-
-	var _reactSpinkit = __webpack_require__(170);
-
-	var _reactSpinkit2 = _interopRequireDefault(_reactSpinkit);
-
-	var _OutputBoxJsx = __webpack_require__(194);
-
-	var _OutputBoxJsx2 = _interopRequireDefault(_OutputBoxJsx);
-
-	var _InputBoxJsx = __webpack_require__(195);
-
-	var _InputBoxJsx2 = _interopRequireDefault(_InputBoxJsx);
-
-	var _SelectJsx = __webpack_require__(196);
-
-	var _SelectJsx2 = _interopRequireDefault(_SelectJsx);
-
-	exports['default'] = _react2['default'].createClass({
-	  displayName: 'EncryptForm',
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      inputPassword: '',
-	      hashedPassword: '',
-	      showOutputBox: false,
-	      options: [{ value: 8, label: '8' }, { value: 9, label: '9' }, { value: 10, label: '10' }, { value: 11, label: '11' }, { value: 12, label: '12' }, { value: 13, label: '13' }, { value: 14, label: '14' }],
-	      matchPos: 'any',
-	      matchValue: true,
-	      value: '',
-	      matchLabel: true,
-	      multi: false,
-	      showSpinner: false
-	    };
-	  },
-
-	  handleUserInput: function handleUserInput(inputPassword) {
-	    this.setState({ inputPassword: inputPassword });
-	  },
-	  handleUserSelect: function handleUserSelect(value) {
-	    this.setState({ value: value });
-	  },
-	  updateOutputBox: function updateOutputBox(data) {
-	    this.setState({ hashedPassword: data.hash, showOutputBox: true });
-	  },
-	  onSubmit: function onSubmit(e) {
-	    e.preventDefault();
-	    var data = {
-	      inputPassword: this.state.inputPassword,
-	      SALT_WORK_FACTOR: this.state.value
-	    };
-	    this.setState({ showSpinner: true });
-	    if (data.inputPassword === '') {
-	      return;
-	    }
-	    if (data.SALT_WORK_FACTOR === '') {
-	      data.SALT_WORK_FACTOR = 12;
-	    }
-	    var self = this;
-	    _superagent2['default'].post('api/inputPassword').send(data).type('json').end(function (err, res) {
-	      if (res.ok) {
-	        self.updateOutputBox(JSON.parse(res.text));
-	        self.setState({ showSpinner: false });
-	      } else {
-	        console.error('/api/inputPassword', status, err.toString());
-	      }
-	    });
-	  },
-	  renderOutputBoxOrSpinner: function renderOutputBoxOrSpinner() {
-	    var ret;
-	    if (this.state.showSpinner) ret = _react2['default'].createElement(_reactSpinkit2['default'], { spinnerName: 'circle' });else if (this.state.showOutputBox) {
-	      ret = _react2['default'].createElement(
-	        'div',
-	        null,
-	        ' ',
-	        _react2['default'].createElement(_OutputBoxJsx2['default'], { hashedPassword: this.state.hashedPassword }),
-	        ' '
-	      );
-	    } else {
-	      ret = null;
-	    }
-	    return ret;
-	  },
-	  render: function render() {
-	    return _react2['default'].createElement(
-	      'form',
-	      { className: 'formContainer', onSubmit: this.onSubmit },
-	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.inputPassword, autoFocus: true, placeholder: 'Enter a password to bcrypt', style: { margin: '10px' }, onUserInput: this.handleUserInput }),
-	      _react2['default'].createElement(_SelectJsx2['default'], { options: this.state.options, style: { margin: '10px', width: '160px' }, value: this.state.value, onSelect: this.handleUserSelect, required: true }),
-	      _react2['default'].createElement(
-	        'button',
-	        { className: 'formButton', type: 'submit' },
-	        'Encrypt'
-	      ),
-	      this.renderOutputBoxOrSpinner()
-	    );
-	  }
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -29458,15 +29335,15 @@
 
 
 /***/ },
-/* 167 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var Emitter = __webpack_require__(168);
-	var reduce = __webpack_require__(169);
+	var Emitter = __webpack_require__(167);
+	var reduce = __webpack_require__(168);
 
 	/**
 	 * Root reference for iframes.
@@ -30621,7 +30498,7 @@
 
 
 /***/ },
-/* 168 */
+/* 167 */
 /***/ function(module, exports) {
 
 	
@@ -30791,7 +30668,7 @@
 
 
 /***/ },
-/* 169 */
+/* 168 */
 /***/ function(module, exports) {
 
 	
@@ -30820,7 +30697,199 @@
 	};
 
 /***/ },
+/* 169 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'InputBox',
+
+	  handleChange: function handleChange() {
+	    this.props.onUserInput(this.refs.inputPassword.value);
+	  },
+	  componentDidMount: function componentDidMount() {
+	    if (this.props.autoFocus) {
+	      this.refs.inputPassword.focus();
+	    }
+	  },
+	  render: function render() {
+	    return _react2['default'].createElement('input', {
+	      type: 'text',
+	      value: this.props.inputPassword,
+	      placeholder: this.props.placeholder,
+	      ref: 'inputPassword',
+	      className: 'inputBox',
+	      onChange: this.handleChange,
+	      required: true });
+	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
 /* 170 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'VerificationBox',
+
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: 'verificationBox' },
+	      this.props.unicode,
+	      this.props.verificationMessage
+	    );
+	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 171 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jquery = __webpack_require__(165);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _superagent = __webpack_require__(166);
+
+	var _superagent2 = _interopRequireDefault(_superagent);
+
+	var _reactSpinkit = __webpack_require__(172);
+
+	var _reactSpinkit2 = _interopRequireDefault(_reactSpinkit);
+
+	var _OutputBoxJsx = __webpack_require__(196);
+
+	var _OutputBoxJsx2 = _interopRequireDefault(_OutputBoxJsx);
+
+	var _InputBoxJsx = __webpack_require__(169);
+
+	var _InputBoxJsx2 = _interopRequireDefault(_InputBoxJsx);
+
+	var _SelectJsx = __webpack_require__(197);
+
+	var _SelectJsx2 = _interopRequireDefault(_SelectJsx);
+
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'EncryptForm',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      inputPassword: '',
+	      hashedPassword: '',
+	      showOutputBox: false,
+	      options: [{ value: 8, label: '8' }, { value: 9, label: '9' }, { value: 10, label: '10' }, { value: 11, label: '11' }, { value: 12, label: '12' }, { value: 13, label: '13' }, { value: 14, label: '14' }],
+	      matchPos: 'any',
+	      matchValue: true,
+	      value: '',
+	      matchLabel: true,
+	      multi: false,
+	      showSpinner: false
+	    };
+	  },
+
+	  handleUserInput: function handleUserInput(inputPassword) {
+	    this.setState({ inputPassword: inputPassword });
+	  },
+	  handleUserSelect: function handleUserSelect(value) {
+	    this.setState({ value: value });
+	  },
+	  updateOutputBox: function updateOutputBox(data) {
+	    this.setState({ hashedPassword: data.hash, showOutputBox: true });
+	  },
+	  onSubmit: function onSubmit(e) {
+	    e.preventDefault();
+	    var data = {
+	      inputPassword: this.state.inputPassword,
+	      SALT_WORK_FACTOR: this.state.value
+	    };
+	    this.setState({ showSpinner: true });
+	    if (data.inputPassword === '') {
+	      return;
+	    }
+	    if (data.SALT_WORK_FACTOR === '') {
+	      data.SALT_WORK_FACTOR = 12;
+	    }
+	    var self = this;
+	    _superagent2['default'].post('api/inputPassword').send(data).type('json').end(function (err, res) {
+	      if (res.ok) {
+	        self.updateOutputBox(JSON.parse(res.text));
+	        self.setState({ showSpinner: false });
+	      } else {
+	        console.error('/api/inputPassword', status, err.toString());
+	      }
+	    });
+	  },
+	  renderOutputBoxOrSpinner: function renderOutputBoxOrSpinner() {
+	    var ret;
+	    if (this.state.showSpinner) ret = _react2['default'].createElement(_reactSpinkit2['default'], { spinnerName: 'circle' });else if (this.state.showOutputBox) {
+	      ret = _react2['default'].createElement(
+	        'div',
+	        null,
+	        ' ',
+	        _react2['default'].createElement(_OutputBoxJsx2['default'], { hashedPassword: this.state.hashedPassword }),
+	        ' '
+	      );
+	    } else {
+	      ret = null;
+	    }
+	    return ret;
+	  },
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'form',
+	      { className: 'formContainer', onSubmit: this.onSubmit },
+	      _react2['default'].createElement(_InputBoxJsx2['default'], { inputPassword: this.state.inputPassword, autoFocus: true, placeholder: 'Enter a password to bcrypt', style: { margin: '10px' }, onUserInput: this.handleUserInput }),
+	      _react2['default'].createElement(_SelectJsx2['default'], { options: this.state.options, value: this.state.value, onSelect: this.handleUserSelect, required: true }),
+	      _react2['default'].createElement(
+	        'button',
+	        { className: 'formButton', type: 'submit' },
+	        'Encrypt'
+	      ),
+	      this.renderOutputBoxOrSpinner()
+	    );
+	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Generated by CoffeeScript 1.9.1
@@ -30828,7 +30897,7 @@
 
 	React = __webpack_require__(1);
 
-	cx = __webpack_require__(171);
+	cx = __webpack_require__(173);
 
 	objectAssign = __webpack_require__(39);
 
@@ -30858,11 +30927,11 @@
 	      classes = classes + " " + this.props.className;
 	    }
 	    if (!this.props.noFadeIn) {
-	      __webpack_require__(172);
+	      __webpack_require__(174);
 	    }
 	    switch (this.props.spinnerName) {
 	      case "three-bounce":
-	        __webpack_require__(174);
+	        __webpack_require__(176);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "three-bounce " + classes
 	        }), React.createElement("div", {
@@ -30873,7 +30942,7 @@
 	          "className": "bounce3"
 	        }));
 	      case "double-bounce":
-	        __webpack_require__(176);
+	        __webpack_require__(178);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "double-bounce " + classes
 	        }), React.createElement("div", {
@@ -30882,14 +30951,14 @@
 	          "className": "double-bounce2"
 	        }));
 	      case "rotating-plane":
-	        __webpack_require__(178);
+	        __webpack_require__(180);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": classes
 	        }), React.createElement("div", {
 	          "className": "rotating-plane"
 	        }));
 	      case "wave":
-	        __webpack_require__(180);
+	        __webpack_require__(182);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "wave " + classes
 	        }), React.createElement("div", {
@@ -30904,7 +30973,7 @@
 	          "className": "rect5"
 	        }));
 	      case "wandering-cubes":
-	        __webpack_require__(182);
+	        __webpack_require__(184);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "wandering-cubes " + classes
 	        }), React.createElement("div", {
@@ -30913,14 +30982,14 @@
 	          "className": "cube2"
 	        }));
 	      case "pulse":
-	        __webpack_require__(184);
+	        __webpack_require__(186);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": classes
 	        }), React.createElement("div", {
 	          "className": "pulse"
 	        }));
 	      case "chasing-dots":
-	        __webpack_require__(186);
+	        __webpack_require__(188);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": classes
 	        }), React.createElement("div", {
@@ -30931,7 +31000,7 @@
 	          "className": "dot2"
 	        })));
 	      case "circle":
-	        __webpack_require__(188);
+	        __webpack_require__(190);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "circle-wrapper " + classes
 	        }), React.createElement("div", {
@@ -30960,7 +31029,7 @@
 	          "className": "circle12 circle"
 	        }));
 	      case "cube-grid":
-	        __webpack_require__(190);
+	        __webpack_require__(192);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": "cube-grid " + classes
 	        }), React.createElement("div", {
@@ -30983,7 +31052,7 @@
 	          "className": "cube"
 	        }));
 	      case "wordpress":
-	        __webpack_require__(192);
+	        __webpack_require__(194);
 	        return React.createElement("div", React.__spread({}, this.props, {
 	          "className": classes
 	        }), React.createElement("div", {
@@ -30997,7 +31066,7 @@
 
 
 /***/ },
-/* 171 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -31046,13 +31115,13 @@
 
 
 /***/ },
-/* 172 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(173);
+	var content = __webpack_require__(175);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -31072,46 +31141,6 @@
 	}
 
 /***/ },
-/* 173 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(161)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "@-webkit-keyframes fade-in {\n  0% {\n      opacity: 0;\n  }\n  50% {\n      opacity: 0;\n  }\n  100% {\n      opacity: 1;\n  }\n}\n\n@-moz-keyframes fade-in {\n  0% {\n      opacity: 0;\n  }\n  50% {\n      opacity: 0;\n  }\n  100% {\n      opacity: 1;\n  }\n}\n\n@-ms-keyframes fade-in {\n  0% {\n      opacity: 0;\n  }\n  50% {\n      opacity: 0;\n  }\n  100% {\n      opacity: 1;\n  }\n}\n\n@keyframes fade-in {\n  0% {\n      opacity: 0;\n  }\n  50% {\n      opacity: 0;\n  }\n  100% {\n      opacity: 1;\n  }\n}\n\n.fade-in {\n  -webkit-animation: fade-in 2s;\n  -moz-animation: fade-in 2s;\n  -o-animation: fade-in 2s;\n  -ms-animation: fade-in 2s;\n}\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 174 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(175);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(162)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./three-bounce.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./three-bounce.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
 /* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -31120,7 +31149,7 @@
 
 
 	// module
-	exports.push([module.id, ".three-bounce > div {\n  width: 18px;\n  height: 18px;\n  background-color: #333;\n\n  border-radius: 100%;\n  display: inline-block;\n  -webkit-animation: bouncedelay 1.4s infinite ease-in-out;\n  animation: bouncedelay 1.4s infinite ease-in-out;\n  /* Prevent first frame from flickering when animation starts */\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both;\n}\n\n.three-bounce .bounce1 {\n  -webkit-animation-delay: -0.32s;\n  animation-delay: -0.32s;\n}\n\n.three-bounce .bounce2 {\n  -webkit-animation-delay: -0.16s;\n  animation-delay: -0.16s;\n}\n\n@-webkit-keyframes bouncedelay {\n  0%, 80%, 100% { -webkit-transform: scale(0.0) }\n  40% { -webkit-transform: scale(1.0) }\n}\n\n@keyframes bouncedelay {\n  0%, 80%, 100% {\n    transform: scale(0.0);\n    -webkit-transform: scale(0.0);\n  } 40% {\n    transform: scale(1.0);\n    -webkit-transform: scale(1.0);\n  }\n}\n", ""]);
+	exports.push([module.id, "@-webkit-keyframes fade-in {\n  0% {\n      opacity: 0;\n  }\n  50% {\n      opacity: 0;\n  }\n  100% {\n      opacity: 1;\n  }\n}\n\n@-moz-keyframes fade-in {\n  0% {\n      opacity: 0;\n  }\n  50% {\n      opacity: 0;\n  }\n  100% {\n      opacity: 1;\n  }\n}\n\n@-ms-keyframes fade-in {\n  0% {\n      opacity: 0;\n  }\n  50% {\n      opacity: 0;\n  }\n  100% {\n      opacity: 1;\n  }\n}\n\n@keyframes fade-in {\n  0% {\n      opacity: 0;\n  }\n  50% {\n      opacity: 0;\n  }\n  100% {\n      opacity: 1;\n  }\n}\n\n.fade-in {\n  -webkit-animation: fade-in 2s;\n  -moz-animation: fade-in 2s;\n  -o-animation: fade-in 2s;\n  -ms-animation: fade-in 2s;\n}\n", ""]);
 
 	// exports
 
@@ -31141,8 +31170,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./double-bounce.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./double-bounce.css");
+			module.hot.accept("!!./../../css-loader/index.js!./three-bounce.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./three-bounce.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -31160,7 +31189,7 @@
 
 
 	// module
-	exports.push([module.id, ".double-bounce {\n  width: 27px;\n  height: 27px;\n\n  position: relative;\n}\n\n.double-bounce1, .double-bounce2 {\n  width: 100%;\n  height: 100%;\n  border-radius: 50%;\n  background-color: #333;\n  opacity: 0.6;\n  position: absolute;\n  top: 0;\n  left: 0;\n\n  -webkit-animation: bounce 2.0s infinite ease-in-out;\n  animation: bounce 2.0s infinite ease-in-out;\n}\n\n.double-bounce2 {\n  -webkit-animation-delay: -1.0s;\n  animation-delay: -1.0s;\n}\n\n@-webkit-keyframes bounce {\n  0%, 100% { -webkit-transform: scale(0.0) }\n  50% { -webkit-transform: scale(1.0) }\n}\n\n@keyframes bounce {\n  0%, 100% {\n    transform: scale(0.0);\n    -webkit-transform: scale(0.0);\n  } 50% {\n    transform: scale(1.0);\n    -webkit-transform: scale(1.0);\n  }\n}\n\n", ""]);
+	exports.push([module.id, ".three-bounce > div {\n  width: 18px;\n  height: 18px;\n  background-color: #333;\n\n  border-radius: 100%;\n  display: inline-block;\n  -webkit-animation: bouncedelay 1.4s infinite ease-in-out;\n  animation: bouncedelay 1.4s infinite ease-in-out;\n  /* Prevent first frame from flickering when animation starts */\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both;\n}\n\n.three-bounce .bounce1 {\n  -webkit-animation-delay: -0.32s;\n  animation-delay: -0.32s;\n}\n\n.three-bounce .bounce2 {\n  -webkit-animation-delay: -0.16s;\n  animation-delay: -0.16s;\n}\n\n@-webkit-keyframes bouncedelay {\n  0%, 80%, 100% { -webkit-transform: scale(0.0) }\n  40% { -webkit-transform: scale(1.0) }\n}\n\n@keyframes bouncedelay {\n  0%, 80%, 100% {\n    transform: scale(0.0);\n    -webkit-transform: scale(0.0);\n  } 40% {\n    transform: scale(1.0);\n    -webkit-transform: scale(1.0);\n  }\n}\n", ""]);
 
 	// exports
 
@@ -31181,8 +31210,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./rotating-plane.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./rotating-plane.css");
+			module.hot.accept("!!./../../css-loader/index.js!./double-bounce.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./double-bounce.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -31200,7 +31229,7 @@
 
 
 	// module
-	exports.push([module.id, ".rotating-plane {\n  width: 27px;\n  height: 27px;\n  background-color: #333;\n\n  -webkit-animation: rotateplane 1.2s infinite ease-in-out;\n  animation: rotateplane 1.2s infinite ease-in-out;\n}\n\n@-webkit-keyframes rotateplane {\n  0% { -webkit-transform: perspective(120px) }\n  50% { -webkit-transform: perspective(120px) rotateY(180deg) }\n  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }\n}\n\n@keyframes rotateplane {\n  0% {\n    transform: perspective(120px) rotateX(0deg) rotateY(0deg);\n    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);\n  } 50% {\n    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);\n    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);\n  } 100% {\n    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);\n    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);\n  }\n}\n\n", ""]);
+	exports.push([module.id, ".double-bounce {\n  width: 27px;\n  height: 27px;\n\n  position: relative;\n}\n\n.double-bounce1, .double-bounce2 {\n  width: 100%;\n  height: 100%;\n  border-radius: 50%;\n  background-color: #333;\n  opacity: 0.6;\n  position: absolute;\n  top: 0;\n  left: 0;\n\n  -webkit-animation: bounce 2.0s infinite ease-in-out;\n  animation: bounce 2.0s infinite ease-in-out;\n}\n\n.double-bounce2 {\n  -webkit-animation-delay: -1.0s;\n  animation-delay: -1.0s;\n}\n\n@-webkit-keyframes bounce {\n  0%, 100% { -webkit-transform: scale(0.0) }\n  50% { -webkit-transform: scale(1.0) }\n}\n\n@keyframes bounce {\n  0%, 100% {\n    transform: scale(0.0);\n    -webkit-transform: scale(0.0);\n  } 50% {\n    transform: scale(1.0);\n    -webkit-transform: scale(1.0);\n  }\n}\n\n", ""]);
 
 	// exports
 
@@ -31221,8 +31250,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./wave.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./wave.css");
+			module.hot.accept("!!./../../css-loader/index.js!./rotating-plane.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./rotating-plane.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -31240,7 +31269,7 @@
 
 
 	// module
-	exports.push([module.id, ".wave {\n  width: 50px;\n  height: 27px;\n}\n\n.wave > div {\n  background-color: #333;\n  height: 100%;\n  width: 6px;\n  display: inline-block;\n\n  -webkit-animation: stretchdelay 1.2s infinite ease-in-out;\n  animation: stretchdelay 1.2s infinite ease-in-out;\n}\n\n.wave .rect2 {\n  -webkit-animation-delay: -1.1s;\n  animation-delay: -1.1s;\n}\n\n.wave .rect3 {\n  -webkit-animation-delay: -1.0s;\n  animation-delay: -1.0s;\n}\n\n.wave .rect4 {\n  -webkit-animation-delay: -0.9s;\n  animation-delay: -0.9s;\n}\n\n.wave .rect5 {\n  -webkit-animation-delay: -0.8s;\n  animation-delay: -0.8s;\n}\n\n@-webkit-keyframes stretchdelay {\n  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }\n  20% { -webkit-transform: scaleY(1.0) }\n}\n\n@keyframes stretchdelay {\n  0%, 40%, 100% {\n    transform: scaleY(0.4);\n    -webkit-transform: scaleY(0.4);\n  } 20% {\n    transform: scaleY(1.0);\n    -webkit-transform: scaleY(1.0);\n  }\n}\n\n", ""]);
+	exports.push([module.id, ".rotating-plane {\n  width: 27px;\n  height: 27px;\n  background-color: #333;\n\n  -webkit-animation: rotateplane 1.2s infinite ease-in-out;\n  animation: rotateplane 1.2s infinite ease-in-out;\n}\n\n@-webkit-keyframes rotateplane {\n  0% { -webkit-transform: perspective(120px) }\n  50% { -webkit-transform: perspective(120px) rotateY(180deg) }\n  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }\n}\n\n@keyframes rotateplane {\n  0% {\n    transform: perspective(120px) rotateX(0deg) rotateY(0deg);\n    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);\n  } 50% {\n    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);\n    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);\n  } 100% {\n    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);\n    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);\n  }\n}\n\n", ""]);
 
 	// exports
 
@@ -31261,8 +31290,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./wandering-cubes.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./wandering-cubes.css");
+			module.hot.accept("!!./../../css-loader/index.js!./wave.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./wave.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -31280,7 +31309,7 @@
 
 
 	// module
-	exports.push([module.id, ".wandering-cubes {\n  width: 27px;\n  height: 27px;\n  position: relative;\n}\n\n.cube1, .cube2 {\n  background-color: #333;\n  width: 10px;\n  height: 10px;\n  position: absolute;\n  top: 0;\n  left: 0;\n\n  -webkit-animation: cubemove 1.8s infinite ease-in-out;\n  animation: cubemove 1.8s infinite ease-in-out;\n}\n\n.cube2 {\n  -webkit-animation-delay: -0.9s;\n  animation-delay: -0.9s;\n}\n\n@-webkit-keyframes cubemove {\n  25% { -webkit-transform: translateX(22px) rotate(-90deg) scale(0.5) }\n  50% { -webkit-transform: translateX(22px) translateY(22px) rotate(-180deg) }\n  75% { -webkit-transform: translateX(0px) translateY(22px) rotate(-270deg) scale(0.5) }\n  100% { -webkit-transform: rotate(-360deg) }\n}\n\n@keyframes cubemove {\n  25% { \n    transform: translateX(42px) rotate(-90deg) scale(0.5);\n    -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);\n  } 50% {\n    /* Hack to make FF rotate in the right direction */\n    transform: translateX(42px) translateY(42px) rotate(-179deg);\n    -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);\n  } 50.1% {\n    transform: translateX(42px) translateY(42px) rotate(-180deg);\n    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);\n  } 75% {\n    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);\n    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);\n  } 100% {\n    transform: rotate(-360deg);\n    -webkit-transform: rotate(-360deg);\n  }\n}\n\n", ""]);
+	exports.push([module.id, ".wave {\n  width: 50px;\n  height: 27px;\n}\n\n.wave > div {\n  background-color: #333;\n  height: 100%;\n  width: 6px;\n  display: inline-block;\n\n  -webkit-animation: stretchdelay 1.2s infinite ease-in-out;\n  animation: stretchdelay 1.2s infinite ease-in-out;\n}\n\n.wave .rect2 {\n  -webkit-animation-delay: -1.1s;\n  animation-delay: -1.1s;\n}\n\n.wave .rect3 {\n  -webkit-animation-delay: -1.0s;\n  animation-delay: -1.0s;\n}\n\n.wave .rect4 {\n  -webkit-animation-delay: -0.9s;\n  animation-delay: -0.9s;\n}\n\n.wave .rect5 {\n  -webkit-animation-delay: -0.8s;\n  animation-delay: -0.8s;\n}\n\n@-webkit-keyframes stretchdelay {\n  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }\n  20% { -webkit-transform: scaleY(1.0) }\n}\n\n@keyframes stretchdelay {\n  0%, 40%, 100% {\n    transform: scaleY(0.4);\n    -webkit-transform: scaleY(0.4);\n  } 20% {\n    transform: scaleY(1.0);\n    -webkit-transform: scaleY(1.0);\n  }\n}\n\n", ""]);
 
 	// exports
 
@@ -31301,8 +31330,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./pulse.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./pulse.css");
+			module.hot.accept("!!./../../css-loader/index.js!./wandering-cubes.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./wandering-cubes.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -31320,7 +31349,7 @@
 
 
 	// module
-	exports.push([module.id, ".pulse {\n  width: 27px;\n  height: 27px;\n  background-color: #333;\n\n  border-radius: 100%;\n  -webkit-animation: scaleout 1.0s infinite ease-in-out;\n  animation: scaleout 1.0s infinite ease-in-out;\n}\n\n@-webkit-keyframes scaleout {\n  0% { -webkit-transform: scale(0.0) }\n  100% {\n    -webkit-transform: scale(1.0);\n    opacity: 0;\n  }\n}\n\n@keyframes scaleout {\n  0% {\n    transform: scale(0.0);\n    -webkit-transform: scale(0.0);\n  } 100% {\n    transform: scale(1.0);\n    -webkit-transform: scale(1.0);\n    opacity: 0;\n  }\n}\n\n", ""]);
+	exports.push([module.id, ".wandering-cubes {\n  width: 27px;\n  height: 27px;\n  position: relative;\n}\n\n.cube1, .cube2 {\n  background-color: #333;\n  width: 10px;\n  height: 10px;\n  position: absolute;\n  top: 0;\n  left: 0;\n\n  -webkit-animation: cubemove 1.8s infinite ease-in-out;\n  animation: cubemove 1.8s infinite ease-in-out;\n}\n\n.cube2 {\n  -webkit-animation-delay: -0.9s;\n  animation-delay: -0.9s;\n}\n\n@-webkit-keyframes cubemove {\n  25% { -webkit-transform: translateX(22px) rotate(-90deg) scale(0.5) }\n  50% { -webkit-transform: translateX(22px) translateY(22px) rotate(-180deg) }\n  75% { -webkit-transform: translateX(0px) translateY(22px) rotate(-270deg) scale(0.5) }\n  100% { -webkit-transform: rotate(-360deg) }\n}\n\n@keyframes cubemove {\n  25% { \n    transform: translateX(42px) rotate(-90deg) scale(0.5);\n    -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);\n  } 50% {\n    /* Hack to make FF rotate in the right direction */\n    transform: translateX(42px) translateY(42px) rotate(-179deg);\n    -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);\n  } 50.1% {\n    transform: translateX(42px) translateY(42px) rotate(-180deg);\n    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);\n  } 75% {\n    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);\n    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);\n  } 100% {\n    transform: rotate(-360deg);\n    -webkit-transform: rotate(-360deg);\n  }\n}\n\n", ""]);
 
 	// exports
 
@@ -31341,8 +31370,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./chasing-dots.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./chasing-dots.css");
+			module.hot.accept("!!./../../css-loader/index.js!./pulse.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./pulse.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -31360,7 +31389,7 @@
 
 
 	// module
-	exports.push([module.id, ".chasing-dots {\n  width: 27px;\n  height: 27px;\n  position: relative;\n\n  -webkit-animation: rotate 2.0s infinite linear;\n  animation: rotate 2.0s infinite linear;\n}\n\n.dot1, .dot2 {\n  width: 60%;\n  height: 60%;\n  display: inline-block;\n  position: absolute;\n  top: 0;\n  background-color: #333;\n  border-radius: 100%;\n\n  -webkit-animation: bounce 2.0s infinite ease-in-out;\n  animation: bounce 2.0s infinite ease-in-out;\n}\n\n.dot2 {\n  top: auto;\n  bottom: 0px;\n  -webkit-animation-delay: -1.0s;\n  animation-delay: -1.0s;\n}\n\n@-webkit-keyframes rotate { 100% { -webkit-transform: rotate(360deg) }}\n@keyframes rotate {\n  100% {\n    transform: rotate(360deg);\n    -webkit-transform: rotate(360deg);\n  }\n}\n\n@-webkit-keyframes bounce {\n  0%, 100% { -webkit-transform: scale(0.0) }\n  50% { -webkit-transform: scale(1.0) }\n}\n\n@keyframes bounce {\n  0%, 100% {\n    transform: scale(0.0);\n    -webkit-transform: scale(0.0);\n  } 50% {\n    transform: scale(1.0);\n    -webkit-transform: scale(1.0);\n  }\n}\n\n", ""]);
+	exports.push([module.id, ".pulse {\n  width: 27px;\n  height: 27px;\n  background-color: #333;\n\n  border-radius: 100%;\n  -webkit-animation: scaleout 1.0s infinite ease-in-out;\n  animation: scaleout 1.0s infinite ease-in-out;\n}\n\n@-webkit-keyframes scaleout {\n  0% { -webkit-transform: scale(0.0) }\n  100% {\n    -webkit-transform: scale(1.0);\n    opacity: 0;\n  }\n}\n\n@keyframes scaleout {\n  0% {\n    transform: scale(0.0);\n    -webkit-transform: scale(0.0);\n  } 100% {\n    transform: scale(1.0);\n    -webkit-transform: scale(1.0);\n    opacity: 0;\n  }\n}\n\n", ""]);
 
 	// exports
 
@@ -31381,8 +31410,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./circle.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./circle.css");
+			module.hot.accept("!!./../../css-loader/index.js!./chasing-dots.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./chasing-dots.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -31400,7 +31429,7 @@
 
 
 	// module
-	exports.push([module.id, ".circle-wrapper {\n  width: 22px;\n  height: 22px;\n  position: relative;\n}\n\n.circle {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n\n.circle:before {\n  content: '';\n  display: block;\n  margin: 0 auto;\n  width: 20%;\n  height: 20%;\n  background-color: #333;\n\n  border-radius: 100%;\n  -webkit-animation: bouncedelay 1.2s infinite ease-in-out;\n  animation: bouncedelay 1.2s infinite ease-in-out;\n  /* Prevent first frame from flickering when animation starts */\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both;\n}\n\n.circle2  { -webkit-transform: rotate(30deg);  transform: rotate(30deg)  }\n.circle3  { -webkit-transform: rotate(60deg);  transform: rotate(60deg)  }\n.circle4  { -webkit-transform: rotate(90deg);  transform: rotate(90deg)  }\n.circle5  { -webkit-transform: rotate(120deg); transform: rotate(120deg) }\n.circle6  { -webkit-transform: rotate(150deg); transform: rotate(150deg) }\n.circle7  { -webkit-transform: rotate(180deg); transform: rotate(180deg) }\n.circle8  { -webkit-transform: rotate(210deg); transform: rotate(210deg) }\n.circle9  { -webkit-transform: rotate(240deg); transform: rotate(240deg) }\n.circle10 { -webkit-transform: rotate(270deg); transform: rotate(270deg) }\n.circle11 { -webkit-transform: rotate(300deg); transform: rotate(300deg) }\n.circle12 { -webkit-transform: rotate(330deg); transform: rotate(330deg) }\n\n.circle2:before  { -webkit-animation-delay: -1.1s; animation-delay: -1.1s }\n.circle3:before  { -webkit-animation-delay: -1.0s; animation-delay: -1.0s }\n.circle4:before  { -webkit-animation-delay: -0.9s; animation-delay: -0.9s }\n.circle5:before  { -webkit-animation-delay: -0.8s; animation-delay: -0.8s }\n.circle6:before  { -webkit-animation-delay: -0.7s; animation-delay: -0.7s }\n.circle7:before  { -webkit-animation-delay: -0.6s; animation-delay: -0.6s }\n.circle8:before  { -webkit-animation-delay: -0.5s; animation-delay: -0.5s }\n.circle9:before  { -webkit-animation-delay: -0.4s; animation-delay: -0.4s }\n.circle10:before { -webkit-animation-delay: -0.3s; animation-delay: -0.3s }\n.circle11:before { -webkit-animation-delay: -0.2s; animation-delay: -0.2s }\n.circle12:before { -webkit-animation-delay: -0.1s; animation-delay: -0.1s }\n\n@-webkit-keyframes bouncedelay {\n  0%, 80%, 100% { -webkit-transform: scale(0.0) }\n  40% { -webkit-transform: scale(1.0) }\n}\n\n@keyframes bouncedelay {\n  0%, 80%, 100% {\n    -webkit-transform: scale(0.0);\n    transform: scale(0.0);\n  } 40% {\n    -webkit-transform: scale(1.0);\n    transform: scale(1.0);\n  }\n}\n\n", ""]);
+	exports.push([module.id, ".chasing-dots {\n  width: 27px;\n  height: 27px;\n  position: relative;\n\n  -webkit-animation: rotate 2.0s infinite linear;\n  animation: rotate 2.0s infinite linear;\n}\n\n.dot1, .dot2 {\n  width: 60%;\n  height: 60%;\n  display: inline-block;\n  position: absolute;\n  top: 0;\n  background-color: #333;\n  border-radius: 100%;\n\n  -webkit-animation: bounce 2.0s infinite ease-in-out;\n  animation: bounce 2.0s infinite ease-in-out;\n}\n\n.dot2 {\n  top: auto;\n  bottom: 0px;\n  -webkit-animation-delay: -1.0s;\n  animation-delay: -1.0s;\n}\n\n@-webkit-keyframes rotate { 100% { -webkit-transform: rotate(360deg) }}\n@keyframes rotate {\n  100% {\n    transform: rotate(360deg);\n    -webkit-transform: rotate(360deg);\n  }\n}\n\n@-webkit-keyframes bounce {\n  0%, 100% { -webkit-transform: scale(0.0) }\n  50% { -webkit-transform: scale(1.0) }\n}\n\n@keyframes bounce {\n  0%, 100% {\n    transform: scale(0.0);\n    -webkit-transform: scale(0.0);\n  } 50% {\n    transform: scale(1.0);\n    -webkit-transform: scale(1.0);\n  }\n}\n\n", ""]);
 
 	// exports
 
@@ -31421,8 +31450,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./cube-grid.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./cube-grid.css");
+			module.hot.accept("!!./../../css-loader/index.js!./circle.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./circle.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -31440,7 +31469,7 @@
 
 
 	// module
-	exports.push([module.id, ".cube-grid {\n  width:27px;\n  height:27px;\n}\n\n.cube {\n  width:33%;\n  height:33%;\n  background:#333;\n  float:left;\n  -webkit-animation: scaleDelay 1.3s infinite ease-in-out;\n  animation: scaleDelay 1.3s infinite ease-in-out;\n}\n\n/*\n * Spinner positions\n * 1 2 3\n * 4 5 6\n * 7 8 9\n */\n\n.spinner .cube:nth-child(1) { -webkit-animation-delay: 0.2s; animation-delay: 0.2s  }\n.spinner .cube:nth-child(2) { -webkit-animation-delay: 0.3s; animation-delay: 0.3s  }\n.spinner .cube:nth-child(3) { -webkit-animation-delay: 0.4s; animation-delay: 0.4s  }\n.spinner .cube:nth-child(4) { -webkit-animation-delay: 0.1s; animation-delay: 0.1s  }\n.spinner .cube:nth-child(5) { -webkit-animation-delay: 0.2s; animation-delay: 0.2s  }\n.spinner .cube:nth-child(6) { -webkit-animation-delay: 0.3s; animation-delay: 0.3s  }\n.spinner .cube:nth-child(7) { -webkit-animation-delay: 0.0s; animation-delay: 0.0s  }\n.spinner .cube:nth-child(8) { -webkit-animation-delay: 0.1s; animation-delay: 0.1s  }\n.spinner .cube:nth-child(9) { -webkit-animation-delay: 0.2s; animation-delay: 0.2s  }\n\n@-webkit-keyframes scaleDelay {\n  0%, 70%, 100% { -webkit-transform:scale3D(1.0, 1.0, 1.0) }\n  35%           { -webkit-transform:scale3D(0.0, 0.0, 1.0) }\n}\n\n@keyframes scaleDelay {\n  0%, 70%, 100% { -webkit-transform:scale3D(1.0, 1.0, 1.0); transform:scale3D(1.0, 1.0, 1.0) }\n  35%           { -webkit-transform:scale3D(1.0, 1.0, 1.0); transform:scale3D(0.0, 0.0, 1.0) }\n}\n\n", ""]);
+	exports.push([module.id, ".circle-wrapper {\n  width: 22px;\n  height: 22px;\n  position: relative;\n}\n\n.circle {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n\n.circle:before {\n  content: '';\n  display: block;\n  margin: 0 auto;\n  width: 20%;\n  height: 20%;\n  background-color: #333;\n\n  border-radius: 100%;\n  -webkit-animation: bouncedelay 1.2s infinite ease-in-out;\n  animation: bouncedelay 1.2s infinite ease-in-out;\n  /* Prevent first frame from flickering when animation starts */\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both;\n}\n\n.circle2  { -webkit-transform: rotate(30deg);  transform: rotate(30deg)  }\n.circle3  { -webkit-transform: rotate(60deg);  transform: rotate(60deg)  }\n.circle4  { -webkit-transform: rotate(90deg);  transform: rotate(90deg)  }\n.circle5  { -webkit-transform: rotate(120deg); transform: rotate(120deg) }\n.circle6  { -webkit-transform: rotate(150deg); transform: rotate(150deg) }\n.circle7  { -webkit-transform: rotate(180deg); transform: rotate(180deg) }\n.circle8  { -webkit-transform: rotate(210deg); transform: rotate(210deg) }\n.circle9  { -webkit-transform: rotate(240deg); transform: rotate(240deg) }\n.circle10 { -webkit-transform: rotate(270deg); transform: rotate(270deg) }\n.circle11 { -webkit-transform: rotate(300deg); transform: rotate(300deg) }\n.circle12 { -webkit-transform: rotate(330deg); transform: rotate(330deg) }\n\n.circle2:before  { -webkit-animation-delay: -1.1s; animation-delay: -1.1s }\n.circle3:before  { -webkit-animation-delay: -1.0s; animation-delay: -1.0s }\n.circle4:before  { -webkit-animation-delay: -0.9s; animation-delay: -0.9s }\n.circle5:before  { -webkit-animation-delay: -0.8s; animation-delay: -0.8s }\n.circle6:before  { -webkit-animation-delay: -0.7s; animation-delay: -0.7s }\n.circle7:before  { -webkit-animation-delay: -0.6s; animation-delay: -0.6s }\n.circle8:before  { -webkit-animation-delay: -0.5s; animation-delay: -0.5s }\n.circle9:before  { -webkit-animation-delay: -0.4s; animation-delay: -0.4s }\n.circle10:before { -webkit-animation-delay: -0.3s; animation-delay: -0.3s }\n.circle11:before { -webkit-animation-delay: -0.2s; animation-delay: -0.2s }\n.circle12:before { -webkit-animation-delay: -0.1s; animation-delay: -0.1s }\n\n@-webkit-keyframes bouncedelay {\n  0%, 80%, 100% { -webkit-transform: scale(0.0) }\n  40% { -webkit-transform: scale(1.0) }\n}\n\n@keyframes bouncedelay {\n  0%, 80%, 100% {\n    -webkit-transform: scale(0.0);\n    transform: scale(0.0);\n  } 40% {\n    -webkit-transform: scale(1.0);\n    transform: scale(1.0);\n  }\n}\n\n", ""]);
 
 	// exports
 
@@ -31461,8 +31490,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./wordpress.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./wordpress.css");
+			module.hot.accept("!!./../../css-loader/index.js!./cube-grid.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./cube-grid.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -31480,13 +31509,53 @@
 
 
 	// module
-	exports.push([module.id, ".wordpress {\n  background: #333;\n  width: 27px;\n  height: 27px;\n  display: inline-block;\n  border-radius: 27px;\n  position: relative;\n  -webkit-animation: inner-circle 1s linear infinite;\n  animation: inner-circle 1s linear infinite;\n}\n\n.inner-circle {\n  display: block;\n  background: #fff;\n  width: 8px;\n  height: 8px;\n  position: absolute;\n  border-radius: 8px;\n  top: 5px;\n  left: 5px;\n}\n\n@-webkit-keyframes inner-circle {\n  0% { -webkit-transform: rotate(0); }\n  100% { -webkit-transform: rotate(360deg); }\n}\n\n@keyframes inner-circle {\n  0% { transform: rotate(0); -webkit-transform:rotate(0); }\n  100% { transform: rotate(360deg); -webkit-transform:rotate(360deg); }\n}\n\n", ""]);
+	exports.push([module.id, ".cube-grid {\n  width:27px;\n  height:27px;\n}\n\n.cube {\n  width:33%;\n  height:33%;\n  background:#333;\n  float:left;\n  -webkit-animation: scaleDelay 1.3s infinite ease-in-out;\n  animation: scaleDelay 1.3s infinite ease-in-out;\n}\n\n/*\n * Spinner positions\n * 1 2 3\n * 4 5 6\n * 7 8 9\n */\n\n.spinner .cube:nth-child(1) { -webkit-animation-delay: 0.2s; animation-delay: 0.2s  }\n.spinner .cube:nth-child(2) { -webkit-animation-delay: 0.3s; animation-delay: 0.3s  }\n.spinner .cube:nth-child(3) { -webkit-animation-delay: 0.4s; animation-delay: 0.4s  }\n.spinner .cube:nth-child(4) { -webkit-animation-delay: 0.1s; animation-delay: 0.1s  }\n.spinner .cube:nth-child(5) { -webkit-animation-delay: 0.2s; animation-delay: 0.2s  }\n.spinner .cube:nth-child(6) { -webkit-animation-delay: 0.3s; animation-delay: 0.3s  }\n.spinner .cube:nth-child(7) { -webkit-animation-delay: 0.0s; animation-delay: 0.0s  }\n.spinner .cube:nth-child(8) { -webkit-animation-delay: 0.1s; animation-delay: 0.1s  }\n.spinner .cube:nth-child(9) { -webkit-animation-delay: 0.2s; animation-delay: 0.2s  }\n\n@-webkit-keyframes scaleDelay {\n  0%, 70%, 100% { -webkit-transform:scale3D(1.0, 1.0, 1.0) }\n  35%           { -webkit-transform:scale3D(0.0, 0.0, 1.0) }\n}\n\n@keyframes scaleDelay {\n  0%, 70%, 100% { -webkit-transform:scale3D(1.0, 1.0, 1.0); transform:scale3D(1.0, 1.0, 1.0) }\n  35%           { -webkit-transform:scale3D(1.0, 1.0, 1.0); transform:scale3D(0.0, 0.0, 1.0) }\n}\n\n", ""]);
 
 	// exports
 
 
 /***/ },
 /* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(195);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(162)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../css-loader/index.js!./wordpress.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./wordpress.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 195 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(161)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".wordpress {\n  background: #333;\n  width: 27px;\n  height: 27px;\n  display: inline-block;\n  border-radius: 27px;\n  position: relative;\n  -webkit-animation: inner-circle 1s linear infinite;\n  animation: inner-circle 1s linear infinite;\n}\n\n.inner-circle {\n  display: block;\n  background: #fff;\n  width: 8px;\n  height: 8px;\n  position: absolute;\n  border-radius: 8px;\n  top: 5px;\n  left: 5px;\n}\n\n@-webkit-keyframes inner-circle {\n  0% { -webkit-transform: rotate(0); }\n  100% { -webkit-transform: rotate(360deg); }\n}\n\n@keyframes inner-circle {\n  0% { transform: rotate(0); -webkit-transform:rotate(0); }\n  100% { transform: rotate(360deg); -webkit-transform:rotate(360deg); }\n}\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31516,47 +31585,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 195 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	exports['default'] = _react2['default'].createClass({
-	  displayName: 'InputBox',
-
-	  handleChange: function handleChange() {
-	    this.props.onUserInput(this.refs.inputPassword.value);
-	  },
-	  componentDidMount: function componentDidMount() {
-	    if (this.props.autoFocus) {
-	      this.refs.inputPassword.focus();
-	    }
-	  },
-	  render: function render() {
-	    return _react2['default'].createElement('input', {
-	      type: 'text',
-	      value: this.props.inputPassword,
-	      placeholder: this.props.placeholder,
-	      ref: 'inputPassword',
-	      className: 'inputBox',
-	      onChange: this.handleChange,
-	      required: true });
-	  }
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 196 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31567,11 +31596,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactSelect = __webpack_require__(197);
+	var _reactSelect = __webpack_require__(198);
 
 	var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
-	var _stylesSelectCss = __webpack_require__(203);
+	var _stylesSelectCss = __webpack_require__(204);
 
 	var _stylesSelectCss2 = _interopRequireDefault(_stylesSelectCss);
 
@@ -31630,7 +31659,7 @@
 				),
 				_react2['default'].createElement(
 					'div',
-					null,
+					{ style: { margin: '15px 15px 15px 0' } },
 					_react2['default'].createElement(_reactSelect2['default'], {
 						placeholder: 'Salt',
 						matchPos: this.state.matchPos,
@@ -31654,7 +31683,7 @@
 	module.exports = ValuesAsNumbersField;
 
 /***/ },
-/* 197 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* disable some rules until we refactor more completely; fixing them now would
@@ -31669,11 +31698,11 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
-	var Input = __webpack_require__(198);
-	var classes = __webpack_require__(199);
-	var Value = __webpack_require__(200);
-	var SingleValue = __webpack_require__(201);
-	var Option = __webpack_require__(202);
+	var Input = __webpack_require__(199);
+	var classes = __webpack_require__(200);
+	var Value = __webpack_require__(201);
+	var SingleValue = __webpack_require__(202);
+	var Option = __webpack_require__(203);
 
 	var requestId = 0;
 
@@ -32606,7 +32635,7 @@
 	module.exports = Select;
 
 /***/ },
-/* 198 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32730,7 +32759,7 @@
 	module.exports = AutosizeInput;
 
 /***/ },
-/* 199 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -32784,13 +32813,13 @@
 
 
 /***/ },
-/* 200 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var classes = __webpack_require__(199);
+	var classes = __webpack_require__(200);
 
 	var Value = React.createClass({
 
@@ -32872,13 +32901,13 @@
 	module.exports = Value;
 
 /***/ },
-/* 201 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var classes = __webpack_require__(199);
+	var classes = __webpack_require__(200);
 
 	var SingleValue = React.createClass({
 		displayName: 'SingleValue',
@@ -32904,13 +32933,13 @@
 	module.exports = SingleValue;
 
 /***/ },
-/* 202 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var classes = __webpack_require__(199);
+	var classes = __webpack_require__(200);
 
 	var Option = React.createClass({
 		displayName: 'Option',
@@ -32973,13 +33002,13 @@
 	module.exports = Option;
 
 /***/ },
-/* 203 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(204);
+	var content = __webpack_require__(205);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(162)(content, {});
@@ -32999,7 +33028,7 @@
 	}
 
 /***/ },
-/* 204 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(161)();
@@ -33007,40 +33036,10 @@
 
 
 	// module
-	exports.push([module.id, "/**\n * React Select\n * ============\n * Created by Jed Watson and Joss Mackison for KeystoneJS, http://www.keystonejs.com/\n * https://twitter.com/jedwatson https://twitter.com/jossmackison https://twitter.com/keystonejs\n * MIT License: https://github.com/keystonejs/react-select\n*/\n.Select {\n  position: relative;\n}\n.Select,\n.Select div,\n.Select input,\n.Select span {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: inline-block;\n  max-width: 100px;\n  margin-left: 6px;\n}\n.Select.is-disabled > .Select-control {\n  background-color: #f9f9f9;\n}\n.Select.is-disabled > .Select-control:hover {\n  box-shadow: none;\n}\n.Select.is-disabled .Select-arrow-zone {\n  cursor: default;\n  pointer-events: none;\n}\n.Select-control {\n  background-color: #fff;\n  border-color: #d9d9d9 #ccc #b3b3b3;\n  border-radius: 4px;\n  border: 1px solid #ccc;\n  color: #333;\n  cursor: default;\n  display: table;\n  height: 36px;\n  outline: none;\n  overflow: hidden;\n  position: relative;\n  width: 100%;\n}\n.Select-control:hover {\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n}\n.is-searchable.is-open > .Select-control {\n  cursor: text;\n}\n.is-open > .Select-control {\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n  background: #fff;\n  border-color: #b3b3b3 #ccc #d9d9d9;\n}\n.is-open > .Select-control > .Select-arrow {\n  border-color: transparent transparent #999;\n  border-width: 0 5px 5px;\n}\n.is-searchable.is-focused:not(.is-open) > .Select-control {\n  cursor: text;\n}\n.is-focused:not(.is-open) > .Select-control {\n  border-color: #007eff;\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(0, 126, 255, 0.1);\n}\n.Select-placeholder,\n:not(.Select--multi) > .Select-control .Select-value {\n  bottom: 0;\n  color: #aaa;\n  left: 0;\n  line-height: 34px;\n  padding-left: 10px;\n  padding-right: 10px;\n  position: absolute;\n  right: 0;\n  top: 0;\n  max-width: 100%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value .Select-value-label,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value .Select-value-label {\n  color: #333;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label {\n  cursor: pointer;\n  text-decoration: none;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:hover,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:hover,\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:focus,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:focus {\n  color: #007eff;\n  outline: none;\n  text-decoration: underline;\n}\n.Select-input {\n  height: 34px;\n  padding-left: 10px;\n  padding-right: 10px;\n  vertical-align: middle;\n}\n.Select-input > input {\n  background: none transparent;\n  border: 0 none;\n  box-shadow: none;\n  cursor: default;\n  display: inline-block;\n  font-family: inherit;\n  font-size: inherit;\n  height: 34px;\n  margin: 0;\n  outline: none;\n  padding: 0;\n  -webkit-appearance: none;\n}\n.is-focused .Select-input > input {\n  cursor: text;\n}\n.has-value.is-pseudo-focused .Select-input {\n  opacity: 0;\n}\n.Select-control:not(.is-searchable) > .Select-input {\n  outline: none;\n}\n.Select-loading-zone {\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 16px;\n}\n.Select-loading {\n  -webkit-animation: Select-animation-spin 400ms infinite linear;\n  -o-animation: Select-animation-spin 400ms infinite linear;\n  animation: Select-animation-spin 400ms infinite linear;\n  width: 16px;\n  height: 16px;\n  box-sizing: border-box;\n  border-radius: 50%;\n  border: 2px solid #ccc;\n  border-right-color: #333;\n  display: inline-block;\n  position: relative;\n  vertical-align: middle;\n}\n.Select-clear-zone {\n  -webkit-animation: Select-animation-fadeIn 200ms;\n  -o-animation: Select-animation-fadeIn 200ms;\n  animation: Select-animation-fadeIn 200ms;\n  color: #999;\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 17px;\n}\n.Select-clear-zone:hover {\n  color: #D0021B;\n}\n.Select-clear {\n  display: inline-block;\n  font-size: 18px;\n  line-height: 1;\n}\n.Select--multi .Select-clear-zone {\n  width: 17px;\n}\n.Select-arrow-zone {\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 25px;\n  padding-right: 5px;\n}\n.Select-arrow {\n  border-color: #999 transparent transparent;\n  border-style: solid;\n  border-width: 5px 5px 2.5px;\n  display: inline-block;\n  height: 0;\n  width: 0;\n}\n.is-open .Select-arrow,\n.Select-arrow-zone:hover > .Select-arrow {\n  border-top-color: #666;\n}\n@-webkit-keyframes Select-animation-fadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@keyframes Select-animation-fadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.Select-menu-outer {\n  border-bottom-right-radius: 4px;\n  border-bottom-left-radius: 4px;\n  background-color: #fff;\n  border: 1px solid #ccc;\n  border-top-color: #e6e6e6;\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n  box-sizing: border-box;\n  margin-top: -1px;\n  max-height: 200px;\n  position: absolute;\n  top: 100%;\n  width: 100%;\n  z-index: 1;\n  -webkit-overflow-scrolling: touch;\n}\n.Select-menu {\n  max-height: 198px;\n  overflow-y: auto;\n}\n.Select-option {\n  box-sizing: border-box;\n  color: #666666;\n  cursor: pointer;\n  display: block;\n  padding: 8px 10px;\n}\n.Select-option:last-child {\n  border-bottom-right-radius: 4px;\n  border-bottom-left-radius: 4px;\n}\n.Select-option.is-focused {\n  background-color: rgba(0, 126, 255, 0.08);\n  color: #333;\n}\n.Select-option.is-disabled {\n  color: #cccccc;\n  cursor: default;\n}\n.Select-noresults {\n  box-sizing: border-box;\n  color: #999999;\n  cursor: default;\n  display: block;\n  padding: 8px 10px;\n}\n.Select--multi .Select-input {\n  vertical-align: middle;\n  margin-left: 10px;\n  padding: 0;\n}\n.Select--multi.has-value .Select-input {\n  margin-left: 5px;\n}\n.Select--multi .Select-value {\n  background-color: rgba(0, 126, 255, 0.08);\n  border-radius: 2px;\n  border: 1px solid rgba(0, 126, 255, 0.24);\n  color: #007eff;\n  display: inline-block;\n  font-size: 0.9em;\n  line-height: 1.4;\n  margin-left: 5px;\n  margin-top: 5px;\n  vertical-align: top;\n}\n.Select--multi .Select-value-icon,\n.Select--multi .Select-value-label {\n  display: inline-block;\n  vertical-align: middle;\n}\n.Select--multi .Select-value-label {\n  border-bottom-right-radius: 2px;\n  border-top-right-radius: 2px;\n  cursor: default;\n  padding: 2px 5px;\n}\n.Select--multi a.Select-value-label {\n  color: #007eff;\n  cursor: pointer;\n  text-decoration: none;\n}\n.Select--multi a.Select-value-label:hover {\n  text-decoration: underline;\n}\n.Select--multi .Select-value-icon {\n  cursor: pointer;\n  border-bottom-left-radius: 2px;\n  border-top-left-radius: 2px;\n  border-right: 1px solid rgba(0, 126, 255, 0.24);\n  padding: 1px 5px 3px;\n}\n.Select--multi .Select-value-icon:hover,\n.Select--multi .Select-value-icon:focus {\n  background-color: rgba(0, 113, 230, 0.08);\n  color: #0071e6;\n}\n.Select--multi .Select-value-icon:active {\n  background-color: rgba(0, 126, 255, 0.24);\n}\n.Select--multi.is-disabled .Select-value {\n  background-color: #fcfcfc;\n  border: 1px solid #e3e3e3;\n  color: #333;\n}\n.Select--multi.is-disabled .Select-value-icon {\n  cursor: not-allowed;\n  border-right: 1px solid #e3e3e3;\n}\n.Select--multi.is-disabled .Select-value-icon:hover,\n.Select--multi.is-disabled .Select-value-icon:focus,\n.Select--multi.is-disabled .Select-value-icon:active {\n  background-color: #fcfcfc;\n}\n@keyframes Select-animation-spin {\n  to {\n    transform: rotate(1turn);\n  }\n}\n@-webkit-keyframes Select-animation-spin {\n  to {\n    -webkit-transform: rotate(1turn);\n  }\n}\nbody {\n  color: #333;\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  line-height: 1.4;\n  margin: 0;\n  padding: 0;\n}\na {\n  color: #007eff;\n  text-decoration: none;\n}\na:hover {\n  text-decoration: underline;\n}\n.container {\n  margin-left: auto;\n  margin-right: auto;\n  max-width: 400px;\n  padding: 0 30px;\n}\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\n.h1,\n.h2,\n.h3,\n.h4,\n.h5,\n.h6 {\n  color: black;\n  font-weight: 500;\n  line-height: 1;\n  margin-bottom: .66em;\n  margin-top: 0;\n}\nh1,\n.h1 {\n  font-size: 3em;\n}\nh2,\n.h2 {\n  font-size: 2em;\n  font-weight: 300;\n}\nh3,\n.h3 {\n  font-size: 1.25em;\n}\nh4,\n.h4 {\n  font-size: 1em;\n}\nh5,\n.h5 {\n  font-size: .85em;\n}\nh6,\n.h6 {\n  font-size: .75em;\n}\n.page-body,\n.page-footer,\n.page-header {\n  padding: 30px 0;\n}\n.page-header {\n  background-color: #007eff;\n  color: #bfdfff;\n}\n.page-header h1,\n.page-header h2,\n.page-header h3 {\n  color: white;\n}\n.page-header p {\n  font-size: 1.2em;\n  margin: 0;\n}\n.page-header a {\n  border-bottom: 1px solid rgba(255, 255, 255, 0.3);\n  color: white;\n  text-decoration: none;\n}\n.page-header a:hover,\n.page-header a:focus {\n  border-bottom-color: white;\n  outline: none;\n  text-decoration: none;\n}\n.page-subheader {\n  background-color: #e6f2ff;\n  line-height: 20px;\n  padding: 30px 0;\n}\n.page-subheader__button {\n  float: right;\n}\n.page-subheader__link {\n  border-bottom: 1px solid rgba(0, 126, 255, 0.3);\n  outline: none;\n  text-decoration: none;\n}\n.page-subheader__link:hover,\n.page-subheader__link:focus {\n  border-bottom-color: #007eff;\n  outline: none;\n  text-decoration: none;\n}\n.page-footer {\n  background-color: #fafafa;\n  color: #999;\n  padding: 30px 0;\n  text-align: center;\n}\n.page-footer a {\n  color: black;\n}\n@media (min-width: 480px) {\n  .page-body,\n  .page-header {\n    padding: 60px 0;\n  }\n  .page-header {\n    font-size: 1.4em;\n  }\n  .page-subheader {\n    font-size: 1.125em;\n    line-height: 28px;\n  }\n}\n.checkbox-list {\n  margin-top: .5em;\n  overflow: hidden;\n}\n.checkbox-list > .checkbox {\n  clear: left;\n  float: left;\n  margin-top: .5em;\n}\n.checkbox-control {\n  margin-right: .5em;\n  position: relative;\n  top: -1px;\n}\n.switcher {\n  color: #999;\n  cursor: default;\n  font-size: 12px;\n  margin: 10px 0;\n  text-transform: uppercase;\n}\n.switcher .link {\n  color: #007eff;\n  cursor: pointer;\n  font-weight: bold;\n  margin-left: 10px;\n}\n.switcher .link:hover {\n  text-decoration: underline;\n}\n.switcher .active {\n  color: #666;\n  font-weight: bold;\n  margin-left: 10px;\n}\n.section {\n  margin-bottom: 40px;\n}\n.hint {\n  font-size: .85em;\n  margin: 15px 0;\n  color: #666;\n}\n", ""]);
+	exports.push([module.id, "/**\n * React Select\n * ============\n * Created by Jed Watson and Joss Mackison for KeystoneJS, http://www.keystonejs.com/\n * https://twitter.com/jedwatson https://twitter.com/jossmackison https://twitter.com/keystonejs\n * MIT License: https://github.com/keystonejs/react-select\n*/\n.Select {\n  position: relative;\n}\n.Select,\n.Select div,\n.Select input,\n.Select span {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: inline-block;\n  max-width: 100px;\n  margin-left: 6px;\n  color: black;\n  font-weight: bold;\n}\n.Select.is-disabled > .Select-control {\n  background-color: #f9f9f9;\n}\n.Select.is-disabled > .Select-control:hover {\n  box-shadow: none;\n}\n.Select.is-disabled .Select-arrow-zone {\n  cursor: default;\n  pointer-events: none;\n}\n.Select-control {\n  background-color: #fff;\n  border-color: #d9d9d9 #ccc #b3b3b3;\n  border-radius: 4px;\n  border: 1px solid #ccc;\n  color: #333;\n  cursor: default;\n  display: table;\n  height: 36px;\n  outline: none;\n  overflow: hidden;\n  position: relative;\n  width: 100%;\n}\n.Select-control:hover {\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n}\n.is-searchable.is-open > .Select-control {\n  cursor: text;\n}\n.is-open > .Select-control {\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n  background: #fff;\n  border-color: #b3b3b3 #ccc #d9d9d9;\n}\n.is-open > .Select-control > .Select-arrow {\n  border-color: transparent transparent #999;\n  border-width: 0 5px 5px;\n}\n.is-searchable.is-focused:not(.is-open) > .Select-control {\n  cursor: text;\n}\n.is-focused:not(.is-open) > .Select-control {\n  border-color: #007eff;\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(0, 126, 255, 0.1);\n}\n.Select-placeholder,\n:not(.Select--multi) > .Select-control .Select-value {\n  bottom: 0;\n  color: #aaa;\n  left: 0;\n  line-height: 34px;\n  padding-left: 10px;\n  padding-right: 10px;\n  position: absolute;\n  right: 0;\n  top: 0;\n  max-width: 100%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value .Select-value-label,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value .Select-value-label {\n  color: #333;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label {\n  cursor: pointer;\n  text-decoration: none;\n}\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:hover,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:hover,\n.has-value:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:focus,\n.has-value.is-pseudo-focused:not(.Select--multi) > .Select-control > .Select-value a.Select-value-label:focus {\n  color: #007eff;\n  outline: none;\n  text-decoration: underline;\n}\n.Select-input {\n  height: 34px;\n  padding-left: 10px;\n  padding-right: 10px;\n  vertical-align: middle;\n}\n.Select-input > input {\n  background: none transparent;\n  border: 0 none;\n  box-shadow: none;\n  cursor: default;\n  display: inline-block;\n  font-family: inherit;\n  font-size: inherit;\n  height: 34px;\n  margin: 0;\n  outline: none;\n  padding: 0;\n  -webkit-appearance: none;\n}\n.is-focused .Select-input > input {\n  cursor: text;\n}\n.has-value.is-pseudo-focused .Select-input {\n  opacity: 0;\n}\n.Select-control:not(.is-searchable) > .Select-input {\n  outline: none;\n}\n.Select-loading-zone {\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 16px;\n}\n.Select-loading {\n  -webkit-animation: Select-animation-spin 400ms infinite linear;\n  -o-animation: Select-animation-spin 400ms infinite linear;\n  animation: Select-animation-spin 400ms infinite linear;\n  width: 16px;\n  height: 16px;\n  box-sizing: border-box;\n  border-radius: 50%;\n  border: 2px solid #ccc;\n  border-right-color: #333;\n  display: inline-block;\n  position: relative;\n  vertical-align: middle;\n}\n.Select-clear-zone {\n  -webkit-animation: Select-animation-fadeIn 200ms;\n  -o-animation: Select-animation-fadeIn 200ms;\n  animation: Select-animation-fadeIn 200ms;\n  color: #999;\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 17px;\n}\n.Select-clear-zone:hover {\n  color: #D0021B;\n}\n.Select-clear {\n  display: inline-block;\n  font-size: 18px;\n  line-height: 1;\n}\n.Select--multi .Select-clear-zone {\n  width: 17px;\n}\n.Select-arrow-zone {\n  cursor: pointer;\n  display: table-cell;\n  position: relative;\n  text-align: center;\n  vertical-align: middle;\n  width: 25px;\n}\n.Select-arrow {\n  border-color: #999 transparent transparent;\n  border-style: solid;\n  border-width: 5px 5px 2.5px;\n  display: inline-block;\n  height: 0;\n  width: 0;\n}\n.is-open .Select-arrow,\n.Select-arrow-zone:hover > .Select-arrow {\n  border-top-color: #666;\n}\n@-webkit-keyframes Select-animation-fadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@keyframes Select-animation-fadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.Select-menu-outer {\n  border-bottom-right-radius: 4px;\n  border-bottom-left-radius: 4px;\n  background-color: #fff;\n  border: 1px solid #ccc;\n  border-top-color: #e6e6e6;\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n  box-sizing: border-box;\n  margin-top: -1px;\n  max-height: 200px;\n  position: absolute;\n  top: 100%;\n  width: 100%;\n  z-index: 1;\n  -webkit-overflow-scrolling: touch;\n}\n.Select-menu {\n  max-height: 198px;\n  overflow-y: auto;\n}\n.Select-option {\n  box-sizing: border-box;\n  color: #666666;\n  cursor: pointer;\n  display: block;\n  padding: 8px 10px;\n}\n.Select-option:last-child {\n  border-bottom-right-radius: 4px;\n  border-bottom-left-radius: 4px;\n}\n.Select-option.is-focused {\n  background-color: rgba(0, 126, 255, 0.08);\n  color: #333;\n}\n.Select-option.is-disabled {\n  color: #cccccc;\n  cursor: default;\n}\n.Select-noresults {\n  box-sizing: border-box;\n  color: #999999;\n  cursor: default;\n  display: block;\n  padding: 8px 10px;\n}\n.Select--multi .Select-input {\n  vertical-align: middle;\n  margin-left: 10px;\n  padding: 0;\n}\n.Select--multi.has-value .Select-input {\n  margin-left: 5px;\n}\n.Select--multi .Select-value {\n  background-color: rgba(0, 126, 255, 0.08);\n  border-radius: 2px;\n  border: 1px solid rgba(0, 126, 255, 0.24);\n  color: #007eff;\n  display: inline-block;\n  font-size: 0.9em;\n  line-height: 1.4;\n  margin-left: 5px;\n  margin-top: 5px;\n  vertical-align: top;\n}\n.Select--multi .Select-value-icon,\n.Select--multi .Select-value-label {\n  display: inline-block;\n  vertical-align: middle;\n}\n.Select--multi .Select-value-label {\n  border-bottom-right-radius: 2px;\n  border-top-right-radius: 2px;\n  cursor: default;\n  padding: 2px 5px;\n}\n.Select--multi a.Select-value-label {\n  color: #007eff;\n  cursor: pointer;\n  text-decoration: none;\n}\n.Select--multi a.Select-value-label:hover {\n  text-decoration: underline;\n}\n.Select--multi .Select-value-icon {\n  cursor: pointer;\n  border-bottom-left-radius: 2px;\n  border-top-left-radius: 2px;\n  border-right: 1px solid rgba(0, 126, 255, 0.24);\n  padding: 1px 5px 3px;\n}\n.Select--multi .Select-value-icon:hover,\n.Select--multi .Select-value-icon:focus {\n  background-color: rgba(0, 113, 230, 0.08);\n  color: #0071e6;\n}\n.Select--multi .Select-value-icon:active {\n  background-color: rgba(0, 126, 255, 0.24);\n}\n.Select--multi.is-disabled .Select-value {\n  background-color: #fcfcfc;\n  border: 1px solid #e3e3e3;\n  color: #333;\n}\n.Select--multi.is-disabled .Select-value-icon {\n  cursor: not-allowed;\n  border-right: 1px solid #e3e3e3;\n}\n.Select--multi.is-disabled .Select-value-icon:hover,\n.Select--multi.is-disabled .Select-value-icon:focus,\n.Select--multi.is-disabled .Select-value-icon:active {\n  background-color: #fcfcfc;\n}\n@keyframes Select-animation-spin {\n  to {\n    transform: rotate(1turn);\n  }\n}\n@-webkit-keyframes Select-animation-spin {\n  to {\n    -webkit-transform: rotate(1turn);\n  }\n}\nbody {\n  color: #333;\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  line-height: 1.4;\n  margin: 0;\n  padding: 0;\n}\na {\n  color: #007eff;\n  text-decoration: none;\n}\na:hover {\n  text-decoration: underline;\n}\n.container {\n  margin-left: auto;\n  margin-right: auto;\n  max-width: 400px;\n  padding: 0 30px;\n}\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\n.h1,\n.h2,\n.h3,\n.h4,\n.h5,\n.h6 {\n  color: black;\n  font-weight: 500;\n  line-height: 1;\n  margin-bottom: .66em;\n  margin-top: 0;\n}\nh1,\n.h1 {\n  font-size: 3em;\n}\nh2,\n.h2 {\n  font-size: 2em;\n  font-weight: 300;\n}\nh3,\n.h3 {\n  font-size: 1.25em;\n}\nh4,\n.h4 {\n  font-size: 1em;\n}\nh5,\n.h5 {\n  font-size: .85em;\n}\nh6,\n.h6 {\n  font-size: .75em;\n}\n.page-body,\n.page-footer,\n.page-header {\n  padding: 30px 0;\n}\n.page-header {\n  background-color: #007eff;\n  color: #bfdfff;\n}\n.page-header h1,\n.page-header h2,\n.page-header h3 {\n  color: white;\n}\n.page-header p {\n  font-size: 1.2em;\n  margin: 0;\n}\n.page-header a {\n  border-bottom: 1px solid rgba(255, 255, 255, 0.3);\n  color: white;\n  text-decoration: none;\n}\n.page-header a:hover,\n.page-header a:focus {\n  border-bottom-color: white;\n  outline: none;\n  text-decoration: none;\n}\n.page-subheader {\n  background-color: #e6f2ff;\n  line-height: 20px;\n  padding: 30px 0;\n}\n.page-subheader__button {\n  float: right;\n}\n.page-subheader__link {\n  border-bottom: 1px solid rgba(0, 126, 255, 0.3);\n  outline: none;\n  text-decoration: none;\n}\n.page-subheader__link:hover,\n.page-subheader__link:focus {\n  border-bottom-color: #007eff;\n  outline: none;\n  text-decoration: none;\n}\n.page-footer {\n  background-color: #fafafa;\n  color: #999;\n  padding: 30px 0;\n  text-align: center;\n}\n.page-footer a {\n  color: black;\n}\n@media (min-width: 480px) {\n  .page-body,\n  .page-header {\n    padding: 60px 0;\n  }\n  .page-header {\n    font-size: 1.4em;\n  }\n  .page-subheader {\n    font-size: 1.125em;\n    line-height: 28px;\n  }\n}\n.checkbox-list {\n  margin-top: .5em;\n  overflow: hidden;\n}\n.checkbox-list > .checkbox {\n  clear: left;\n  float: left;\n  margin-top: .5em;\n}\n.checkbox-control {\n  margin-right: .5em;\n  position: relative;\n  top: -1px;\n}\n.switcher {\n  color: #999;\n  cursor: default;\n  font-size: 12px;\n  margin: 10px 0;\n  text-transform: uppercase;\n}\n.switcher .link {\n  color: #007eff;\n  cursor: pointer;\n  font-weight: bold;\n  margin-left: 10px;\n}\n.switcher .link:hover {\n  text-decoration: underline;\n}\n.switcher .active {\n  color: #666;\n  font-weight: bold;\n  margin-left: 10px;\n}\n.section {\n  margin-bottom: 40px;\n}\n.hint {\n  font-size: .85em;\n  margin: 15px 0;\n  color: #666;\n}\n", ""]);
 
 	// exports
 
-
-/***/ },
-/* 205 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	exports['default'] = _react2['default'].createClass({
-	  displayName: 'VerificationBox',
-
-	  render: function render() {
-	    return _react2['default'].createElement(
-	      'div',
-	      { className: 'verificationBox' },
-	      this.props.unicode,
-	      this.props.verificationMessage
-	    );
-	  }
-	});
-	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);
