@@ -2,4 +2,4 @@
  - `$ npm install`
  - `$ webpack -w`
  - `$ node server.js`
- - In your favorite browser, go to http://localhost:3000/
+ - In your favorite browser, go to `http://localhost:3000/`
