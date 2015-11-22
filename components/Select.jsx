@@ -50,7 +50,7 @@ var ValuesAsNumbersField = React.createClass({
 		return (
 			<div>
 				<h4 className="section-heading">{this.props.label}</h4>
-				<div>
+				<div style={{margin:'15px 15px 15px 0'}}>
 					<Select
 						placeholder='Salt'
 						matchPos={this.state.matchPos}
@@ -63,7 +63,7 @@ var ValuesAsNumbersField = React.createClass({
 						/>
 					<span className="default"> Defaults to 12</span>
 				</div>
-			</div>
+		</div>
 		);
 	}
 });

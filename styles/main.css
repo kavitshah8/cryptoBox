@@ -1,41 +1,48 @@
 #content {
-	font-size: 15px;
+	font-size: 12px;
 }
-
+.container {
+	display: inline-flex;
+}
 .formContainer {
-	margin: auto;
-	max-width: 600px;
+	display: inline-block;
+	margin: 30px;
+	max-width: 1200px;
 	padding: 50px;
 }
 
 .inputBox {
   margin: 15px;
 	height: 35px;
-	width: 100%;
-	padding: 10px 10px;
-	font-size: 17px;
+	width: 500px;
+	padding: 10px;
+	font-size: 12px;
+	font-weight: bold;
 }
 
 .outputBox {
   margin: 15px;
 	height: 35px;
-	width: 100%;
-	padding: 10px 10px;
-	font-size: 17px;
+	width: 500px;
+	padding: 10px;
+	font-size: 12px;
+	font-weight: bold;
 }
 
 .formButton {
 	display: inline;
 	height: 35px;
 	width: 60px;
-	margin: 10px;
+	margin: 15px;
 }
 
 .default {
+	display: inline-block;
 	margin-left:20px;
 	margin-top:7px;
 	vertical-align: top;
-	display: inline-block;
+	font-weight: bold;
+	color: black;
 }
 
 .circle-wrapper {

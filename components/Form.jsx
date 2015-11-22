@@ -7,8 +7,8 @@ import EncryptForm from './EncryptForm.jsx';
 export default React.createClass({
   render () {
     return (
-      <div>
-        <EncryptForm />,
+      <div className='container'>
+        <EncryptForm />
         <VerificationForm />
       </div>
     );
