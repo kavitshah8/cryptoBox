@@ -79,7 +79,7 @@ export default React.createClass({
   render () {
     return (
       <div className="form-container">
-        <div className="form-title"> Verify </div>
+        <div className="form-title">Verification</div>
         <form onSubmit={this.onSubmit}>
           <InputBox inputPassword={this.state.inputPassword} placeholder='Enter plain text to verify' onUserInput={this.handleUserInput} />
           <InputBox inputPassword={this.state.hashedPassword} placeholder='Enter hashed password to check against plain text' onUserInput={this.handleHashedPassword} />

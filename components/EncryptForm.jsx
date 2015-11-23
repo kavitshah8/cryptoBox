@@ -82,7 +82,7 @@ export default React.createClass({
   render () {
     return(
       <div className="form-container">
-        <div className="form-title">Bcrypt</div>
+        <div className="form-title">Encryption</div>
         <form onSubmit={this.onSubmit}>
           <InputBox inputPassword={this.state.inputPassword} autoFocus placeholder='Enter a password to bcrypt' style={{margin: '10px'}} onUserInput={this.handleUserInput} />
           <Select options={this.state.options} value={this.state.value} onSelect={this.handleUserSelect} required/>

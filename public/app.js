@@ -20037,7 +20037,7 @@
 	        _react2['default'].createElement(
 	          'a',
 	          { className: 'navbar-brand', href: '/' },
-	          'Bcrypt Encrypt And Verification'
+	          'Bcrypt Encryption And Verification'
 	        )
 	      ),
 	      _react2['default'].createElement(
@@ -20157,7 +20157,7 @@
 	      _react2['default'].createElement(
 	        'div',
 	        { className: 'form-title' },
-	        ' Verify '
+	        'Verification'
 	      ),
 	      _react2['default'].createElement(
 	        'form',
@@ -31546,7 +31546,7 @@
 	      _react2['default'].createElement(
 	        'div',
 	        { className: 'form-title' },
-	        'Bcrypt'
+	        'Encryption'
 	      ),
 	      _react2['default'].createElement(
 	        'form',
