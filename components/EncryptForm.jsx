@@ -5,7 +5,6 @@ import $ from 'jquery';
 import request from 'superagent';
 import Spinner from 'react-spinkit';
 
-import OutputBox from './OutputBox.jsx';
 import InputBox from './InputBox.jsx';
 import Select from './Select.jsx';
 
@@ -74,7 +73,7 @@ export default React.createClass({
     if (this.state.showSpinner)
       ret = <Spinner spinnerName='circle' />;
     else if (this.state.showOutputBox) {
-      ret = <div> <OutputBox hashedPassword={this.state.hashedPassword}/> </div>;
+      ret = <input className="outputBox" value={this.state.hashedPassword} readOnly></input>;
     } else {
       ret = null;
     }
@@ -82,12 +81,15 @@ export default React.createClass({
   },
   render () {
     return(
-        <form className='formContainer' onSubmit={this.onSubmit}>
+      <div className="form-container">
+        <div className="form-title">Bcrypt</div>
+        <form onSubmit={this.onSubmit}>
           <InputBox inputPassword={this.state.inputPassword} autoFocus placeholder='Enter a password to bcrypt' style={{margin: '10px'}} onUserInput={this.handleUserInput} />
           <Select options={this.state.options} value={this.state.value} onSelect={this.handleUserSelect} required/>
-          <button className='formButton' type='submit'>Encrypt</button>
+          <button className="form-button" type='submit'>Encrypt</button>
           {this.renderOutputBoxOrSpinner()}
         </form>
+      </div>
     );
   }
 });

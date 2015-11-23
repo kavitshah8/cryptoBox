@@ -78,14 +78,17 @@ export default React.createClass({
   },
   render () {
     return (
-      <form className='formContainer' onSubmit={this.onSubmit}>
-        <InputBox inputPassword={this.state.inputPassword} placeholder='Enter plain text to verify' onUserInput={this.handleUserInput} />
-        <InputBox inputPassword={this.state.hashedPassword} placeholder='Enter hashed password to check against plain text' onUserInput={this.handleHashedPassword} />
-        <div>
-          <button className="formButton" type='submit'>Verify</button>
-          {this.renderVerificationBox()}
-        </div>
-      </form>
+      <div className="form-container">
+        <div className="form-title"> Verify </div>
+        <form onSubmit={this.onSubmit}>
+          <InputBox inputPassword={this.state.inputPassword} placeholder='Enter plain text to verify' onUserInput={this.handleUserInput} />
+          <InputBox inputPassword={this.state.hashedPassword} placeholder='Enter hashed password to check against plain text' onUserInput={this.handleHashedPassword} />
+          <div>
+            <button className="form-button" type='submit'>Verify</button>
+            {this.renderVerificationBox()}
+          </div>
+        </form>
+      </div>
     );
   }
 });
