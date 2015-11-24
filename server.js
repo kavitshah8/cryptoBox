@@ -13,9 +13,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //serves the static resources from public
-app.use(express.static(__dirname + '/public'));
+app.use('/tools/bcrypt-encrypt-verify/', express.static(__dirname + '/public'));
 
-app.post('/api/inputPassword', function(req, res) {
+app.post('/tools/bcrypt-encrypt-verify/api/inputPassword', function(req, res) {
   var SALT_WORK_FACTOR = req.body.SALT_WORK_FACTOR || 12;
   var inputPassword = req.body.inputPassword;
   var salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
@@ -23,7 +23,7 @@ app.post('/api/inputPassword', function(req, res) {
   res.status(200).json({hash: hash});
 });
 
-app.post('/api/hashedPassword', function(req, res) {
+app.post('/tools/bcrypt-encrypt-verify/hashedPassword', function(req, res) {
   var inputPassword = req.body.inputPassword;
   var hashedPassword = req.body.hashedPassword;
   var verified = bcrypt.compareSync(inputPassword, hashedPassword);
