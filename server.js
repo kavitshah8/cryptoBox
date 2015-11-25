@@ -4,16 +4,23 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcryptjs');
+var compression = require('compression');
+
 var app = express();
+var oneYear = 1 * 365 * 24 * 60 * 60 * 1000;
 
 app.set('port', (process.env.PORT || 3000));
+
+// gzip the static resources before seding to browser. In the response header Content-Encoding:gzip
+// More details : http://blog.modulus.io/nodejs-and-express-static-content
+app.use(compression());
 
 // request is in raw text format. bodyParser converts the raw text in JSON format, which is available on req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-//serves the static resources from public
-app.use('/tools/bcrypt-encrypt-verify/', express.static(__dirname + '/public'));
+//serves the static resources from public. Caches the static files for a year.
+app.use('/tools/bcrypt-encrypt-verify/', express.static(__dirname + '/public', {maxAge: oneYear}));
 
 app.post('/tools/bcrypt-encrypt-verify/api/inputPassword', function(req, res) {
   var SALT_WORK_FACTOR = req.body.SALT_WORK_FACTOR || 12;
@@ -23,7 +30,7 @@ app.post('/tools/bcrypt-encrypt-verify/api/inputPassword', function(req, res) {
   res.status(200).json({hash: hash});
 });
 
-app.post('/tools/bcrypt-encrypt-verify/hashedPassword', function(req, res) {
+app.post('/tools/bcrypt-encrypt-verify/api/hashedPassword', function(req, res) {
   var inputPassword = req.body.inputPassword;
   var hashedPassword = req.body.hashedPassword;
   var verified = bcrypt.compareSync(inputPassword, hashedPassword);
