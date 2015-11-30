@@ -9,7 +9,7 @@ var compression = require('compression');
 var app = express();
 var oneYear = 1 * 365 * 24 * 60 * 60 * 1000;
 
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 80));
 
 // gzip the static resources before seding to browser. In the response header Content-Encoding:gzip
 // More details : http://blog.modulus.io/nodejs-and-express-static-content
