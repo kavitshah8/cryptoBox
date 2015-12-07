@@ -36,7 +36,7 @@ export default React.createClass({
     };
     this.setState({showSpinner: true});
     request
-      .post('api/hashedPassword')
+      .post('/api/hashedPassword')
       .send(data)
       .type('json')
       .end(function(err, res) {

@@ -20113,7 +20113,7 @@
 	      hashedPassword: this.state.hashedPassword
 	    };
 	    this.setState({ showSpinner: true });
-	    _superagent2['default'].post('api/hashedPassword').send(data).type('json').end(function (err, res) {
+	    _superagent2['default'].post('/api/hashedPassword').send(data).type('json').end(function (err, res) {
 	      if (res.ok) {
 	        var res = JSON.parse(res.text);
 	        var verified = res.verified;
@@ -31521,7 +31521,7 @@
 	      data.SALT_WORK_FACTOR = 12;
 	    }
 	    var self = this;
-	    _superagent2['default'].post('api/inputPassword').send(data).type('json').end(function (err, res) {
+	    _superagent2['default'].post('/api/inputPassword').send(data).type('json').end(function (err, res) {
 	      if (res.ok) {
 	        self.updateOutputBox(JSON.parse(res.text));
 	        self.setState({ showSpinner: false });

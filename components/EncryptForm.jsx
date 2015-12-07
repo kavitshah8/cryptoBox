@@ -56,7 +56,7 @@ export default React.createClass({
     }
     var self = this;
     request
-      .post('api/inputPassword')
+      .post('/api/inputPassword')
       .send(data)
       .type('json')
       .end(function(err, res){
