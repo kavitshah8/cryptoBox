@@ -1,5 +1,7 @@
+Running the project locally
+
  - `$ npm install -g webpack`
  - `$ npm install`
  - `$ webpack -w`
- - `$ node server.js`
- - In your favorite browser, go to http://localhost:3000/
+ - `$ npm run dev`
+ - In your favorite browser, go to http://localhost:3000/tools/bcrypt-encrypt-verify/

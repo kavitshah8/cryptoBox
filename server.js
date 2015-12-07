@@ -5,11 +5,17 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcryptjs');
 var compression = require('compression');
-
 var app = express();
-var oneYear = 1 * 365 * 24 * 60 * 60 * 1000;
 
-app.set('port', (process.env.PORT || 80));
+var appConfig, config, oneYear;
+
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = 'development';
+}
+appConfig = require('./config');
+config = appConfig[process.env.NODE_ENV];
+
+app.set('port', (process.env.PORT || config.PORT));
 
 // gzip the static resources before seding to browser. In the response header Content-Encoding:gzip
 // More details : http://blog.modulus.io/nodejs-and-express-static-content
@@ -20,8 +26,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //serves the static resources from public. Caches the static files for a year.
-app.use('/tools/bcrypt-encrypt-verify/', express.static(__dirname + '/public', {maxAge: oneYear}));
+oneYear = 1 * 365 * 24 * 60 * 60 * 1000;
+// app.get('', express.static(, {maxAge: oneYear}));
+app.use('/', express.static(__dirname + '/public/', {maxAge: oneYear}));
 
+app.get('/tools/bcrypt-encrypt-verify/', function (req, res, next) {
+  res.sendFile(__dirname + '/public/tools/bcrypt-encrypt-verify.html', function (err) {
+    if (err) {
+      console.log(err);
+      res.status(err.status).end();
+    }
+    else {
+      console.log('Sent:');
+    }
+  });
+
+});
+
+// Routes
 app.post('/tools/bcrypt-encrypt-verify/api/inputPassword', function(req, res) {
   var SALT_WORK_FACTOR = req.body.SALT_WORK_FACTOR || 12;
   var inputPassword = req.body.inputPassword;
