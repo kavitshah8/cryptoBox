@@ -30,14 +30,14 @@ oneYear = 1 * 365 * 24 * 60 * 60 * 1000;
 // app.get('', express.static(, {maxAge: oneYear}));
 app.use('/', express.static(__dirname + '/public/', {maxAge: oneYear}));
 
-app.get('/tools/bcrypt-encrypt-verify/', function (req, res, next) {
-  res.sendFile(__dirname + '/public/tools/bcrypt-encrypt-verify.html', function (err) {
+app.get('/tools/bcrypt-verify/', function (req, res, next) {
+  res.sendFile(__dirname + '/public/tools/bcrypt-verify.html', function (err) {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.status(err.status).end();
     }
     else {
-      console.log('Sent:');
+      console.log('bcrypt-verify.html Sent Successfully.');
     }
   });
 

@@ -9,7 +9,7 @@ export default React.createClass({
     return (
       <div className="container">
         <div className="navbar-header">
-          <a className="navbar-brand" href="/">Bcrypt Encryption And Verification</a>
+          <a className="navbar-brand" href="/">Bcrypt And Verify</a>
         </div>
         <div className="forms-container">
           <EncryptForm />

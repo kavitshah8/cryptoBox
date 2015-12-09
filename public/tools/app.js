@@ -20037,7 +20037,7 @@
 	        _react2['default'].createElement(
 	          'a',
 	          { className: 'navbar-brand', href: '/' },
-	          'Bcrypt Encryption And Verification'
+	          'Bcrypt And Verify'
 	        )
 	      ),
 	      _react2['default'].createElement(
@@ -20157,7 +20157,7 @@
 	      _react2['default'].createElement(
 	        'div',
 	        { className: 'form-title' },
-	        'Verification'
+	        'Verify'
 	      ),
 	      _react2['default'].createElement(
 	        'form',
@@ -31546,7 +31546,7 @@
 	      _react2['default'].createElement(
 	        'div',
 	        { className: 'form-title' },
-	        'Encryption'
+	        'Bcrypt'
 	      ),
 	      _react2['default'].createElement(
 	        'form',
@@ -31556,7 +31556,7 @@
 	        _react2['default'].createElement(
 	          'button',
 	          { className: 'form-button', type: 'submit' },
-	          'Encrypt'
+	          'Bcrypt'
 	        ),
 	        this.renderOutputBoxOrSpinner()
 	      )
