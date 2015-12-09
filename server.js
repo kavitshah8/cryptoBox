@@ -27,7 +27,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //serves the static resources from public. Caches the static files for a year.
 oneYear = 1 * 365 * 24 * 60 * 60 * 1000;
-// app.get('', express.static(, {maxAge: oneYear}));
 app.use('/', express.static(__dirname + '/public/', {maxAge: oneYear}));
 
 app.get('/tools/bcrypt-verify/', function (req, res, next) {
