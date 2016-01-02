@@ -9,7 +9,8 @@ export default React.createClass({
     return (
       <div className="container">
         <div className="navbar-header">
-          <a className="navbar-brand" href="/">Bcrypt And Verify</a>
+          <a href="/"><i className="fa fa-home fa-2x fa-fw"></i></a>
+          <a className="navbar-brand" href="/tools/bcrypt-verify/">Bcrypt And Verify</a>
         </div>
         <div className="forms-container">
           <EncryptForm />
